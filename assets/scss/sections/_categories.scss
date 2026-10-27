@@ -1,0 +1,248 @@
+@use '../abstracts/variables' as *;
+
+/*
+    kf-categories-1-start
+*/
+.kf-categories-1 {
+    // --h: height of the cards, --slant: how far the top of a slanted edge leans over its bottom
+    &-area {
+        --h: 800px;
+        --slant: 66px;
+        position: relative;
+        height: calc(var(--h) - 4px);
+        overflow: hidden;
+        background: #000;
+
+        @media #{$xxl} {
+            --h: 700px;
+            --slant: 58px;
+        }
+
+        @media #{$xl} {
+            --h: 620px;
+            --slant: 50px;
+        }
+
+        @media #{$lg} {
+            --h: 540px;
+            --slant: 42px;
+        }
+
+        // below 992px the four cards are stacked, no slant
+        @media #{$md,$sm,$xs} {
+            height: auto;
+        }
+    }
+
+    // the cards are wider than the screen by 5px on each side and overlap by the slant, so the slanted edges fit into each other
+    &-wrap {
+        display: flex;
+        width: calc(100% + 10px);
+        height: var(--h);
+        margin: -2px 0 0 -5px;
+
+        @media #{$md,$sm,$xs} {
+            flex-direction: column;
+            width: 100%;
+            height: auto;
+            margin: 0;
+        }
+    }
+
+    &-card {
+        position: relative;
+        flex: 576 1 0;
+        min-width: 0;
+        margin-left: calc(var(--slant) * -1);
+        clip-path: polygon(var(--slant) 0, 100% 0, calc(100% - var(--slant)) 100%, 0 100%);
+        transition: flex-grow 0.9s cubic-bezier(0.65, 0, 0.35, 1);
+
+        &:first-child {
+            flex-grow: 490;
+            margin-left: 0;
+            clip-path: polygon(0 0, 100% 0, calc(100% - var(--slant)) 100%, 0 100%);
+        }
+
+        &:last-child {
+            flex-grow: 490;
+            clip-path: polygon(var(--slant) 0, 100% 0, 100% 100%, 0 100%);
+        }
+
+        // 2px white line along the slanted left edge: a diagonal gradient across the corner-to-corner box,
+        // the stops are 1px ramps (not hard steps) so the edges of the line are anti-aliased
+        &:not(:first-child)::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 3;
+            width: var(--slant);
+            height: 100%;
+            background: linear-gradient(to bottom right, transparent 50%, rgb(255 255 255 / 95%) calc(50% + 0.75px), rgb(255 255 255 / 95%) calc(50% + 1.25px), transparent calc(50% + 2px));
+            pointer-events: none;
+            opacity: .5;
+        }
+
+        &:nth-child(1) .kf-categories-1-card-img {
+            opacity: 0.6;
+        }
+
+        &:nth-child(3) .kf-categories-1-card-img {
+            opacity: 0.64;
+        }
+
+        &:hover .kf-categories-1-card-img {
+            opacity: 0.95;
+
+            img {
+                transform: scale(1.08);
+            }
+        }
+
+        // desktop: the card under the pointer opens up, the others close a little and go darker,
+        // its name lifts and glows
+        @media #{$over,$xxxl,$xxl,$xl,$lg} {
+            .kf-categories-1-wrap:hover & {
+                flex-grow: 440;
+
+                .kf-categories-1-card-img {
+                    opacity: 0.3;
+                }
+            }
+
+            .kf-categories-1-wrap:hover &:hover {
+                flex-grow: 720;
+
+                .kf-categories-1-card-img {
+                    opacity: 0.95;
+                }
+            }
+
+            &:hover .kf-categories-1-card-content {
+                transform: translateY(-14px);
+            }
+
+            &:hover .kf-categories-1-card-title {
+                text-shadow: 0 0 40px rgb(163 40 52 / 70%), 0 0 14px rgb(255 255 255 / 25%);
+            }
+        }
+
+        @media #{$md,$sm,$xs} {
+            flex: none;
+            height: 340px;
+            margin-left: 0;
+
+            &,
+            &:first-child,
+            &:last-child {
+                clip-path: none;
+            }
+
+            &::before {
+                display: none;
+            }
+        }
+
+        @media #{$sm} {
+            height: 300px;
+        }
+
+        @media #{$xs} {
+            height: 260px;
+        }
+    }
+
+    &-card-img {
+        position: absolute;
+        inset: 0;
+        opacity: 0.72;
+        transition: opacity 0.6s ease;
+
+        img {
+            transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+    }
+
+    // centred in the part of the card that is left after the slant, at the height where the content sits (61% of the card)
+    &-card-content {
+        position: absolute;
+        top: 61.1%;
+        right: calc(var(--slant) * 0.7);
+        left: calc(var(--slant) * 0.3);
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 28px;
+        text-align: center;
+        transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+
+        @media #{$lg} {
+            gap: 22px;
+        }
+
+        @media #{$md,$sm,$xs} {
+            top: 50%;
+            right: 0;
+            left: 0;
+            gap: 16px;
+            transform: translateY(-50%);
+        }
+    }
+
+    &-card:first-child &-card-content {
+        left: 0;
+
+        @media #{$md,$sm,$xs} {
+            right: 0;
+        }
+    }
+
+    &-card:last-child &-card-content {
+        right: 0;
+    }
+
+    &-card-title {
+        margin: 0;
+        font-family: var(--kf-font-3);
+        font-size: 120px;
+        font-weight: 400;
+        line-height: 69px;
+        white-space: nowrap;
+        color: #fff;
+        transition: text-shadow 0.6s ease;
+
+        @media #{$xxl} {
+            font-size: 100px;
+            line-height: 58px;
+        }
+
+        @media #{$xl} {
+            font-size: 84px;
+            line-height: 48px;
+        }
+
+        @media #{$lg} {
+            font-size: 68px;
+            line-height: 40px;
+        }
+
+        @media #{$md} {
+            font-size: 80px;
+            line-height: 46px;
+        }
+
+        @media #{$sm} {
+            font-size: 68px;
+            line-height: 40px;
+        }
+
+        @media #{$xs} {
+            font-size: 56px;
+            line-height: 34px;
+        }
+    }
+}
+/*
+    kf-categories-1-end
+*/

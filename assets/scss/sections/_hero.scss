@@ -1,0 +1,353 @@
+@use '../abstracts/variables' as *;
+
+/*
+    kf-hero-1-start
+*/
+.kf-hero-1 {
+    &-area {
+        position: relative;
+        z-index: 0;
+        overflow: hidden;
+        background: #000;
+    }
+
+    // blurred red light in the top-right and bottom-left corners
+    &-glow {
+        position: absolute;
+        z-index: 3;
+        border-radius: 50%;
+        background: var(--kf-clr-pr-1);
+        filter: blur(107px);
+        pointer-events: none;
+
+        &-1 {
+            top: -259px;
+            right: -202px;
+            width: 548px;
+            height: 548px;
+        }
+
+        &-2 {
+            bottom: -312px;
+            left: -90px;
+            width: 484px;
+            height: 484px;
+        }
+
+        // smaller and further out, so the text is not tinted
+        @media #{$lg,$md,$sm,$xs} {
+            &-1 {
+                top: -300px;
+                right: -250px;
+                width: 420px;
+                height: 420px;
+            }
+
+            &-2 {
+                bottom: -250px;
+                left: -200px;
+                width: 380px;
+                height: 380px;
+            }
+        }
+    }
+
+    &-slider {
+        position: relative;
+    }
+
+    &-item {
+        position: relative;
+        height: 984px;
+
+        @media #{$xxl} {
+            height: 900px;
+        }
+
+        @media #{$xl} {
+            height: 840px;
+        }
+
+        // the card and the big title sit in the 400px under the text
+        @media #{$lg,$md,$sm,$xs} {
+            height: auto;
+            padding-bottom: 400px;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+        }
+    }
+
+    &-img {
+        position: absolute;
+        inset: 0;
+        opacity: 0.52;
+    }
+
+    &-content {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 32px;
+        max-width: 589px;
+        padding-top: 235px;
+
+        @media #{$xxl} {
+            padding-top: 220px;
+        }
+
+        @media #{$xl} {
+            padding-top: 200px;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            padding-top: 190px;
+        }
+    }
+
+    &-title {
+        margin: 0;
+        font-size: 80px;
+        line-height: 84px;
+        letter-spacing: -0.01em;
+        color: #fff;
+
+        @media #{$xxl} {
+            font-size: 68px;
+            line-height: 72px;
+        }
+
+        @media #{$xl} {
+            font-size: 60px;
+            line-height: 64px;
+        }
+
+        @media #{$lg} {
+            font-size: 54px;
+            line-height: 58px;
+        }
+
+        @media #{$md} {
+            font-size: 48px;
+            line-height: 52px;
+        }
+
+        @media #{$sm} {
+            font-size: 42px;
+            line-height: 46px;
+        }
+
+        @media #{$xs} {
+            font-size: 36px;
+            line-height: 40px;
+        }
+    }
+
+    &-disc {
+        font-size: 18px;
+        line-height: 28px;
+        color: rgb(255 255 255 / 80%);
+
+        @media #{$xs} {
+            font-size: 16px;
+            line-height: 26px;
+        }
+    }
+
+    // card + big title are laid over the whole hero, on the same container as the text
+    &-bottom {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+
+        &-container {
+            position: relative;
+            height: 100%;
+        }
+    }
+
+    &-card-wrap {
+        position: absolute;
+        right: 12px;
+        bottom: 136px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        width: min(448px, calc(100% - 24px));
+        // room for the two cards peeking out under the top one
+        padding-bottom: 40px;
+        pointer-events: auto;
+    }
+
+    &-card-meta {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+
+        &-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 5px 10px;
+            border-radius: 50px;
+            background: #FCF5F0;
+            font-family: var(--kf-font-1);
+            font-size: 16px;
+            line-height: 20px;
+            color: #000;
+        }
+
+        &-icon {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    &-card-box {
+        position: relative;
+
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            border-radius: 12px;
+            backdrop-filter: blur(12px);
+        }
+
+        &::before {
+            top: 58px;
+            right: 46px;
+            left: 47px;
+            height: 130px;
+            background: rgb(252 245 240 / 8%);
+        }
+
+        &::after {
+            top: 20px;
+            right: 19px;
+            left: 19px;
+            height: 148px;
+            background: rgb(252 245 240 / 24%);
+        }
+    }
+
+    // vertical slider, it needs its own height and has to clip the card that is waiting below
+    &-card-slider {
+        position: relative;
+        z-index: 1;
+        height: 148px;
+        overflow: hidden;
+        border-radius: 12px;
+    }
+
+    &-card {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        height: 148px;
+        padding: 8px 26px 8px 8px;
+        border-radius: 12px;
+        background: #FCF5F0;
+
+        @media #{$xs} {
+            gap: 16px;
+            padding-right: 14px;
+        }
+
+        &-img {
+            flex: 0 0 168px;
+            width: 168px;
+            height: 132px;
+            border-radius: 12px;
+
+            @media #{$xs} {
+                flex-basis: 110px;
+                width: 110px;
+            }
+        }
+
+        &-content {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            min-width: 0;
+
+            .title {
+                font-size: 24px;
+                line-height: 28px;
+
+                @media #{$xs} {
+                    font-size: 20px;
+                    line-height: 24px;
+                }
+            }
+
+            .disc {
+                font-size: 16px;
+                line-height: 24px;
+                color: #666;
+
+                @media #{$xs} {
+                    font-size: 14px;
+                    line-height: 20px;
+                }
+            }
+        }
+
+        &-top {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        &-star {
+            display: flex;
+            gap: 2px;
+
+            i {
+                width: 14px;
+                font-size: 12px;
+                line-height: 14px;
+                text-align: center;
+                color: #E47227;
+            }
+        }
+    }
+
+    // only the top half shows, the hero clips the rest
+    &-big-title {
+        position: absolute;
+        right: 12px;
+        bottom: -0.159em;
+        left: 12px;
+        margin: 0;
+        font-size: min(12.14vw, 233px);
+        font-weight: 500;
+        line-height: 0.72;
+        text-transform: uppercase;
+        white-space: nowrap;
+        background: linear-gradient(180deg, #fff 0%, rgb(255 255 255 / 0%) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        opacity: 0.4;
+    }
+
+    &-top-overly {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 4;
+        width: 100%;
+        height: 192px;
+        background: linear-gradient(180deg, #000 0%, rgb(0 0 0 / 0%) 100%);
+        pointer-events: none;
+    }
+}
+/*
+    kf-hero-1-end
+*/

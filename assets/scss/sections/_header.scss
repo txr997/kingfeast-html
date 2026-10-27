@@ -1,0 +1,402 @@
+@use '../abstracts/variables' as *;
+
+
+/*
+    kf-header-1-start
+*/
+.kf-header-1 {
+    &-area {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 3;
+    }
+
+    // top bar: four contact cells + the social cell, five equal columns split by 1px lines
+    &-top {
+        height: 40px;
+        border-bottom: 1px solid var(--kf-clr-bd-1);
+
+        .kf-p-1 {
+            font-size: 14px;
+            line-height: 20px;
+            color: rgb(255 255 255 / 80%);
+            text-transform: uppercase;
+            white-space: nowrap;
+
+            a:hover {
+                color: var(--kf-clr-sd-1);
+            }
+
+            @media #{$xl} {
+                font-size: 12px;
+            }
+        }
+
+        &-wrap {
+            display: grid;
+            grid-template-columns: 4fr 1fr;
+            height: 100%;
+        }
+
+        &-contact {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        &-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 0 12px;
+            border-right: 1px solid var(--kf-clr-bd-1);
+
+            i {
+                font-size: 20px;
+                line-height: 1;
+                color: var(--kf-clr-sd-1);
+            }
+        }
+
+        &-social {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+
+            &-link {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+
+                a {
+                    display: inline-flex;
+                    justify-content: center;
+                    width: 18px;
+                    font-size: 16px;
+                    line-height: 1;
+                    color: var(--kf-clr-bd-1);
+                    transition: var(--kf-cube-1);
+
+                    &:hover {
+                        color: var(--kf-clr-sd-1);
+                    }
+                }
+            }
+        }
+    }
+
+    // main bar, 68px high, the logo ribbon hangs 24px below it
+    &-bottom {
+        position: relative;
+        height: 68px;
+        border-bottom: 1px solid var(--kf-clr-bd-1);
+
+        &-wrap {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            padding: 0 92px;
+
+            @media #{$xxxl} {
+                padding: 0 48px;
+            }
+
+            @media #{$xxl} {
+                padding: 0 30px;
+            }
+
+            @media #{$xl} {
+                padding: 0 24px;
+            }
+
+            @media #{$lg,$md,$sm,$xs} {
+                padding: 0 15px;
+            }
+        }
+    }
+
+    &-logo-box {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 277px;
+        height: 92px;
+        transform: translateX(-50%);
+        // 241px red ribbon, the 18px on each side are left to the folded ends
+        background: linear-gradient(var(--kf-clr-pr-1) 0 0) center / 241px 100% no-repeat;
+
+        // folded ends
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            top: 68px;
+            width: 18px;
+            height: 24px;
+            background: #6F1B23;
+        }
+
+        &::before {
+            left: 0;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 53.7% 54.2%);
+        }
+
+        &::after {
+            right: 0;
+            clip-path: polygon(100% 0, 0 0, 0 100%, 46.3% 54.2%);
+        }
+
+        // no room to centre it between the menu and the buttons, it sits first in the row
+        @media #{$xl,$lg,$md,$sm,$xs} {
+            position: relative;
+            left: auto;
+            flex-shrink: 0;
+            align-self: flex-start;
+            transform: none;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            width: auto;
+            height: 80px;
+            padding: 0 24px;
+            background: var(--kf-clr-pr-1);
+
+            &::before,
+            &::after {
+                display: none;
+            }
+        }
+    }
+
+    &-logo-elm {
+        display: block;
+    }
+
+    &-logo-img {
+        display: flex;
+        width: 201px;
+
+        @media #{$lg,$md,$sm,$xs} {
+            width: 150px;
+        }
+    }
+
+    // the oval behind a link reaches 14px out to the left, the menu starts at its edge
+    &-menu {
+        padding-left: 14px;
+
+        @media #{$xl} {
+            margin-left: 32px;
+        }
+    }
+
+    &-action-link {
+        display: flex;
+        align-items: center;
+        gap: 40px;
+        margin-left: auto;
+
+        @media #{$xxxl} {
+            gap: 32px;
+        }
+
+        @media #{$xxl,$xl,$lg,$md,$sm,$xs} {
+            gap: 24px;
+        }
+
+        // icon only once the menu needs the room
+        .kf-search-btn-1 {
+            @media #{$xs} {
+                display: none;
+            }
+            @media #{$sm} {
+                display: inline-block;
+            }
+            .text {
+                @media #{$xl,$lg,$md,$sm,$xs} {
+                    display: none;
+                }
+            }
+        }
+
+        .kf-header-1-button {
+            @media #{$xs} {
+                display: none;
+            }
+        }
+
+        .kf-cart-btn-1 {
+            @media #{$xs} {
+                display: none;
+            }
+            @media #{$sm} {
+                display: inline-block;
+            }
+        }
+
+        .kf-offcanvas-btn-1 {
+            
+            @media #{$over,$xxxl,$xxl,$xl} {
+                display: none;
+            }
+        }
+    }
+}
+
+.kf-main-navigation {
+    .navbar-nav {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 48px;
+
+        @media #{$xxxl} {
+            gap: 32px;
+        }
+
+        @media #{$xxl} {
+            gap: 16px;
+        }
+
+        @media #{$xl} {
+            gap: 24px;
+        }
+
+        > li {
+            position: relative;
+
+            > a {
+                position: relative;
+                z-index: 1;
+                display: flex;
+                align-items: center;
+                gap: 2px;
+                padding: 22px 0;
+                font-family: var(--kf-font-1);
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 24px;
+                color: #fff;
+                transition: var(--kf-cube-1);
+
+                // hover + current page, the oval behind the link
+                &::before {
+                    content: "";
+                    position: absolute;
+                    inset: 17px -14px;
+                    z-index: -1;
+                    border: 1px solid var(--kf-clr-pr-1);
+                    border-radius: 50%;
+                    background: linear-gradient(180deg, rgb(163 40 52 / 0%) 0%, rgb(163 40 52 / 16%) 62.5%, var(--kf-clr-pr-1) 100%);
+                    opacity: 0;
+                    transition: var(--kf-cube-1);
+                }
+            }
+
+            &.dropdown > a::before {
+                right: -8px;
+            }
+
+            &:hover > a::before,
+            &.active > a::before {
+                opacity: 1;
+            }
+
+            &:hover > .dropdown-menu,
+            &:focus-within > .dropdown-menu {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+        }
+
+        .menu-arrow {
+            display: inline-flex;
+            color: var(--kf-clr-pr-1);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 100;
+            display: block;
+            min-width: 220px;
+            margin: 0;
+            padding: 12px 0;
+            background: #000;
+            border: 1px solid var(--kf-clr-bd-1);
+            border-top: 0;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0px 20px 30px rgb(0 0 0 / 35%);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(12px);
+            transition: var(--kf-cube-1);
+
+            li a {
+                display: block;
+                padding: 9px 24px;
+                font-family: var(--kf-font-1);
+                font-size: 16px;
+                line-height: 24px;
+                color: rgb(255 255 255 / 80%);
+                transition: var(--kf-cube-1);
+
+                &:hover {
+                    padding-left: 30px;
+                    color: var(--kf-clr-pr-1);
+                }
+            }
+        }
+    }
+}
+/*
+    kf-header-1-end
+*/
+
+/* 
+    sticky-header-css-start
+*/
+
+
+.wa_sticky_header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    transition: 400ms ease-in-out;
+    z-index: 8;
+  
+  
+    &:is(.wa_sticky) {
+        transform: translateY(-190%);
+  
+        &:is(.wa_sticky_show) {
+            transform: translateY(0%);
+        }
+    }
+  
+    &:is(.ag-header-1-area) {
+        top: 12px;
+        
+        &:is(.wa_sticky_show) {
+            animation: none;
+        }
+    }  
+
+  
+}
+  
+  
+/* 
+    sticky-header-css-end
+*/

@@ -1,0 +1,411 @@
+@use '../abstracts/variables' as *;
+
+/*
+    kf-testimonial-1-start
+*/
+.kf-testimonial-1 {
+    // the strip above it (marquee) is the top 82px of this frame in the design, so the big picture starts at the very top
+    // and the title block 132px lower; the padding on top and bottom comes from the classes in the html
+    &-area {
+        position: relative;
+        overflow: hidden;
+    }
+
+    // line drawings: the ice cream file already has its 6% opacity, the burger is the beige of the watermark
+    &-bg-img {
+        position: absolute;
+        z-index: 0;
+        pointer-events: none;
+
+        @media #{$xxl,$xl,$lg,$md,$sm,$xs} {
+            display: none;
+        }
+
+        &.is-ice-cream {
+            top: 632px;
+            left: 116px;
+            width: 177px;
+            aspect-ratio: 177 / 373;
+
+            @media #{$xxxl} {
+                left: 30px;
+            }
+        }
+
+        &.is-burger {
+            right: 38px;
+            bottom: 60px;
+            width: 246px;
+            aspect-ratio: 246 / 236;
+        }
+    }
+
+    // ---- title block
+    &-container {
+        position: relative;
+        z-index: 2;
+    }
+
+    &-sec-title {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+
+        .kf-sec-title-1 {
+            max-width: 607px;
+
+            @media #{$xl} {
+                max-width: 520px;
+            }
+
+            @media #{$lg} {
+                max-width: 440px;
+            }
+        }
+    }
+
+    // text and button start 92px in
+    &-sec-bottom {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 32px;
+        max-width: 503px;
+        margin: 54px 0 0 92px;
+
+        @media #{$xxl} {
+            max-width: 440px;
+            margin: 44px 0 0 80px;
+        }
+
+        @media #{$xl} {
+            max-width: 400px;
+            margin: 36px 0 0 60px;
+        }
+
+        @media #{$lg} {
+            max-width: 360px;
+            margin: 28px 0 0 40px;
+        }
+
+        @media #{$md,$sm,$xs} {
+            max-width: 560px;
+            margin: 24px 0 0;
+        }
+
+        .disc {
+            text-transform: capitalize;
+
+            @media #{$xxl,$xl} {
+                font-size: 16px;
+                line-height: 26px;
+            }
+
+            @media #{$lg} {
+                font-size: 15px;
+                line-height: 24px;
+            }
+
+            @media #{$xs} {
+                font-size: 16px;
+                line-height: 26px;
+            }
+        }
+    }
+
+    // ---- big picture on the right: runs to the edge of the page, only its lower left corner is round
+    &-right {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 1;
+        width: 50%;
+        aspect-ratio: 960 / 972;
+
+        // below 992px the picture sits between the title and the slider
+        @media #{$md,$sm,$xs} {
+            position: relative;
+            top: auto;
+            right: auto;
+            width: auto;
+            margin: 44px 16px 0;
+            aspect-ratio: 4 / 3;
+        }
+
+        @media #{$xs} {
+            margin: 36px 12px 0;
+        }
+
+        @media #{$sm} {
+            margin: 40px 16px 0;
+        }
+    }
+
+    &-big-img {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        border-radius: 0 0 0 12px;
+
+        @media #{$md,$sm,$xs} {
+            border-radius: 12px;
+        }
+    }
+
+    // the big word: filled it sits behind the picture, so only what hangs under the picture shows;
+    // the outline copy is over the picture. 166px at 1920, it grows and shrinks with the page
+    &-bg-text {
+        position: absolute;
+        top: 92.2%;
+        left: 3.75%;
+        z-index: 0;
+        margin: 0;
+        font-size: 8.646vw;
+        font-weight: 600;
+        line-height: 0.71;
+        white-space: nowrap;
+        color: #EFE8E4;
+        user-select: none;
+
+        @media #{$md,$sm,$xs} {
+            display: none;
+        }
+
+        &.is-outline {
+            z-index: 2;
+            color: transparent;
+            -webkit-text-stroke: 1px #EFE8E4;
+        }
+    }
+
+    // ---- slider: portrait on the left, stars, words and name on the right, round dots at the right end
+    &-slider-box {
+        position: relative;
+        max-width: 1270px;
+        margin: 178px 0 0 92px;
+
+        @media #{$xxl} {
+            margin: 150px 0 0 80px;
+        }
+
+        @media #{$xl} {
+            margin: 120px 0 0 60px;
+        }
+
+        @media #{$lg} {
+            margin: 100px 0 0 40px;
+        }
+
+        @media #{$md,$sm,$xs} {
+            margin: 44px 0 0;
+        }
+
+        @media #{$xs} {
+            margin-top: 36px;
+        }
+
+        @media #{$sm} {
+            margin-top: 40px;
+        }
+    }
+
+    &-item {
+        display: grid;
+        grid-template-columns: minmax(0, 488fr) minmax(0, 662fr);
+        column-gap: 120px;
+
+        @media #{$xxl} {
+            column-gap: 80px;
+        }
+
+        @media #{$xl} {
+            column-gap: 56px;
+        }
+
+        @media #{$lg} {
+            column-gap: 40px;
+        }
+
+        @media #{$md} {
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+            column-gap: 32px;
+        }
+
+        @media #{$xs} {
+            grid-template-columns: minmax(0, 1fr);
+            row-gap: 28px;
+        }
+    }
+
+    &-img {
+        aspect-ratio: 488 / 582;
+        border-radius: 10px;
+
+        @media #{$xs} {
+            max-width: 400px;
+        }
+    }
+
+    // the words end 102px over the bottom of the portrait
+    &-content {
+        align-self: end;
+        margin-bottom: 102px;
+
+        @media #{$xxl} {
+            margin-bottom: 90px;
+        }
+
+        @media #{$xl} {
+            margin-bottom: 70px;
+        }
+
+        @media #{$lg} {
+            margin-bottom: 60px;
+        }
+
+        @media #{$md} {
+            margin-bottom: 40px;
+        }
+
+        @media #{$xs} {
+            align-self: start;
+            margin-bottom: 0;
+        }
+
+        .star {
+            display: flex;
+            gap: 4px;
+            font-size: 14px;
+            line-height: 16px;
+            color: #E47227;
+        }
+
+        .text {
+            margin-top: 16px;
+            font-size: 24px;
+            font-weight: 500;
+            line-height: 34px;
+            letter-spacing: 0.01em;
+
+            @media #{$xxl} {
+                font-size: 22px;
+                line-height: 32px;
+            }
+
+            @media #{$xl} {
+                font-size: 20px;
+                line-height: 30px;
+            }
+
+            @media #{$lg,$md} {
+                font-size: 18px;
+                line-height: 28px;
+            }
+
+            @media #{$xs} {
+                font-size: 18px;
+                line-height: 28px;
+            }
+
+            @media #{$sm} {
+                font-size: 20px;
+                line-height: 30px;
+            }
+        }
+
+        .author {
+            margin-top: 28px;
+
+            @media #{$xl,$lg,$md,$sm,$xs} {
+                margin-top: 22px;
+            }
+        }
+
+        .name {
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 28px;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+
+            @media #{$xxl,$xl,$lg,$md,$sm,$xs} {
+                font-size: 18px;
+                line-height: 26px;
+            }
+        }
+
+        .role {
+            margin-top: 6px;
+            font-size: 15px;
+            line-height: 20px;
+            opacity: 0.72;
+        }
+    }
+
+    // 6px dots, the picked one is a 24px ring with a red dot in it
+    &-pagination.swiper-pagination-bullets {
+        position: absolute;
+        right: 0;
+        bottom: 117px;
+        left: auto;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: auto;
+
+        @media #{$xxl} {
+            bottom: 105px;
+        }
+
+        @media #{$xl} {
+            bottom: 85px;
+        }
+
+        @media #{$lg} {
+            bottom: 75px;
+        }
+
+        // on the narrow screens the dots sit under the words
+        @media #{$md,$sm,$xs} {
+            position: relative;
+            bottom: auto;
+            justify-content: center;
+            width: 100%;
+            margin-top: 28px;
+        }
+
+        .swiper-pagination-bullet {
+            position: relative;
+            flex: none;
+            width: 6px;
+            height: 6px;
+            margin: 0;
+            background: rgb(34 34 34 / 32%);
+            opacity: 1;
+            transition: var(--kf-cube-1);
+        }
+
+        .swiper-pagination-bullet-active {
+            width: 24px;
+            height: 24px;
+            border: 1px solid var(--kf-clr-pr-1);
+            background: transparent;
+
+            &::after {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 6px;
+                height: 6px;
+                margin: -3px 0 0 -3px;
+                border-radius: 50%;
+                background: var(--kf-clr-pr-1);
+            }
+        }
+    }
+}
+/*
+    kf-testimonial-1-end
+*/

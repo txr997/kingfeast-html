@@ -1,0 +1,198 @@
+@use '../abstracts/variables' as *;
+
+/*
+    kf-clients-1-start
+*/
+.kf-clients-1 {
+    // the title hangs up into the first row of the grid, so the padding on top is the title's 132px plus what it hangs
+    &-area {
+        padding: 201px 0 133px;
+
+        @media #{$xxl} {
+            padding: 177px 0 110px;
+        }
+
+        @media #{$xl} {
+            padding: 170px 0 100px;
+        }
+
+        @media #{$lg} {
+            padding: 163px 0 90px;
+        }
+
+        @media #{$md} {
+            padding: 80px 0;
+        }
+
+        // $xs is max-width 767px, so $sm comes after it and wins in 576–767
+        @media #{$xs} {
+            padding: 60px 0;
+        }
+
+        @media #{$sm} {
+            padding: 70px 0;
+        }
+    }
+
+    // five columns: the first row has a card at each end and the title in the three middle columns,
+    // the second row is full, the third one has three cards in the middle
+    &-wrap {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+
+        @media #{$xs} {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    &-sec-title {
+        grid-column: 2 / 5;
+        grid-row: 1;
+        align-self: start;
+        justify-self: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+        width: 100%;
+        max-width: 710px;
+        margin-top: -69px;
+        text-align: center;
+
+        @media #{$xxl} {
+            margin-top: -67px;
+        }
+
+        @media #{$xl} {
+            margin-top: -70px;
+        }
+
+        @media #{$lg} {
+            margin-top: -73px;
+        }
+
+        // below 992px the title is above the cards
+        @media #{$md,$sm,$xs} {
+            grid-column: 1 / -1;
+            grid-row: auto;
+            margin: 0 auto 44px;
+        }
+
+        @media #{$xs} {
+            margin-bottom: 32px;
+        }
+
+        @media #{$sm} {
+            margin-bottom: 36px;
+        }
+    }
+
+    // the cards overlap by 1px, so two neighbours share one border line
+    &-card {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 136px;
+        margin: 0 -1px -1px 0;
+        border: 1px solid rgb(34 34 34 / 12%);
+        border-radius: 12px;
+        background: #FCF5F0;
+
+        @media #{$xxl} {
+            height: 126px;
+        }
+
+        @media #{$xl} {
+            height: 108px;
+        }
+
+        @media #{$lg} {
+            height: 90px;
+        }
+
+        @media #{$md} {
+            height: 96px;
+        }
+
+        @media #{$xs} {
+            height: 100px;
+        }
+
+        @media #{$sm} {
+            height: 110px;
+        }
+
+        @media #{$over,$xxxl,$xxl,$xl,$lg} {
+            // card 07 starts the third row in the second column, card 10 sits at the end of the first row
+            &:nth-child(8) {
+                grid-column: 2;
+            }
+
+            &:last-child {
+                grid-column: 5;
+                grid-row: 1;
+            }
+        }
+
+        // red glow on the card the pointer is on: pink at the left and right edge, each one ends in a light streak, the middle stays clear
+        &::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: linear-gradient(102deg, rgb(163 40 52 / 38%) 0%, rgb(163 40 52 / 30%) 8%, rgb(255 255 255 / 60%) 25%, rgb(255 255 255 / 0%) 31%, rgb(255 255 255 / 0%) 69%, rgb(255 255 255 / 55%) 76%, rgb(173 68 51 / 12%) 84%, rgb(163 40 52 / 38%) 100%);
+            opacity: 0;
+            transition: opacity .5s ease;
+            pointer-events: none;
+        }
+
+        &:hover {
+            z-index: 1;
+
+            &::before {
+                opacity: 1;
+            }
+        }
+    }
+
+    // the logo is fitted into a box, every logo in the design is 92px high
+    &-logo {
+        position: relative;
+        width: 160px;
+        height: 92px;
+
+        @media #{$xxl} {
+            width: 144px;
+            height: 84px;
+        }
+
+        @media #{$xl} {
+            width: 120px;
+            height: 70px;
+        }
+
+        @media #{$lg} {
+            width: 100px;
+            height: 58px;
+        }
+
+        @media #{$md} {
+            width: 100px;
+            height: 60px;
+        }
+
+        @media #{$xs} {
+            width: 120px;
+            height: 60px;
+        }
+
+        @media #{$sm} {
+            width: 150px;
+            height: 70px;
+        }
+    }
+}
+/*
+    kf-clients-1-end
+*/

@@ -1,0 +1,390 @@
+@use '../abstracts/variables' as *;
+
+/*
+    kf-choose-1-start
+*/
+.kf-choose-1 {
+    // dark brown box with 20px of the page left on each side, the noise picture comes from data-background
+    &-area {
+        position: relative;
+        margin: 0 20px;
+        border-radius: 20px;
+        overflow: hidden;
+        background-color: #431a17;
+
+        @media #{$md} {
+            margin: 0 16px;
+        }
+
+        @media #{$xs} {
+            margin: 0 12px;
+            border-radius: 16px;
+        }
+    }
+
+    // donut line drawing (the file already has its 6% opacity), it fills the gap between the text and the buttons
+    &-bg-img {
+        position: absolute;
+        bottom: 182px;
+        left: -97px;
+        z-index: 0;
+        width: 452px;
+        aspect-ratio: 452 / 217;
+        pointer-events: none;
+
+        @media #{$xxl} {
+            bottom: 150px;
+        }
+
+        @media #{$xl} {
+            bottom: 130px;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            display: none;
+        }
+    }
+
+    // ---- left: title block on top, buttons at the bottom
+    &-left {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 880px;
+        padding: 132px 0 58px 180px;
+
+        @media #{$xxxl} {
+            padding-left: 140px;
+        }
+
+        @media #{$xxl} {
+            min-height: 840px;
+            padding: 110px 0 52px 100px;
+        }
+
+        @media #{$xl} {
+            min-height: 780px;
+            padding: 96px 0 48px 72px;
+        }
+
+        // below 1200 the picture comes under the text
+        @media #{$lg} {
+            min-height: 0;
+            padding: 80px 56px 0;
+        }
+
+        @media #{$md} {
+            min-height: 0;
+            padding: 70px 40px 0;
+        }
+
+        @media #{$xs} {
+            min-height: 0;
+            padding: 56px 24px 0;
+        }
+
+        @media #{$sm} {
+            padding: 64px 32px 0;
+        }
+    }
+
+    &-sec-title {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 26px;
+        max-width: 627px;
+
+        @media #{$xxxl} {
+            max-width: 560px;
+        }
+
+        @media #{$xxl} {
+            gap: 22px;
+            max-width: 520px;
+        }
+
+        @media #{$xl} {
+            gap: 20px;
+            max-width: 440px;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            gap: 20px;
+        }
+
+        .kf-subtitle-1-text {
+            color: var(--kf-clr-sd-1);
+        }
+
+        // the chef hat is white here
+        .kf-subtitle-1-icon {
+            filter: brightness(0) invert(1);
+        }
+
+        .kf-sec-title-1 {
+            color: #fff;
+
+            @media #{$xxxl} {
+                font-size: 52px;
+                line-height: 56px;
+            }
+
+            @media #{$xxl} {
+                font-size: 46px;
+                line-height: 50px;
+            }
+
+            @media #{$xl} {
+                font-size: 40px;
+                line-height: 44px;
+            }
+
+            @media #{$lg,$md} {
+                font-size: 40px;
+                line-height: 44px;
+            }
+
+            @media #{$xs} {
+                font-size: 30px;
+                line-height: 34px;
+            }
+
+            @media #{$sm} {
+                font-size: 36px;
+                line-height: 40px;
+            }
+        }
+
+        .disc {
+            font-size: 16px;
+            line-height: 24px;
+            color: rgb(255 255 255 / 80%);
+        }
+    }
+
+    &-btn-wrap {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        align-self: flex-start;
+        gap: 20px 32px;
+        margin-top: 36px;
+    }
+
+    // ---- right: picture slider with the red card over its lower left corner
+    &-right {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        bottom: 16px;
+        z-index: 2;
+        width: 49.15%;
+
+        @media #{$xl} {
+            width: 50%;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            position: relative;
+            top: auto;
+            right: auto;
+            bottom: auto;
+            width: auto;
+            margin: 44px 16px 16px;
+        }
+
+        @media #{$md} {
+            margin-top: 40px;
+        }
+
+        @media #{$xs} {
+            margin: 36px 12px 12px;
+        }
+    }
+
+    &-img-slider {
+        height: 100%;
+        border-radius: 16px;
+
+        @media #{$lg,$md,$sm,$xs} {
+            height: auto;
+            aspect-ratio: 924 / 848;
+        }
+
+        .swiper-slide {
+            height: 100%;
+        }
+    }
+
+    &-img {
+        width: 100%;
+        height: 100%;
+    }
+
+    &-box {
+        position: absolute;
+        bottom: 40px;
+        left: -202px;
+        z-index: 3;
+        width: 456px;
+        padding: 48px;
+        border-radius: 12px;
+        background: var(--kf-clr-pr-1);
+
+        @media #{$xxxl} {
+            left: -170px;
+        }
+
+        @media #{$xxl} {
+            bottom: 36px;
+            left: -140px;
+            width: 420px;
+            padding: 40px;
+        }
+
+        @media #{$xl} {
+            bottom: 32px;
+            left: -100px;
+            width: 400px;
+            padding: 36px;
+        }
+
+        @media #{$lg} {
+            bottom: 24px;
+            left: 24px;
+            width: 400px;
+            padding: 36px;
+        }
+
+        @media #{$md} {
+            bottom: 24px;
+            left: 24px;
+            width: 380px;
+            padding: 32px;
+        }
+
+        // on a phone the card sits under the picture and covers its lower edge
+        @media #{$xs} {
+            position: relative;
+            bottom: auto;
+            left: auto;
+            width: calc(100% - 32px);
+            margin: -56px auto 0;
+            padding: 28px 24px;
+        }
+
+        @media #{$sm} {
+            margin-top: -64px;
+            padding: 36px 32px;
+        }
+    }
+
+    &-control {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 40px;
+
+        .number {
+            display: flex;
+            gap: 8px;
+            font-size: 16px;
+            line-height: 1;
+            color: #fff;
+
+            .slash,
+            .total {
+                opacity: 0.64;
+            }
+        }
+    }
+
+    // two squares that share the middle border: left corners round on the first one, right corners on the second one
+    &-btn-arrow {
+        display: flex;
+    }
+
+    &-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        border: 2px solid #C16D75;
+        background: none;
+        color: #C16D75;
+        transition: var(--kf-cube-1);
+
+        svg {
+            display: block;
+            width: 24px;
+            height: 24px;
+        }
+
+        &.prev {
+            border-radius: 6px 0 0 6px;
+        }
+
+        &.next {
+            margin-left: -2px;
+            border-radius: 0 6px 6px 0;
+        }
+
+        &:hover {
+            color: #fff;
+            border-color: #fff;
+            z-index: 2;
+        }
+
+        // first / last slide: that arrow is faded out
+        &.swiper-button-disabled {
+            opacity: 0.32;
+            pointer-events: none;
+        }
+    }
+
+    &-content-slider {
+        margin-top: 54px;
+
+        @media #{$xl} {
+            margin-top: 40px;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            margin-top: 36px;
+        }
+
+        .title {
+            max-width: 212px;
+            margin: 0;
+            font-size: 24px;
+            line-height: 28px;
+            text-transform: uppercase;
+            color: #fff;
+
+            @media #{$xl,$xs} {
+                font-size: 22px;
+                line-height: 26px;
+            }
+        }
+
+        .disc {
+            margin-top: 12px;
+            font-size: 16px;
+            line-height: 24px;
+            color: rgb(255 255 255 / 88%);
+
+            @media #{$xl,$xs} {
+                font-size: 15px;
+                line-height: 22px;
+            }
+        }
+    }
+}
+/*
+    kf-choose-1-end
+*/

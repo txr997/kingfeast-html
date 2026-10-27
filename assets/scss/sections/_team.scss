@@ -1,0 +1,567 @@
+@use '../abstracts/variables' as *;
+
+/*
+    kf-team-1-start
+*/
+.kf-team-1 {
+    &-area {
+        position: relative;
+        overflow: hidden;
+
+    }
+
+    // line drawings, the files already have their 6% opacity; they are cut by the edges of the section
+    &-bg-img {
+        position: absolute;
+        z-index: 0;
+        pointer-events: none;
+
+        @media #{$xxl,$xl,$lg,$md,$sm,$xs} {
+            display: none;
+        }
+
+        &.is-pizza {
+            bottom: -1px;
+            left: -162px;
+            width: 303px;
+            aspect-ratio: 303 / 293;
+        }
+
+        &.is-ice-cream {
+            top: 62px;
+            right: 27px;
+            width: 260px;
+            aspect-ratio: 260 / 295;
+        }
+    }
+
+    &-container {
+        position: relative;
+        z-index: 1;
+    }
+
+    &-sec-title {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+        max-width: 650px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    // chef card on the left, three columns of pictures on the right (the text sits in the middle of the first row)
+    &-wrap {
+        display: grid;
+        grid-template-columns: minmax(0, 518fr) minmax(0, 866fr);
+        gap: 16px;
+        margin-top: 49px;
+
+        @media #{$xxl} {
+            margin-top: 44px;
+        }
+
+        @media #{$xl} {
+            margin-top: 40px;
+        }
+
+        @media #{$lg} {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            margin-top: 36px;
+        }
+
+        @media #{$md} {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 14px;
+            margin-top: 36px;
+        }
+
+        @media #{$xs} {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        @media #{$sm} {
+            gap: 14px;
+            margin-top: 32px;
+        }
+    }
+
+    &-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+
+        // below 1200 the pictures are items of the wrap grid itself
+        @media #{$lg,$md,$sm,$xs} {
+            display: contents;
+        }
+    }
+
+    // ---- chef card
+    &-chef {
+        position: relative;
+        border-radius: 16px;
+        overflow: hidden;
+        background: #fff;
+
+        @media #{$lg,$md} {
+            grid-column: 1 / 3;
+            grid-row: 1 / 3;
+        }
+
+        @media #{$xs} {
+            grid-column: 1 / -1;
+            aspect-ratio: 518 / 640;
+        }
+    }
+
+    &-chef-img {
+        position: absolute;
+        inset: 0;
+    }
+
+    &-chef-quote {
+        position: absolute;
+        inset: auto 20px 20px;
+        padding: 24px;
+        border-radius: 10px;
+        background: #fff;
+        text-align: center;
+
+        @media #{$xxl,$lg} {
+            inset: auto 16px 16px;
+            padding: 20px;
+        }
+
+        @media #{$xl} {
+            inset: auto 14px 14px;
+            padding: 18px;
+        }
+
+        @media #{$md,$xs} {
+            inset: auto 12px 12px;
+            padding: 16px;
+        }
+
+        @media #{$sm} {
+            inset: auto 16px 16px;
+            padding: 22px;
+        }
+
+        // big quote mark behind the text, 82px frame with the mark 3px / 10px inside it
+        .icon {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            width: 82px;
+            aspect-ratio: 1 / 1;
+            opacity: 0.08;
+            transform: translateX(-50%);
+            pointer-events: none;
+
+            @media #{$xxl} {
+                width: 72px;
+            }
+
+            @media #{$xl} {
+                width: 64px;
+            }
+
+            @media #{$lg} {
+                width: 68px;
+            }
+
+            @media #{$md,$xs} {
+                width: 56px;
+            }
+
+            @media #{$sm} {
+                width: 68px;
+            }
+
+            svg {
+                position: absolute;
+                top: 12.2%;
+                left: 3.7%;
+                display: block;
+                width: 96.3%;
+                height: auto;
+            }
+        }
+
+        .text {
+            position: relative;
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 28px;
+
+            @media #{$xxl} {
+                font-size: 16px;
+                line-height: 26px;
+            }
+
+            @media #{$xl,$lg} {
+                font-size: 15px;
+                line-height: 24px;
+            }
+
+            @media #{$md,$xs} {
+                font-size: 14px;
+                line-height: 22px;
+            }
+
+            @media #{$sm} {
+                font-size: 16px;
+                line-height: 26px;
+            }
+        }
+
+        .author {
+            position: relative;
+            margin-top: 24px;
+
+            @media #{$xxl,$lg} {
+                margin-top: 20px;
+            }
+
+            @media #{$xl} {
+                margin-top: 18px;
+            }
+
+            @media #{$md,$xs} {
+                margin-top: 14px;
+            }
+
+            @media #{$sm} {
+                margin-top: 18px;
+            }
+        }
+
+        .name {
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 20px;
+        }
+
+        .role {
+            margin-top: 4px;
+            font-size: 14px;
+            line-height: 20px;
+            opacity: 0.72;
+        }
+    }
+
+    // ---- text and button
+    &-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 32px;
+        padding: 0 4px;
+        text-align: center;
+
+        @media #{$xxl} {
+            gap: 28px;
+        }
+
+        @media #{$xl} {
+            gap: 22px;
+        }
+
+        @media #{$lg,$md} {
+            grid-column: 2 / -1;
+            order: 1;
+            gap: 24px;
+        }
+
+        @media #{$xs} {
+            grid-column: 1 / -1;
+            order: 1;
+            gap: 22px;
+            padding: 8px 0;
+        }
+
+        @media #{$sm} {
+            gap: 24px;
+        }
+
+        .disc {
+            font-size: 18px;
+            line-height: 28px;
+
+            @media #{$xxl} {
+                font-size: 16px;
+                line-height: 26px;
+            }
+
+            @media #{$xl} {
+                font-size: 15px;
+                line-height: 24px;
+            }
+
+            @media #{$lg,$md} {
+                max-width: 520px;
+                font-size: 16px;
+                line-height: 26px;
+            }
+
+            @media #{$xs} {
+                max-width: 520px;
+                font-size: 15px;
+                line-height: 24px;
+            }
+
+            @media #{$sm} {
+                font-size: 16px;
+                line-height: 26px;
+            }
+        }
+    }
+
+    // ---- team member: the picture, and on hover the name, the social links and a red glow
+    &-member {
+        position: relative;
+        aspect-ratio: 278 / 312;
+        border-radius: 12px;
+        overflow: hidden;
+
+        @media #{$xs} {
+            order: 2;
+
+            &:last-child {
+                grid-column: 1 / -1;
+                aspect-ratio: 5 / 4;
+            }
+        }
+
+        // red light in two corners: the design blurs a plain red circle, here a soft fall-off from the corner does the same
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            z-index: 2;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity .5s ease;
+            pointer-events: none;
+        }
+
+        &::before {
+            top: -185px;
+            left: -185px;
+            width: 370px;
+            height: 370px;
+            background: radial-gradient(closest-side, rgb(163 40 52 / 75%) 0%, rgb(163 40 52 / 61%) 25%, rgb(163 40 52 / 31%) 50%, rgb(163 40 52 / 10%) 75%, rgb(163 40 52 / 0%) 100%);
+        }
+
+        &::after {
+            right: -200px;
+            bottom: -200px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(closest-side, rgb(163 40 52 / 85%) 0%, rgb(163 40 52 / 70%) 25%, rgb(163 40 52 / 39%) 50%, rgb(163 40 52 / 14%) 75%, rgb(163 40 52 / 0%) 100%);
+        }
+
+        &:hover::before,
+        &:hover::after {
+            opacity: 1;
+        }
+
+        &:hover .kf-team-1-member-img {
+            transform: scale(1.06);
+        }
+
+        &:hover .kf-team-1-member-shade,
+        &:hover .kf-team-1-member-content,
+        &:hover .kf-team-1-member-social {
+            opacity: 1;
+            transform: none;
+        }
+
+        // no hover on a phone or a narrow screen: name and role stay on show, the social links and the glow are left out
+        @media #{$md,$sm,$xs} {
+            &::before,
+            &::after {
+                display: none;
+            }
+
+            .kf-team-1-member-shade,
+            .kf-team-1-member-content {
+                opacity: 1;
+                transform: none;
+            }
+
+            .kf-team-1-member-social {
+                display: none;
+            }
+        }
+    }
+
+    &-member-img {
+        position: absolute;
+        inset: 0;
+        transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1), filter .5s ease;
+
+        // luminosity on hover: only the brightness of the photo is left, the red comes from the two glows
+        @media #{$over,$xxxl,$xxl,$xl,$lg} {
+            .kf-team-1-member:hover & {
+                filter: grayscale(1);
+            }
+        }
+    }
+
+    // bottom 146px of 312px
+    &-member-shade {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+        height: 46.8%;
+        background: linear-gradient(180deg, rgb(0 0 0 / 0%) 0%, rgb(0 0 0 / 80%) 100%);
+        opacity: 0;
+        transition: opacity .5s ease;
+        pointer-events: none;
+    }
+
+    &-member-social {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        z-index: 3;
+        width: 33px;
+        padding: 12px 0;
+        border-radius: 8px;
+        background: var(--kf-clr-pr-1);
+        opacity: 0;
+        transform: translateX(12px);
+        transition: opacity .5s ease, transform .5s ease;
+
+        // 16px icons with an 8px line between them, 24px steps (the X is 12px high)
+        a {
+            position: relative;
+            display: block;
+            height: 16px;
+            font-size: 14px;
+            line-height: 16px;
+            text-align: center;
+            color: #fff;
+            transition: color .4s ease;
+
+            &:not(:last-child) {
+                margin-bottom: 24px;
+
+                &::after {
+                    content: "";
+                    position: absolute;
+                    top: calc(100% + 8px);
+                    left: 50%;
+                    width: 1px;
+                    height: 8px;
+                    background: #fff;
+                    transform: translateX(-50%);
+                }
+            }
+
+            &:nth-child(3) {
+                height: 12px;
+                line-height: 12px;
+            }
+
+            &:hover {
+                color: var(--kf-clr-sd-1);
+            }
+        }
+    }
+
+    &-member-content {
+        position: absolute;
+        right: 0;
+        bottom: 20px;
+        left: 0;
+        z-index: 3;
+        padding: 0 8px;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(14px);
+        transition: opacity .5s ease, transform .5s ease;
+
+        @media #{$xl,$lg} {
+            bottom: 16px;
+        }
+
+        @media #{$md,$sm,$xs} {
+            bottom: 14px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            transition: none;
+        }
+
+        .name {
+            font-size: 20px;
+            line-height: 28px;
+            color: #fff;
+
+            @media #{$xxl,$lg} {
+                font-size: 18px;
+                line-height: 26px;
+            }
+
+            @media #{$xl} {
+                font-size: 16px;
+                line-height: 24px;
+            }
+
+            @media #{$md,$xs} {
+                font-size: 16px;
+                line-height: 22px;
+            }
+
+            @media #{$sm} {
+                font-size: 18px;
+                line-height: 26px;
+            }
+
+            a {
+                transition: color .4s ease;
+
+                &:hover {
+                    color: var(--kf-clr-sd-1);
+                }
+            }
+        }
+
+        .role {
+            font-size: 16px;
+            line-height: 24px;
+            color: rgb(255 255 255 / 80%);
+
+            @media #{$xxl} {
+                font-size: 15px;
+                line-height: 22px;
+            }
+
+            @media #{$xl,$lg} {
+                font-size: 14px;
+                line-height: 20px;
+            }
+
+            @media #{$md,$xs} {
+                font-size: 13px;
+                line-height: 18px;
+            }
+
+            @media #{$sm} {
+                font-size: 14px;
+                line-height: 20px;
+            }
+        }
+    }
+}
+/*
+    kf-team-1-end
+*/

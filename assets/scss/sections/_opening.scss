@@ -1,0 +1,288 @@
+@use '../abstracts/variables' as *;
+
+/*
+    kf-opening-1-start
+*/
+.kf-opening-1 {
+    // two cards side by side: 20px of the page on each side, 12px between them; the picture is as tall as the white card
+    &-wrap {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin: 0 20px;
+
+        @media #{$md,$sm,$xs} {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        @media #{$md} {
+            margin: 0 16px;
+        }
+
+        @media #{$xs} {
+            margin: 0 12px;
+        }
+    }
+
+    &-img {
+        position: relative;
+        border-radius: 20px;
+
+        @media #{$md,$sm,$xs} {
+            aspect-ratio: 934 / 700;
+        }
+
+        @media #{$xs} {
+            aspect-ratio: 4 / 3;
+        }
+    }
+
+    // the photo is 16% taller than the frame on the top and on the bottom, the script slides it up and down (12% of its own height, so it never runs out)
+    &-photo {
+        position: absolute;
+        inset: -16% 0;
+        will-change: transform;
+    }
+
+    // ---- white card
+    &-content {
+        position: relative;
+        padding: 108px 100px 93px 109px;
+        border-radius: 20px;
+        overflow: hidden;
+        background: #fff;
+
+        // the rows are 15px taller here than in the design (it measures the letters, not the lines), so the bottom gives it back
+        @media #{$xxxl} {
+            padding: 108px 80px 93px 100px;
+        }
+
+        @media #{$xxl} {
+            padding: 96px 50px 96px 80px;
+        }
+
+        @media #{$xl} {
+            padding: 80px 40px 80px 60px;
+        }
+
+        @media #{$lg} {
+            padding: 64px 32px 64px 40px;
+        }
+
+        @media #{$md} {
+            padding: 64px 48px;
+        }
+
+        // $xs is max-width 767px, so $sm comes after it and wins in 576–767
+        @media #{$xs} {
+            padding: 40px 24px;
+        }
+
+        @media #{$sm} {
+            padding: 52px 36px;
+        }
+    }
+
+    // cloche drawing in the lower right corner, the card cuts it (the file already has its 6% opacity)
+    &-bg-img {
+        position: absolute;
+        right: -45px;
+        bottom: -74px;
+        width: 271px;
+        aspect-ratio: 271 / 269;
+        pointer-events: none;
+
+        @media #{$xs} {
+            right: -30px;
+            bottom: -50px;
+            width: 190px;
+        }
+
+        @media #{$sm} {
+            right: -40px;
+            bottom: -60px;
+            width: 230px;
+        }
+    }
+
+    &-sec-title {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        max-width: 587px;
+
+        .kf-sec-title-1 {
+            font-size: 52px;
+            line-height: 56px;
+
+            // the global span rule makes spans inline-block, here the red words must flow with the rest
+            span {
+                display: inline;
+            }
+
+            .clr-1 {
+                color: var(--kf-clr-pr-1);
+            }
+
+            @media #{$xxl} {
+                font-size: 46px;
+                line-height: 50px;
+            }
+
+            @media #{$xl} {
+                font-size: 40px;
+                line-height: 44px;
+            }
+
+            @media #{$lg} {
+                font-size: 34px;
+                line-height: 38px;
+            }
+
+            @media #{$md} {
+                font-size: 44px;
+                line-height: 48px;
+            }
+
+            @media #{$xs} {
+                font-size: 30px;
+                line-height: 34px;
+            }
+
+            @media #{$sm} {
+                font-size: 36px;
+                line-height: 40px;
+            }
+        }
+    }
+
+    // ---- rows: a label and the lines that belong to it
+    &-list {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 33px;
+        margin-top: 92px;
+
+        @media #{$xxl} {
+            gap: 30px;
+            margin-top: 80px;
+        }
+
+        @media #{$xl} {
+            gap: 28px;
+            margin-top: 64px;
+        }
+
+        @media #{$lg} {
+            gap: 26px;
+            margin-top: 48px;
+        }
+
+        @media #{$md} {
+            gap: 30px;
+            margin-top: 56px;
+        }
+
+        @media #{$xs} {
+            gap: 28px;
+            margin-top: 44px;
+        }
+    }
+
+    &-item {
+        display: flex;
+        gap: 75px;
+
+        @media #{$xxl} {
+            gap: 50px;
+        }
+
+        @media #{$xl} {
+            gap: 36px;
+        }
+
+        @media #{$lg} {
+            gap: 24px;
+        }
+
+        @media #{$md} {
+            gap: 50px;
+        }
+
+        // label above its lines
+        @media #{$xs} {
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .title {
+            flex: none;
+            width: 159px;
+            margin: 0;
+            font-size: 20px;
+            line-height: 28px;
+
+            @media #{$xxl} {
+                width: 140px;
+            }
+
+            @media #{$xl} {
+                width: 130px;
+            }
+
+            @media #{$lg} {
+                width: 110px;
+                font-size: 18px;
+                line-height: 26px;
+            }
+
+            @media #{$md} {
+                width: 150px;
+            }
+
+            @media #{$xs} {
+                width: auto;
+            }
+        }
+
+        // the lines are 354px wide at most, so the long address goes on a second line
+        .info {
+            min-width: 0;
+            max-width: 354px;
+
+            p {
+                margin-bottom: 9px;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+
+                @media #{$xl} {
+                    font-size: 17px;
+                    line-height: 26px;
+                }
+
+                @media #{$lg,$xs} {
+                    font-size: 16px;
+                    line-height: 26px;
+                }
+            }
+
+            a {
+                transition: var(--kf-cube-1);
+
+                &:hover {
+                    color: var(--kf-clr-pr-1);
+                }
+            }
+        }
+    }
+}
+/*
+    kf-opening-1-end
+*/

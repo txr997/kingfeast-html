@@ -1,0 +1,956 @@
+@use '../abstracts/variables' as *;
+
+/*
+    kf-menu-1-start
+*/
+.kf-menu-1 {
+    &-area {
+        // the 1920 sizes, every breakpoint below only swaps these
+        --big: 632px;
+        --big-left: -97px;
+        --big-top: 25px;
+        --title-w: 749px;
+        --title-fs: 64px;
+        --title-lh: 68px;
+        --title-gap: 40px;
+        --btn-gap: 32px;
+        --disc-fs: 18px;
+        --disc-lh: 28px;
+        --col-gap: 40px;
+        --col-shift: 190px;
+        --pull: -39px;
+        --pad-t: 26px;
+        --pad-x: 40px;
+        --pad-b: 41px;
+        --hero-w: 265px;
+        --tag-fs: 22px;
+        --head-gap: 40px;
+        --list-gap: 30px;
+        --ring: 92px;
+        --item-gap: 20px;
+        --name-fs: 22px;
+        --name-lh: 26px;
+        --name-gap: 10px;
+        --desc-fs: 18px;
+        --desc-lh: 32px;
+        --price-fs: 22px;
+        --price-lh: 26px;
+        --price-w: 56px;
+        --f-pad: 48px;
+        --f-title-fs: 40px;
+        --f-title-lh: 52px;
+        --tab-fs: 20px;
+        --tab-gap: 28px;
+        --fld-px: 20px;
+        --fld-fs: 18px;
+        position: relative;
+        padding: 132px 0 160px;
+        overflow: hidden;
+        background-color: #222;
+
+        @media #{$xxl} {
+            --big: 540px;
+            --big-left: -40px;
+            --big-top: 22px;
+            --title-w: 640px;
+            --title-fs: 54px;
+            --title-lh: 58px;
+            --title-gap: 32px;
+            --btn-gap: 28px;
+            --disc-fs: 16px;
+            --disc-lh: 26px;
+            --col-shift: 160px;
+            --pull: -33px;
+            --pad-t: 24px;
+            --pad-x: 36px;
+            --pad-b: 36px;
+            --hero-w: 240px;
+            --tag-fs: 20px;
+            --head-gap: 34px;
+            --list-gap: 26px;
+            --ring: 84px;
+            --item-gap: 18px;
+            --name-fs: 20px;
+            --name-lh: 24px;
+            --name-gap: 8px;
+            --desc-fs: 16px;
+            --desc-lh: 28px;
+            --price-fs: 20px;
+            --price-lh: 24px;
+            --price-w: 50px;
+            --f-pad: 40px;
+            --f-title-fs: 36px;
+            --f-title-lh: 46px;
+            --tab-fs: 18px;
+            --tab-gap: 24px;
+            padding: 110px 0 140px;
+        }
+
+        @media #{$xl} {
+            --big: 450px;
+            --big-left: -30px;
+            --big-top: 18px;
+            --title-w: 560px;
+            --title-fs: 46px;
+            --title-lh: 50px;
+            --title-gap: 28px;
+            --btn-gap: 24px;
+            --disc-fs: 16px;
+            --disc-lh: 26px;
+            --col-shift: 140px;
+            --pull: -28px;
+            --pad-t: 22px;
+            --pad-x: 30px;
+            --pad-b: 30px;
+            --hero-w: 215px;
+            --tag-fs: 18px;
+            --head-gap: 30px;
+            --list-gap: 22px;
+            --ring: 72px;
+            --item-gap: 16px;
+            --name-fs: 18px;
+            --name-lh: 22px;
+            --name-gap: 6px;
+            --desc-fs: 15px;
+            --desc-lh: 24px;
+            --price-fs: 18px;
+            --price-lh: 22px;
+            --price-w: 46px;
+            --f-pad: 34px;
+            --f-title-fs: 32px;
+            --f-title-lh: 42px;
+            --tab-fs: 17px;
+            --tab-gap: 20px;
+            --fld-px: 18px;
+            --fld-fs: 17px;
+            padding: 96px 0 130px;
+        }
+
+        @media #{$lg} {
+            --big: 370px;
+            --big-left: -20px;
+            --big-top: 14px;
+            --title-w: 470px;
+            --title-fs: 38px;
+            --title-lh: 42px;
+            --title-gap: 22px;
+            --btn-gap: 20px;
+            --disc-fs: 15px;
+            --disc-lh: 24px;
+            --col-gap: 32px;
+            --col-shift: 120px;
+            --pull: -22px;
+            --pad-t: 20px;
+            --pad-x: 26px;
+            --pad-b: 26px;
+            --hero-w: 190px;
+            --tag-fs: 16px;
+            --head-gap: 26px;
+            --list-gap: 20px;
+            --ring: 64px;
+            --item-gap: 14px;
+            --name-fs: 17px;
+            --name-lh: 22px;
+            --name-gap: 4px;
+            --desc-fs: 14px;
+            --desc-lh: 22px;
+            --price-fs: 17px;
+            --price-lh: 22px;
+            --price-w: 42px;
+            --f-pad: 28px;
+            --f-title-fs: 28px;
+            --f-title-lh: 36px;
+            --tab-fs: 15px;
+            --tab-gap: 16px;
+            --fld-px: 14px;
+            --fld-fs: 15px;
+            padding: 84px 0 120px;
+        }
+
+        // below 992px everything is one column: title, dish circle, then the cards (the pizza sits under them)
+        @media #{$md,$sm,$xs} {
+            --title-w: 100%;
+            --col-shift: 0px;
+        }
+
+        @media #{$md} {
+            --big: 420px;
+            --title-fs: 44px;
+            --title-lh: 48px;
+            --title-gap: 24px;
+            --btn-gap: 28px;
+            --pull: 60px;
+            padding: 90px 0 273px;
+        }
+
+        // $xs is max-width 767px, so $sm comes after it and wins in 576–767
+        @media #{$xs} {
+            --big: 280px;
+            --title-fs: 30px;
+            --title-lh: 34px;
+            --title-gap: 18px;
+            --btn-gap: 24px;
+            --disc-fs: 16px;
+            --disc-lh: 26px;
+            --pull: 44px;
+            --pad-t: 20px;
+            --pad-x: 16px;
+            --pad-b: 24px;
+            --hero-w: 200px;
+            --tag-fs: 17px;
+            --head-gap: 28px;
+            --list-gap: 20px;
+            --ring: 56px;
+            --item-gap: 12px;
+            --name-fs: 17px;
+            --name-lh: 22px;
+            --name-gap: 4px;
+            --desc-fs: 14px;
+            --desc-lh: 22px;
+            --price-fs: 16px;
+            --price-lh: 22px;
+            --price-w: 40px;
+            --f-pad: 24px;
+            --f-title-fs: 26px;
+            --f-title-lh: 34px;
+            --tab-fs: 15px;
+            --tab-gap: 14px;
+            --fld-px: 16px;
+            --fld-fs: 16px;
+            padding: 70px 0 190px;
+        }
+
+        @media #{$sm} {
+            --big: 360px;
+            --title-fs: 38px;
+            --title-lh: 42px;
+            --title-gap: 20px;
+            --btn-gap: 26px;
+            --disc-fs: 17px;
+            --pull: 50px;
+            --pad-t: 26px;
+            --pad-x: 30px;
+            --pad-b: 34px;
+            --hero-w: 240px;
+            --tag-fs: 20px;
+            --head-gap: 34px;
+            --list-gap: 26px;
+            --ring: 76px;
+            --item-gap: 16px;
+            --name-fs: 20px;
+            --name-lh: 24px;
+            --name-gap: 8px;
+            --desc-fs: 16px;
+            --desc-lh: 26px;
+            --price-fs: 20px;
+            --price-lh: 24px;
+            --price-w: 50px;
+            --f-pad: 36px;
+            --f-title-fs: 34px;
+            --f-title-lh: 44px;
+            --tab-fs: 18px;
+            --tab-gap: 22px;
+            --fld-px: 20px;
+            --fld-fs: 17px;
+            padding: 80px 0 230px;
+        }
+    }
+
+    // inline svg shapes shared by the cards (frame, ribbon, icons)
+    &-defs {
+        position: absolute;
+        width: 0;
+        height: 0;
+        overflow: hidden;
+    }
+
+    // red picture with the swoosh cut out of it, the dark section shows through the cut
+    &-bg-shape-img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        width: 100%;
+        aspect-ratio: 1920 / 1043;
+        pointer-events: none;
+
+        // narrow screens show the middle of a bigger picture
+        @media #{$md,$sm,$xs} {
+            left: 50%;
+            width: max(100%, 1000px);
+            transform: translateX(-50%);
+        }
+    }
+
+    &-bg-shape {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+        width: 100%;
+        aspect-ratio: 1920 / 139;
+        pointer-events: none;
+
+        @media #{$md,$sm,$xs} {
+            left: 50%;
+            width: max(100%, 1100px);
+            transform: translateX(-50%);
+        }
+    }
+
+    // the pizza hangs under the left column and runs off the bottom edge
+    &-bg-img {
+        position: absolute;
+        bottom: -73px;
+        left: max(0px, calc(50% - 811px));
+        z-index: 2;
+        width: 791px;
+        aspect-ratio: 791 / 476;
+        pointer-events: none;
+
+        @media #{$xxl} {
+            bottom: -12px;
+            left: 40px;
+            width: 560px;
+        }
+
+        @media #{$xl} {
+            bottom: -24px;
+            left: 30px;
+            width: 440px;
+        }
+
+        @media #{$lg} {
+            bottom: -26px;
+            left: 16px;
+            width: 360px;
+        }
+
+        @media #{$md,$sm,$xs} {
+            bottom: -30px;
+            left: 50%;
+            width: 420px;
+            transform: translateX(-50%);
+        }
+
+        @media #{$xs} {
+            bottom: -20px;
+            width: 280px;
+        }
+
+        @media #{$sm} {
+            bottom: -24px;
+            width: 340px;
+        }
+    }
+
+    // ---- top: dish circle on the left, title on the right
+    &-top {
+        position: relative;
+        z-index: 3;
+        display: flex;
+        min-height: calc(var(--big) + var(--big-top));
+
+        @media #{$md,$sm,$xs} {
+            flex-direction: column;
+            align-items: center;
+            min-height: 0;
+        }
+    }
+
+    // the circle hangs out of the container on the left
+    &-big {
+        position: absolute;
+        top: var(--big-top);
+        left: var(--big-left);
+        width: var(--big);
+        aspect-ratio: 1 / 1;
+
+        @media #{$md,$sm,$xs} {
+            position: relative;
+            top: auto;
+            left: auto;
+            order: 2;
+            margin-top: 56px;
+        }
+
+        @media #{$xs} {
+            margin-top: 40px;
+        }
+
+        @media #{$sm} {
+            margin-top: 48px;
+        }
+    }
+
+    &-big-bg {
+        position: absolute;
+        inset: 0;
+    }
+
+    // sits off centre in the brush ring (52px from the left, 72px from the top at 632px)
+    &-big-img {
+        position: absolute;
+        top: 11.39%;
+        left: 8.23%;
+        width: 80.38%;
+        aspect-ratio: 1 / 1;
+    }
+
+    &-sec-title {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--title-gap);
+        width: var(--title-w);
+        margin-left: auto;
+
+        @media #{$md,$sm,$xs} {
+            order: 1;
+            align-items: center;
+            max-width: 640px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .kf-subtitle-1-text {
+            color: #fff;
+        }
+
+        // the chef hat is dark on the red
+        .kf-subtitle-1-icon {
+            filter: brightness(0) invert(0.13);
+        }
+
+        .kf-sec-title-1 {
+            font-size: var(--title-fs);
+            line-height: var(--title-lh);
+            color: #fff;
+        }
+
+        // gold version of the red round button
+        .kf-pr-btn-1 {
+            &::after {
+                border-color: var(--kf-clr-sd-1);
+            }
+
+            .bg,
+            .icon {
+                background: var(--kf-clr-sd-1);
+            }
+
+            .circle {
+                background: #8A6D3B;
+            }
+        }
+    }
+
+    // text and button start 148px in (of 749px)
+    &-sec-title-bottom {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--btn-gap);
+        width: 80.24%;
+        margin-left: auto;
+
+        @media #{$md,$sm,$xs} {
+            align-items: center;
+            width: 100%;
+            margin: 0;
+        }
+
+        .disc {
+            font-size: var(--disc-fs);
+            line-height: var(--disc-lh);
+            color: rgb(255 255 255 / 80%);
+        }
+    }
+
+    // ---- columns: the left one starts lower than the right one
+    &-wrap {
+        position: relative;
+        z-index: 3;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: var(--col-gap);
+        align-items: start;
+        margin-top: var(--pull);
+
+        // one column, the cards in the order of the menu: starters, main dish, specials, then the form
+        @media #{$md,$sm,$xs} {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            max-width: 680px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+    }
+
+    &-left,
+    &-right {
+        display: flex;
+        flex-direction: column;
+        gap: var(--col-gap);
+        min-width: 0;
+
+        @media #{$md,$sm,$xs} {
+            display: contents;
+        }
+    }
+
+    &-left {
+        margin-top: var(--col-shift);
+    }
+
+    @media #{$md,$sm,$xs} {
+        &-right > :first-child {
+            order: 1;
+        }
+
+        &-left > :first-child {
+            order: 2;
+        }
+
+        &-right > :last-child {
+            order: 3;
+        }
+
+        &-left > :last-child {
+            order: 4;
+        }
+    }
+
+    // ---- menu card: ornate frame behind a picture with a ribbon and six rows
+    &-card {
+        position: relative;
+        padding: var(--pad-t) var(--pad-x) var(--pad-b);
+    }
+
+    // the frame is stretched to the card, the line keeps its width (8px inside the edge at 16)
+    &-card-frame {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        fill: none;
+        stroke: #5D5C5C;
+        stroke-opacity: 0.28;
+        stroke-width: 16px;
+        pointer-events: none;
+
+        @media #{$xs} {
+            stroke-width: 12px;
+        }
+    }
+
+    // 265 x 211: the picture on top, the ribbon over its lower part
+    &-card-hero {
+        position: relative;
+        width: var(--hero-w);
+        margin: 0 auto;
+        aspect-ratio: 265 / 211;
+    }
+
+    &-card-img {
+        position: absolute;
+        top: 0;
+        left: 13.4%;
+        width: 73.2%;
+        aspect-ratio: 1 / 1;
+        border-radius: 50%;
+    }
+
+    &-card-tag {
+        position: absolute;
+        top: 67.8%;
+        left: 0;
+        z-index: 2;
+        width: 100%;
+        aspect-ratio: 265 / 68;
+
+        svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .title {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            font-size: var(--tag-fs);
+            font-weight: 700;
+            line-height: 28px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #fff;
+        }
+    }
+
+    &-list {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: var(--list-gap);
+        margin-top: var(--head-gap);
+    }
+
+    &-item {
+        display: flex;
+        align-items: center;
+        gap: var(--item-gap);
+
+        &:hover {
+            .kf-menu-1-item-img {
+                background: rgb(255 255 255 / 22%);
+            }
+
+            .title {
+                color: var(--kf-clr-sd-1);
+            }
+        }
+    }
+
+    // 92px ring with the 80px round picture inside it
+    &-item-img {
+        flex: none;
+        width: var(--ring);
+        aspect-ratio: 1 / 1;
+        padding: calc(var(--ring) * 0.065);
+        border-radius: 50%;
+        background: rgb(255 255 255 / 12%);
+        transition: var(--kf-cube-1);
+    }
+
+    &-item-thumb {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        border-radius: 50%;
+    }
+
+    // price on the right, name above the description, a dashed line runs from the end of the description to the right edge
+    &-item-content {
+        position: relative;
+        flex: 1;
+        min-width: 0;
+
+        .title {
+            margin: 0;
+            padding-right: var(--price-w);
+            font-size: var(--name-fs);
+            font-weight: 700;
+            line-height: var(--name-lh);
+            color: #fff;
+            transition: color .4s ease;
+        }
+
+        .text {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: var(--name-gap);
+        }
+
+        .disc {
+            flex: 0 1 auto;
+            min-width: 0;
+            max-width: calc(100% - var(--price-w) - 10px);
+            font-size: var(--desc-fs);
+            line-height: var(--desc-lh);
+            color: rgb(255 255 255 / 80%);
+        }
+
+        .line {
+            flex: 1 1 0;
+            min-width: 12px;
+            height: 0;
+            border-top: 1px dashed rgb(255 255 255 / 50%);
+
+            @media #{$xs} {
+                display: none;
+            }
+        }
+
+        .price {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            font-size: var(--price-fs);
+            font-weight: 600;
+            line-height: var(--price-lh);
+            color: var(--kf-clr-sd-1);
+            transform: translateY(-50%);
+        }
+    }
+
+    // ---- reservation form
+    &-form {
+        position: relative;
+        padding: calc(var(--f-pad) - 5px);
+        border: 5px solid rgb(34 34 34 / 50%);
+        border-radius: 24px;
+        background: var(--kf-clr-pr-1);
+        box-shadow: inset 0 0 4px rgb(0 0 0 / 25%);
+        overflow: hidden;
+    }
+
+    // sticks out of the form on the left, over the corner
+    &-form-burger {
+        position: absolute;
+        top: 42px;
+        left: -44px;
+        z-index: 2;
+        width: 208px;
+        aspect-ratio: 208 / 125;
+        pointer-events: none;
+
+        @media #{$xxl} {
+            top: 36px;
+            left: -36px;
+            width: 180px;
+        }
+
+        @media #{$xl} {
+            top: 32px;
+            left: -30px;
+            width: 150px;
+        }
+
+        @media #{$lg} {
+            top: 28px;
+            left: -24px;
+            width: 130px;
+        }
+
+        @media #{$md} {
+            left: -36px;
+        }
+
+        @media #{$xs} {
+            display: none;
+        }
+
+        @media #{$sm} {
+            top: 36px;
+            left: -24px;
+            display: block;
+            width: 150px;
+        }
+    }
+
+    &-form-head {
+        text-align: center;
+    }
+
+    &-form-title {
+        margin: 0;
+        font-size: var(--f-title-fs);
+        line-height: var(--f-title-lh);
+        color: #fff;
+    }
+
+    // meal tabs, the picked one is white with two lines under it
+    &-form-tabs {
+        display: flex;
+        justify-content: center;
+        gap: var(--tab-gap);
+        height: 40px;
+        margin-top: 8px;
+    }
+
+    &-form-tab {
+        cursor: pointer;
+
+        input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        span {
+            position: relative;
+            display: block;
+            font-family: var(--kf-font-2);
+            font-size: var(--tab-fs);
+            font-weight: 700;
+            line-height: 20px;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            color: rgb(255 255 255 / 52%);
+            transition: color .4s ease;
+        }
+
+        &:hover span {
+            color: #fff;
+        }
+
+        input:checked + span {
+            color: #fff;
+
+            &::before,
+            &::after {
+                content: "";
+                position: absolute;
+                left: 50%;
+                height: 1px;
+                background: #fff;
+                transform: translateX(-50%);
+            }
+
+            &::before {
+                top: 34px;
+                width: calc(var(--tab-fs) * 9.7);
+            }
+
+            &::after {
+                top: 39px;
+                width: calc(var(--tab-fs) * 6.05);
+            }
+        }
+
+        input:focus-visible + span {
+            outline: 2px solid #fff;
+            outline-offset: 4px;
+        }
+    }
+
+    &-form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px 16px;
+        margin-top: 28px;
+
+        @media #{$xs} {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        @media #{$sm} {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    // the label sits on the top border
+    &-field {
+        position: relative;
+        padding-top: 9px;
+    }
+
+    &-field-label {
+        position: absolute;
+        top: 0;
+        left: var(--fld-px);
+        z-index: 1;
+        margin: 0;
+        padding: 0 8px;
+        background: var(--kf-clr-pr-1);
+        font-family: var(--kf-font-1);
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 18px;
+        color: #fff;
+    }
+
+    &-field-input {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 60px;
+        padding: 0 var(--fld-px);
+        border: 1px solid #222;
+        border-radius: 8px;
+        outline: 0;
+        background: var(--kf-clr-pr-1);
+        box-shadow: inset 0 -4px 4px rgb(0 0 0 / 25%);
+        font-family: var(--kf-font-1);
+        font-size: var(--fld-fs);
+        font-weight: 400;
+        line-height: 28px;
+        color: #fff;
+        color-scheme: dark;
+        transition: var(--kf-cube-1);
+
+        &::placeholder {
+            color: rgb(255 255 255 / 44%);
+            opacity: 1;
+        }
+
+        &:focus {
+            border-color: var(--kf-clr-sd-1);
+        }
+
+        // date and the drop downs show their value in the faded colour until they are used
+        &.is-faded {
+            color: rgb(255 255 255 / 44%);
+
+            &:focus {
+                color: #fff;
+            }
+        }
+
+        &:is(select) {
+            padding-right: calc(var(--fld-px) + 36px);
+            cursor: pointer;
+            appearance: none;
+
+            option {
+                color: #222;
+            }
+        }
+
+        // the whole date field opens the picker, the icon under it is only a picture
+        &::-webkit-calendar-picker-indicator {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+    }
+
+    &-field-icon {
+        position: absolute;
+        right: 16px;
+        bottom: 20px;
+        width: 20px;
+        height: 20px;
+        pointer-events: none;
+
+        svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    &-form-btn {
+        display: block;
+        width: 100%;
+        height: 60px;
+        margin-top: 24px;
+        border: 0;
+        border-radius: 8px;
+        background: #fff;
+        box-shadow: inset 0 -4px 4px rgb(163 40 52 / 48%);
+        font-family: var(--kf-font-2);
+        font-size: 17px;
+        font-weight: 700;
+        line-height: 24px;
+        color: var(--kf-clr-pr-1);
+        transition: var(--kf-cube-1);
+
+        &:hover {
+            background: var(--kf-clr-sd-1);
+            box-shadow: inset 0 -4px 4px rgb(0 0 0 / 20%);
+            color: #fff;
+        }
+    }
+}
+/*
+    kf-menu-1-end
+*/

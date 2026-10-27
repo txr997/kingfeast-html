@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baskervville:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Italianno&display=swap');
+
+:root {
+  scroll-behavior: inherit;
+
+  --kf-font-1:  "Inter", sans-serif;
+  --kf-font-2:  "Baskervville", serif;
+  --kf-font-3:  "Italianno", cursive;
+
+  --kf-clr-pr-1: #A32834;
+
+  --kf-clr-sd-1: #C1A372;
+
+  --kf-clr-bd-1: #666666;
+
+  --kf-clr-h-1: #222222;
+
+  --kf-clr-p-1: #5D5C5C;
+
+  --kf-cube-1: all .4s cubic-bezier(.18,.82,.41,1);
+
+}
+
+$over: "(min-width: 1800px)";
+$xxxl: "only screen and (min-width: 1600px) and (max-width: 1799px)";
+$xxl: "only screen and (min-width: 1400px) and (max-width: 1599px)";
+$xl: "only screen and (min-width: 1200px) and (max-width: 1399px)";
+$lg: "only screen and (min-width: 992px) and (max-width: 1199px)";
+$md: "only screen and (min-width: 768px) and (max-width: 991px)";
+$sm: "only screen and (min-width: 576px) and (max-width: 767px)";
+$xs: "(max-width: 767px)";

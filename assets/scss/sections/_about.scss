@@ -1,0 +1,376 @@
+@use '../abstracts/variables' as *;
+
+/*
+    kf-about-1-start
+*/
+.kf-about-1 {
+    &-area {
+        position: relative;
+        overflow: hidden;
+    }
+
+    // sausage drawing, it runs off the right edge (already 12% in the file)
+    &-bg-img {
+        position: absolute;
+        top: 151px;
+        right: -43px;
+        width: 257px;
+        height: 124px;
+        pointer-events: none;
+
+        @media #{$xxl,$xl,$lg,$md,$sm,$xs} {
+            display: none;
+        }
+    }
+
+    &-wrap {
+        position: relative;
+        display: grid;
+        grid-template-columns: 668px 520px;
+        column-gap: 161px;
+        align-items: start;
+
+        @media #{$xxl} {
+            grid-template-columns: 620px 500px;
+            column-gap: 120px;
+        }
+
+        @media #{$xl} {
+            grid-template-columns: 540px 440px;
+            column-gap: 100px;
+        }
+
+        @media #{$lg} {
+            grid-template-columns: 460px 380px;
+            column-gap: 80px;
+        }
+
+        @media #{$md,$sm,$xs} {
+            grid-template-columns: minmax(0, 1fr);
+            row-gap: 80px;
+        }
+
+        @media #{$sm} {
+            row-gap: 70px;
+        }
+
+        @media #{$xs} {
+            row-gap: 60px;
+        }
+    }
+
+    &-left,
+    &-right {
+        min-width: 0;
+    }
+
+    // 40px short of the column: the picture waiting behind the slider takes that room
+    &-sec-title {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 32px;
+        width: calc(100% - 40px);
+        text-align: center;
+
+        .kf-sec-title-1 {
+            color: #000;
+
+            span {
+                display: inline;
+            }
+
+            .clr-1 {
+                color: var(--kf-clr-pr-1);
+            }
+
+            .clr-2 {
+                color: rgb(34 34 34 / 40%);
+            }
+        }
+    }
+
+    // two pictures, both always on show: one on top and one under it, 40px down and to the right.
+    // main.js swaps them, the one on top slides back while the one under comes forward
+    &-slider {
+        position: relative;
+        margin-top: 32px;
+        aspect-ratio: 668 / 604;
+    }
+
+    &-slide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        width: calc(100% - 40px);
+        height: calc(100% - 40px);
+        transform: translate(40px, 40px);
+        // the pictures change layers half way, when they are passing each other
+        transition: transform 0.9s cubic-bezier(0.65, 0, 0.35, 1), z-index 0s 0.45s;
+
+        &.is-front {
+            z-index: 2;
+            transform: none;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            transition: none;
+        }
+    }
+
+    &-slider-img {
+        width: 100%;
+        height: 100%;
+        border-radius: 12px;
+    }
+
+    &-right {
+        @media #{$md,$sm,$xs} {
+            width: 100%;
+            max-width: 560px;
+            margin: 0 auto;
+        }
+    }
+
+    &-media {
+        position: relative;
+    }
+
+    &-main-img {
+        aspect-ratio: 520 / 524;
+        border-radius: 12px;
+    }
+
+    &-sm-img {
+        position: absolute;
+        right: -71px;
+        bottom: -50px;
+        z-index: 2;
+        width: 235px;
+        aspect-ratio: 1 / 1;
+        border-radius: 50%;
+
+        @media #{$xxl} {
+            right: -60px;
+            bottom: -42px;
+            width: 200px;
+        }
+
+        @media #{$xl} {
+            right: -50px;
+            bottom: -36px;
+            width: 180px;
+        }
+
+        @media #{$lg} {
+            right: -40px;
+            bottom: -30px;
+            width: 150px;
+        }
+
+        @media #{$md} {
+            right: -20px;
+            bottom: -40px;
+            width: 170px;
+        }
+
+        @media #{$sm} {
+            right: -10px;
+            bottom: -30px;
+            width: 140px;
+        }
+
+        @media #{$xs} {
+            right: -8px;
+            bottom: -24px;
+            width: 110px;
+        }
+    }
+
+    // drifts on scroll (main.js)
+    &-parallax-img {
+        position: absolute;
+        top: 135px;
+        left: -196px;
+        z-index: 3;
+        width: 224px;
+        aspect-ratio: 224 / 219;
+
+        @media #{$xxl} {
+            top: 110px;
+            left: -140px;
+            width: 190px;
+        }
+
+        @media #{$xl} {
+            top: 90px;
+            left: -100px;
+            width: 160px;
+        }
+
+        @media #{$lg} {
+            top: 80px;
+            left: -70px;
+            width: 130px;
+        }
+
+        @media #{$md} {
+            top: 90px;
+            left: -20px;
+            width: 150px;
+        }
+
+        @media #{$sm} {
+            top: 70px;
+            left: -10px;
+            width: 130px;
+        }
+
+        @media #{$xs} {
+            top: 50px;
+            left: -8px;
+            width: 100px;
+        }
+    }
+
+    &-content {
+        margin-top: 67px;
+
+        @media #{$md,$sm,$xs} {
+            margin-top: 80px;
+        }
+
+        @media #{$xs} {
+            margin-top: 70px;
+        }
+
+        .disc {
+            @media #{$xs} {
+                font-size: 16px;
+                line-height: 26px;
+            }
+        }
+    }
+
+    &-highlight {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        margin-top: 32px;
+
+        @media #{$xs} {
+            grid-template-columns: minmax(0, 1fr);
+        }
+    }
+
+    &-highlight-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-height: 60px;
+        padding: 7px;
+        border: 1px solid rgb(163 40 52 / 10%);
+        border-radius: 6px;
+        background: #FCF5F0;
+
+        .icon {
+            display: flex;
+            flex: none;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 4px;
+            background: rgb(163 40 52 / 12%);
+            color: var(--kf-clr-pr-1);
+
+            i {
+                font-size: 28px;
+                line-height: 1;
+            }
+        }
+
+        .title {
+            min-width: 0;
+            margin: 0;
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 28px;
+        }
+    }
+
+    // "Since 1972" runs to the left forever; sizes are in em so the row shrinks with the text (108px at 1920)
+    // the digits hang below the line and the capitals rise above it, so the padding keeps them out of the clip
+    // and the margins take the same room back (the row keeps its 77px at 1920)
+    &-marquee {
+        --gap: 80px;
+        margin: calc(var(--gap) - 0.1em) 0 -0.3em;
+        padding: 0.1em 0 0.3em;
+        overflow: hidden;
+        font-size: clamp(48px, 5.625vw, 108px);
+        color: var(--kf-clr-h-1);
+        opacity: 0.12;
+        user-select: none;
+
+        @media #{$md} {
+            --gap: 70px;
+        }
+
+        @media #{$sm} {
+            --gap: 60px;
+        }
+
+        @media #{$xs} {
+            --gap: 50px;
+        }
+    }
+
+    &-marquee-track {
+        display: flex;
+        width: max-content;
+        animation: kf-about-1-marquee 40s linear infinite;
+
+        @media (prefers-reduced-motion: reduce) {
+            animation: none;
+        }
+    }
+
+    &-marquee-group {
+        display: flex;
+        flex: none;
+    }
+
+    &-marquee-item {
+        display: flex;
+        align-items: center;
+        gap: 0.444em;
+        padding-right: 0.444em;
+
+        .star {
+            flex: none;
+            width: 0.37em;
+            height: 0.37em;
+            background: currentColor;
+            clip-path: polygon(50% 0, 59% 41%, 100% 50%, 59% 59%, 50% 100%, 41% 59%, 0 50%, 41% 41%);
+        }
+
+        .text {
+            font-weight: 500;
+            line-height: 0.713;
+            letter-spacing: -0.01em;
+            white-space: nowrap;
+            color: inherit;
+        }
+    }
+}
+
+// the track holds the same row twice, so half of it is one full turn
+@keyframes kf-about-1-marquee {
+    to {
+        transform: translateX(-50%);
+    }
+}
+/*
+    kf-about-1-end
+*/
