@@ -8,12 +8,12 @@
 (function ($) {
 "use strict";
 
-// 	lenis-smooth-scroll-activation
+
 const lenis = new Lenis({
-	duration: .5,
-    easing: (t) => 1 - Math.pow(1 - t, 3),
-	direction: 'vertical', 
-	wheelMultiplier: 0.85,
+	duration: 1,
+	easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+	direction: 'vertical',
+	wheelMultiplier: 0.75,
 	smoothWheel: true,
 	smoothTouch: false,
 });
@@ -29,9 +29,32 @@ $('a[href^="#"]').on('click', function (e) {
 
 	if (target.length) {
         lenis.scrollTo(target[0], {
-            duration: 1.15,
-            easing: (t) => 1 - Math.pow(1 - t, 3),
+            duration: 2,
+            easing: (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2,
         });
+	}
+});
+
+
+// keep the scroll position over a reload: saved when the page is left, put back once it has loaded
+// (the browser's own restore can land after the scroll triggers have measured the page at the top)
+const waScrollKey = "wa-scroll-" + location.pathname;
+window.addEventListener("pagehide", () => {
+	try {
+		sessionStorage.setItem(waScrollKey, String(Math.round(window.scrollY)));
+	} catch (e) {}
+});
+window.addEventListener("load", () => {
+	const waNav = performance.getEntriesByType("navigation")[0];
+	if (!waNav || (waNav.type !== "reload" && waNav.type !== "back_forward")) return;
+
+	let waY = 0;
+	try {
+		waY = parseInt(sessionStorage.getItem(waScrollKey), 10) || 0;
+	} catch (e) {}
+
+	if (waY > 0) {
+		lenis.scrollTo(waY, { immediate: true, force: true });
 	}
 });
 
@@ -588,6 +611,51 @@ gsap.utils.toArray(".wa_zoomOut_img").forEach(wa_zoomOut_img => {
 });
 
 	
+
+// wa_text_effect
+// the text turns in from the side while a soft mask edge wipes over it from left to right,
+// a mask instead of a coloured cover so it fits any background
+if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+	const waTextEffects = [];
+
+	gsap.utils.toArray(".wa_text_effect").forEach(function (waTextEffect) {
+
+		waTextEffect.classList.add("wa_text_effect_parked");
+		gsap.set(waTextEffect, { rotationX: 1, rotationY: -51, rotationZ: -1, skewX: 2, skewY: 8 });
+
+		const waTextEffectTl = gsap.timeline({
+			scrollTrigger: {
+				trigger: waTextEffect,
+				start: "top 88%",
+				once: true,
+			},
+			onComplete: function () {
+				waTextEffect.classList.remove("wa_text_effect_parked");
+				gsap.set(waTextEffect, { clearProps: "transform" });
+			},
+		})
+		.to(waTextEffect, { rotationX: 0, rotationY: 0, rotationZ: 0, skewX: 0, skewY: 0, duration: 2, ease: "power1.out" }, 0)
+		.fromTo(waTextEffect, { "--wa-text-reveal": 6.4 }, { "--wa-text-reveal": 113, duration: 1.8, ease: "power1.out" }, 0);
+
+		waTextEffects.push({ el: waTextEffect, tl: waTextEffectTl });
+	});
+
+	// a title that is already above its trigger line when the page loads or is measured again (a reload half-way
+	// down the page) must not stay parked: play it if its trigger did not
+	ScrollTrigger.addEventListener("refresh", function () {
+		waTextEffects.forEach(function (item) {
+			if (
+				item.el.classList.contains("wa_text_effect_parked") &&
+				item.tl.progress() === 0 &&
+				!item.tl.isActive() &&
+				item.el.getBoundingClientRect().top < window.innerHeight * 0.88
+			) {
+				item.tl.play();
+			}
+		});
+	});
+}
+
 
 // wa_parallax_elm
 if($(".wa_parallax_elm").length) {

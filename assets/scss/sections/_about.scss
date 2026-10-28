@@ -17,6 +17,7 @@
         width: 257px;
         height: 124px;
         pointer-events: none;
+        @include kf-float(kf-float-2, 6s);
 
         @media #{$xxl,$xl,$lg,$md,$sm,$xs} {
             display: none;

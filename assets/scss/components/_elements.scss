@@ -59,6 +59,38 @@
 }
 
 
-/* 
+/*
+    kf-float: the line drawings (shapes) of the sections keep floating and turning, the two paths differ so they never move in step
+*/
+@keyframes kf-float-1 {
+    0% {
+        transform: translate3d(0, 0, 0) rotate(0deg);
+    }
+
+    50% {
+        transform: translate3d(18px, -32px, 0) rotate(8deg);
+    }
+
+    100% {
+        transform: translate3d(-14px, -12px, 0) rotate(-6deg);
+    }
+}
+
+@keyframes kf-float-2 {
+    0% {
+        transform: translate3d(0, 0, 0) rotate(0deg);
+    }
+
+    50% {
+        transform: translate3d(-20px, 28px, 0) rotate(-8deg);
+    }
+
+    100% {
+        transform: translate3d(14px, 12px, 0) rotate(6deg);
+    }
+}
+
+
+/*
     elements-end
 */

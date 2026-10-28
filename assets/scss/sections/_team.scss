@@ -25,6 +25,7 @@
             left: -162px;
             width: 303px;
             aspect-ratio: 303 / 293;
+            @include kf-float(kf-float-1, 6s);
         }
 
         &.is-ice-cream {
@@ -32,6 +33,7 @@
             right: 27px;
             width: 260px;
             aspect-ratio: 260 / 295;
+            @include kf-float(kf-float-2, 7s, -3s);
         }
     }
 

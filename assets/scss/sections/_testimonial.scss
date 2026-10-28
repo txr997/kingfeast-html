@@ -26,6 +26,7 @@
             left: 116px;
             width: 177px;
             aspect-ratio: 177 / 373;
+            @include kf-float(kf-float-1, 7s);
 
             @media #{$xxxl} {
                 left: 30px;
@@ -37,6 +38,7 @@
             bottom: 60px;
             width: 246px;
             aspect-ratio: 246 / 236;
+            @include kf-float(kf-float-2, 5s, -2s);
         }
     }
 

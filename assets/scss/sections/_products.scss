@@ -17,6 +17,22 @@
     }
 }
 
+// the dish turns a little when the pointer comes on its card, rebounds once and is back as it was
+@keyframes kf-products-1-dish-turn {
+    0%,
+    100% {
+        transform: rotate(0deg) scale(1);
+    }
+
+    40% {
+        transform: rotate(14deg) scale(1.06);
+    }
+
+    75% {
+        transform: rotate(-3deg) scale(1.02);
+    }
+}
+
 .kf-products-1 {
     &-area {
         position: relative;
@@ -30,6 +46,7 @@
         width: 198px;
         height: 199px;
         pointer-events: none;
+        @include kf-float(kf-float-1, 5s);
 
         @media #{$lg,$md,$sm,$xs} {
             display: none;
@@ -84,6 +101,14 @@
 
         &:hover {
             @include kf-products-1-card-on;
+
+            .kf-products-1-card-dish {
+                animation: kf-products-1-dish-turn .9s ease-in-out;
+
+                @media (prefers-reduced-motion: reduce) {
+                    animation: none;
+                }
+            }
         }
 
             &-tag {

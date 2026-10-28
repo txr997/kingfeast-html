@@ -11,7 +11,7 @@
     z-index: 4;
     width: 35px;
     height: 40px;
-    background-color: var(--sb-clr-pr-1);
+    background-color: var(--kf-clr-pr-1);
     transition: 0.3s;
     display: flex;
     align-items: center;
@@ -41,7 +41,7 @@
             transform: translateY(-20px);
             mix-blend-mode: difference;
             * {
-                fill: var(--sb-clr-pr-1);
+                fill: var(--kf-clr-pr-1);
             }
         }
     }

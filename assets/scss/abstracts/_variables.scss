@@ -31,3 +31,12 @@ $lg: "only screen and (min-width: 992px) and (max-width: 1199px)";
 $md: "only screen and (min-width: 768px) and (max-width: 991px)";
 $sm: "only screen and (min-width: 576px) and (max-width: 767px)";
 $xs: "(max-width: 767px)";
+
+// slow endless float for the decorative line drawings (keyframes are in components/_elements.scss), still when motion is reduced
+@mixin kf-float($name, $duration, $delay: 0s) {
+  animation: $name $duration ease-in-out $delay infinite alternate;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
