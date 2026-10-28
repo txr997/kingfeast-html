@@ -466,6 +466,28 @@ function kfMenu1BgIn() {
 
 
 /*
+	menu-1 card dishes — every round dish in the cards turns 45deg into place while it fades in, once its card scrolls
+	into view; parked with a class, played by a second class (css, see _menu.scss)
+*/
+function kfMenu1CardImgIn() {
+	if (prefersReducedMotion()) return;
+
+	document.querySelectorAll(".kf-menu-1-card-img").forEach(function (el) {
+		el.classList.add("is-ani");
+
+		ScrollTrigger.create({
+			trigger: el,
+			start: "top 90%",
+			once: true,
+			onEnter: function () {
+				el.classList.add("is-in");
+			}
+		});
+	});
+}
+
+
+/*
 	opening-1 parallax — the photo is taller than its frame and runs against the scroll: while the frame passes
 	through the screen it slides down inside it, so the picture seems to sit deeper than the page
 */
@@ -715,6 +737,7 @@ kfAbout1Slider();
 kfAbout1Parallax();
 kfMenu1Rotate();
 kfMenu1BgIn();
+kfMenu1CardImgIn();
 kfOpening1Parallax();
 kfChoose1Slider();
 kfTestimonial1Slider();

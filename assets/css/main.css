@@ -1855,6 +1855,7 @@ input:focus::placeholder, textarea:focus::placeholder {
   overflow: hidden;
   background: var(--kf-clr-pr-1);
   color: #fff;
+  font-size: 24px;
 }
 .kf-pr-btn-1 .arrow {
   position: relative;
@@ -1909,7 +1910,7 @@ input:focus::placeholder, textarea:focus::placeholder {
   margin: 1px;
 }
 .kf-pr-btn-1.is-sm .arrow {
-  font-size: 14px;
+  font-size: 18px;
 }
 .kf-pr-btn-1.is-sm:hover .bg {
   width: 100%;
@@ -5635,6 +5636,15 @@ input:focus::placeholder, textarea:focus::placeholder {
   width: 73.2%;
   aspect-ratio: 1/1;
   border-radius: 50%;
+}
+.kf-menu-1-card-img.is-ani {
+  opacity: 0;
+  rotate: 45deg;
+}
+.kf-menu-1-card-img.is-ani.is-in {
+  opacity: 1;
+  rotate: 0deg;
+  transition: opacity 0.9s cubic-bezier(0.18, 0.82, 0.41, 1), rotate 1.1s cubic-bezier(0.18, 0.82, 0.41, 1);
 }
 .kf-menu-1-card-tag {
   position: absolute;
