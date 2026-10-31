@@ -359,6 +359,118 @@ function kfHero1Slider() {
 
 
 /*
+	hero-2 sliders — the thumbs on the right lead: they go round on their own, the one in the middle is the plate on show.
+	Each plate slide builds itself when it comes: the shape behind turns in, then the plate turns in, then the words
+	"Special Platter" come up (the order of the plates is the order of the thumbs)
+*/
+var kfHero2First = null;
+var kfHero2Swiper = null;
+
+function kfHero2Slider() {
+	if (!$(".kf-hero-2-preview-slider").length) return;
+
+	// a looping slider needs more slides than the three it shows, with only three it jumps instead of sliding
+	var $thumbs = $(".kf-hero-2-preview-slider .swiper-wrapper");
+	$thumbs.append($thumbs.children().clone().attr("aria-hidden", "true"));
+
+	var plates = $(".kf-hero-2-slider-img .swiper-slide").length;
+	var scenes = [];
+	var ready = false;
+	var first = 1;
+
+	if (!prefersReducedMotion()) {
+		$(".kf-hero-2-slider-img .swiper-slide").each(function () {
+			scenes.push({
+				shape: this.querySelector(".kf-hero-2-slider-img-shape"),
+				plate: this.querySelector(".kf-hero-2-slider-img-plate"),
+				special: this.querySelector(".kf-hero-2-slider-img-special .text"),
+				platter: this.querySelector(".kf-hero-2-slider-img-platter .text")
+			});
+		});
+	}
+
+	function parts(scene) {
+		return [scene.shape, scene.plate, scene.special, scene.platter];
+	}
+
+	// parked: nothing of the slide is on show yet
+	function park(scene) {
+		gsap.killTweensOf(parts(scene));
+		gsap.set(scene.shape, { opacity: 0, rotate: 120, scale: .7, transformOrigin: "48% 42%" });
+		gsap.set(scene.plate, { opacity: 0, rotate: 90, scale: .5 });
+		gsap.set([scene.special, scene.platter], { opacity: 0, y: 36, filter: "blur(8px)" });
+	}
+
+	function serve(scene) {
+		gsap.timeline({
+			defaults: { ease: "power3.out" },
+			onComplete: function () {
+				gsap.set(parts(scene), { clearProps: "transform,opacity,filter,transformOrigin" });
+			}
+		})
+			.to(scene.shape, { opacity: 1, rotate: 0, scale: 1, duration: 1.4 }, 0)
+			.to(scene.plate, { opacity: 1, rotate: 0, scale: 1, duration: 1.2 }, .5)
+			.to(scene.special, { opacity: 1, y: 0, filter: "blur(0px)", duration: 1, ease: "power4.out" }, 1.15)
+			.to(scene.platter, { opacity: 1, y: 0, filter: "blur(0px)", duration: 1, ease: "power4.out" }, 1.3);
+	}
+
+	var plateSlider = new Swiper(".kf-hero-2-slider-img", {
+		effect: "fade",
+		fadeEffect: { crossFade: true },
+		speed: 700,
+		initialSlide: first,
+		allowTouchMove: false,
+		on: {
+			slideChange: function (swiper) {
+				var scene = scenes[swiper.activeIndex];
+
+				if (!ready || !scene) return;
+
+				park(scene);
+				serve(scene);
+			}
+		}
+	});
+
+	kfHero2Swiper = new Swiper(".kf-hero-2-preview-slider", {
+		direction: "vertical",
+		slidesPerView: 3,
+		spaceBetween: 71.5,
+		centeredSlides: true,
+		initialSlide: first,
+		loop: true,
+		speed: 900,
+		grabCursor: true,
+		slideToClickedSlide: true,
+		// a plate needs about 2.5s to build up, the rest of the 5s it is on show whole
+		autoplay: {
+			delay: 5000,
+			disableOnInteraction: false,
+		},
+		on: {
+			slideChange: function (swiper) {
+				plateSlider.slideTo(swiper.realIndex % plates);
+			},
+		},
+	});
+
+	// waits behind the preloader like the hero-1 slider: the first slide is parked now, afterPreloader plays it and starts the thumbs
+	kfHero2Swiper.autoplay.stop();
+
+	if (scenes.length) {
+		park(scenes[first]);
+
+		kfHero2First = {
+			play: function () {
+				ready = true;
+				serve(scenes[first]);
+			}
+		};
+	}
+}
+
+
+/*
 	products-1 slider — cards of a fixed width run past the edges, the line under them shows how far the slider has gone
 */
 function kfProducts1Slider() {
@@ -488,6 +600,66 @@ function kfMenu1CardImgIn() {
 
 
 /*
+	menu-2 tabs — every group shows the picture of the dish picked in its list; the pointer on a dish, a tap
+	or the keyboard picks it
+*/
+function kfMenu2Tabs() {
+	$(".kf-menu-2-tabs").each(function () {
+		var $tabs = $(this).find(".kf-menu-2-tab");
+		var $imgs = $(this).find(".kf-menu-2-tabs-img");
+
+		$tabs.on("click mouseenter focus", function () {
+			if ($(this).hasClass("is-active")) return;
+
+			$tabs.removeClass("is-active").attr("aria-selected", "false");
+			$(this).addClass("is-active").attr("aria-selected", "true");
+			$imgs.removeClass("is-active").eq($tabs.index(this)).addClass("is-active");
+		});
+	});
+}
+
+
+/*
+	menu-2 title lines — each line is drawn when it comes into view: the left flower is drawn in outline and then filled,
+	the dashed line grows out of it and the right flower is drawn at its end. The flowers are <use> of one symbol in the
+	hidden svg (kf-menu-2-defs) whose paths have pathLength="1", so a dash of 1 is a whole outline; stroke and dash
+	properties are inherited from the svg of each flower into the symbol
+*/
+function kfMenu2Orn() {
+	if (!$(".kf-menu-2-tabs-orn").length || prefersReducedMotion()) return;
+
+	document.querySelectorAll(".kf-menu-2-tabs-orn").forEach(function (orn) {
+		var flowers = orn.querySelectorAll(".flower");
+		var line = orn.querySelector(".line");
+
+		// parked: nothing of the flowers is there until the outline is drawn (the gap is longer than the line, no dot at the ends)
+		gsap.set(flowers, { stroke: "currentColor", strokeWidth: 1, strokeDasharray: "1 2", strokeDashoffset: 1, strokeOpacity: 1, fillOpacity: 0 });
+		gsap.set(line, { scaleX: 0, transformOrigin: "left center" });
+
+		var tl = gsap.timeline({
+			scrollTrigger: {
+				trigger: orn,
+				start: "top 88%",
+				once: true
+			},
+			onComplete: function () {
+				gsap.set(flowers, { clearProps: "stroke,strokeWidth,strokeDasharray,strokeDashoffset,strokeOpacity,fillOpacity" });
+				gsap.set(line, { clearProps: "transform" });
+			}
+		});
+
+		flowers.forEach(function (flower, i) {
+			var at = i * 1.5;
+			tl.to(flower, { strokeDashoffset: 0, duration: 1.1, ease: "power2.inOut" }, at)
+				.to(flower, { fillOpacity: 1, strokeOpacity: 0, duration: .6, ease: "power1.out" }, at + .8);
+		});
+
+		tl.to(line, { scaleX: 1, duration: 1.2, ease: "power2.inOut" }, .5);
+	});
+}
+
+
+/*
 	opening-1 parallax — the photo is taller than its frame and runs against the scroll: while the frame passes
 	through the screen it slides down inside it, so the picture seems to sit deeper than the page
 */
@@ -504,6 +676,98 @@ function kfOpening1Parallax() {
 			end: "bottom top",
 			scrub: true
 		}
+	});
+}
+
+
+/*
+	offers-2 parallax — the noise is taller than the section and runs against the scroll: while the section passes
+	through the screen it slides down inside it, so it seems to lie deeper than the content
+*/
+function kfOffers2Parallax() {
+	var bg = document.querySelector(".kf-offers-2-bg");
+	if (!bg || prefersReducedMotion()) return;
+
+	gsap.fromTo(bg, { yPercent: -14 }, {
+		yPercent: 14,
+		ease: "none",
+		scrollTrigger: {
+			trigger: ".kf-offers-2-area",
+			start: "top bottom",
+			end: "bottom top",
+			scrub: true
+		}
+	});
+}
+
+
+/*
+	products-2 line drawing — the chef is drawn like with a pen when it comes into view: its strokes (one path each, inline
+	in the html) are drawn one after another, each for as long as it is, so the pen has the same speed everywhere
+*/
+function kfProducts2VectorDraw() {
+	var box = document.querySelector(".kf-products-2-bg-vector");
+	if (!box || prefersReducedMotion()) return;
+
+	var paths = box.querySelectorAll("path");
+	// it is hidden on small screens (display: none) and a hidden path cannot be measured, so it just stays whole there
+	if (!paths.length || !box.getClientRects().length) return;
+
+	var lengths = [];
+	var total = 0;
+	paths.forEach(function (path) {
+		var length = path.getTotalLength();
+		lengths.push(length);
+		total += length;
+	});
+
+	var duration = 4;
+	var at = 0;
+	var tl = gsap.timeline({
+		scrollTrigger: {
+			trigger: box,
+			start: "top 85%",
+			once: true
+		},
+		onComplete: function () {
+			gsap.set(paths, { clearProps: "strokeDasharray,strokeDashoffset" });
+		}
+	});
+
+	paths.forEach(function (path, i) {
+		var length = lengths[i];
+
+		// the gap is a little longer than the line, so a round cap does not leave a dot at the end before the line comes
+		gsap.set(path, { strokeDasharray: length + " " + (length + 4), strokeDashoffset: length + 2 });
+
+		var time = duration * length / total;
+		tl.to(path, { strokeDashoffset: 0, duration: time, ease: "none" }, at);
+		at += time;
+	});
+}
+
+
+/*
+	background drift (home-2) — the decorative pictures marked data-kf-drift="40" run against the scroll: while their
+	section passes through the screen they slide from -40px to +40px (the number is the distance), so they lie a little
+	deeper than the content. Only for pictures that have no transform of their own in the css
+*/
+function kfBgDrift() {
+	if (prefersReducedMotion()) return;
+
+	gsap.utils.toArray("[data-kf-drift]").forEach(function (el) {
+		var distance = parseFloat(el.getAttribute("data-kf-drift")) || 40;
+
+		gsap.fromTo(el, { y: -distance }, {
+			y: distance,
+			ease: "none",
+			scrollTrigger: {
+				trigger: el.closest("section") || el,
+				start: "top bottom",
+				end: "bottom top",
+				scrub: true
+			}
+		});
 	});
 }
 
@@ -559,6 +823,95 @@ function kfChoose1Slider() {
 
 
 /*
+	choose-2 — when it scrolls into view the two brush halves of the plate slide out of the middle line, then the dish
+	comes up between them; the circle draws itself from the top down and each reason pops up when the line reaches its
+	dot (parked with a class, played by a second class — css, see _choose.scss). Below 1200px there is no circle, so the
+	reasons come one after another as they scroll into view
+*/
+function kfChoose2In() {
+	var area = document.querySelector(".kf-choose-2-area");
+	if (!area || prefersReducedMotion()) return;
+
+	var plate = area.querySelector(".kf-choose-2-plate");
+	var plateParts = plate.querySelectorAll(".kf-choose-2-plate-bg-1, .kf-choose-2-plate-bg-2, .kf-choose-2-plate-img");
+	var rings = area.querySelector(".kf-choose-2-rings");
+	var items = area.querySelectorAll(".kf-choose-2-item");
+	var wide = window.matchMedia("(min-width: 1200px)");
+	var shown = false;
+
+	function park(el) {
+		el.classList.add("is-ani");
+	}
+
+	function play(el) {
+		el.classList.add("is-in");
+	}
+
+	plateParts.forEach(park);
+	park(rings);
+	items.forEach(park);
+
+	ScrollTrigger.create({
+		trigger: plate,
+		start: "top 80%",
+		once: true,
+		onEnter: function () {
+			shown = true;
+			plateParts.forEach(play);
+			play(rings);
+
+			// with the circle the reasons follow the line, their delays are in the css
+			if (wide.matches) items.forEach(play);
+		}
+	});
+
+	items.forEach(function (item) {
+		ScrollTrigger.create({
+			trigger: item,
+			start: "top 90%",
+			once: true,
+			onEnter: function () {
+				if (!wide.matches || shown) play(item);
+			}
+		});
+	});
+}
+
+
+/*
+	offers-2 counter — the numbers run down to the date in data-countdown (the ones in the html show until the script starts)
+*/
+function kfOffers2Countdown() {
+	var box = document.querySelector(".kf-offers-2-counter-box");
+	if (!box) return;
+
+	var end = new Date(box.getAttribute("data-countdown")).getTime();
+	if (isNaN(end)) return;
+
+	var days = box.querySelector('[data-unit="days"]');
+	var hours = box.querySelector('[data-unit="hours"]');
+	var mins = box.querySelector('[data-unit="mins"]');
+	var secs = box.querySelector('[data-unit="secs"]');
+
+	function pad(n) {
+		return ("0" + n).slice(-2);
+	}
+
+	function tick() {
+		var left = Math.max(0, end - Date.now());
+
+		days.textContent = Math.floor(left / 864e5);
+		hours.textContent = pad(Math.floor(left % 864e5 / 36e5));
+		mins.textContent = pad(Math.floor(left % 36e5 / 6e4));
+		secs.textContent = pad(Math.floor(left % 6e4 / 1e3));
+	}
+
+	tick();
+	setInterval(tick, 1000);
+}
+
+
+/*
 	testimonial-1 slider — the portrait and the words fade into the next ones, the dots show which one is on
 */
 function kfTestimonial1Slider() {
@@ -578,6 +931,52 @@ function kfTestimonial1Slider() {
 			el: ".kf-testimonial-1-pagination",
 			clickable: true
 		}
+	});
+}
+
+
+/*
+	testimonial-2 slider — pictures and cards are slides of different widths, so it shows as many as fit and the next one
+	is cut by the edge of the page; it loops and plays by itself (stops while the pointer is on it), the dots show where it
+	is and can be clicked
+*/
+function kfTestimonial2Slider() {
+	if (!$(".kf-testimonial-2-slider").length) return;
+
+	new Swiper(".kf-testimonial-2-slider", {
+		slidesPerView: "auto",
+		spaceBetween: 12,
+		grabCursor: true,
+		speed: 700,
+		loop: true,
+		// the last slide at the right edge is cut, two more copies keep the row full there
+		loopAdditionalSlides: 2,
+		autoplay: {
+			delay: 4000,
+			disableOnInteraction: false,
+			pauseOnMouseEnter: true
+		},
+		pagination: {
+			el: ".kf-testimonial-2-pagination",
+			clickable: true
+		}
+	});
+}
+
+
+/*
+	order-2 meal tabs — Starter / Lunch / Dinner: the one picked turns dark and its name goes to the hidden field of the form
+*/
+function kfOrder2Tabs() {
+	$(".kf-order-2-tabs").each(function () {
+		var $tabs = $(this).find(".kf-order-2-tab");
+		var $meal = $(this).closest(".kf-order-2-form").find("input[name='meal']");
+
+		$tabs.on("click", function () {
+			$tabs.removeClass("is-active").attr("aria-pressed", "false");
+			$(this).addClass("is-active").attr("aria-pressed", "true");
+			$meal.val($(this).data("meal"));
+		});
 	});
 }
 
@@ -621,11 +1020,11 @@ function kfTestimonial1BgText() {
 
 
 /*
-	footer-1 big title — the word is served: the letters come up from behind the line one after another like dishes
-	from the pass, each one clearing from a blur (steam) as it lands
+	footer-1 / footer-2 big title — the word is served: the letters come up from behind the line one after another like
+	dishes from the pass, each one clearing from a blur (steam) as it lands
 */
-function kfFooter1BigTitle() {
-	var title = document.querySelector(".kf-footer-1-name-text");
+function kfFooterBigTitle(titleSelector, triggerSelector) {
+	var title = document.querySelector(titleSelector);
 	if (!title || prefersReducedMotion()) return;
 
 	var letters = title.querySelectorAll("span");
@@ -642,7 +1041,7 @@ function kfFooter1BigTitle() {
 		ease: "power3.out",
 		stagger: .1,
 		scrollTrigger: {
-			trigger: ".kf-footer-1-big-title",
+			trigger: triggerSelector,
 			start: "top 92%",
 			once: true
 		},
@@ -701,6 +1100,13 @@ function afterPreloader() {
 
 	kfHero1Play();
 	if (kfHero1Swiper) kfHero1Swiper.autoplay.start();
+	if (kfHero2First) kfHero2First.play();
+	if (kfHero2Swiper) kfHero2Swiper.autoplay.start();
+
+	// the titles that waited behind the curtain (wa_text_effect with data-wa-text-wait, see main-common.js) come in now
+	(window.waTextEffectWaiting || []).forEach(function (tl) {
+		tl.play();
+	});
 }
 
 function afterPageLoad() {
@@ -732,17 +1138,28 @@ window.addEventListener("load", function () {
 });
 
 kfHero1Slider();
+kfHero2Slider();
 kfProducts1Slider();
 kfAbout1Slider();
 kfAbout1Parallax();
 kfMenu1Rotate();
 kfMenu1BgIn();
 kfMenu1CardImgIn();
+kfMenu2Tabs();
+kfMenu2Orn();
 kfOpening1Parallax();
 kfChoose1Slider();
+kfChoose2In();
+kfOffers2Countdown();
+kfOffers2Parallax();
+kfBgDrift();
+kfProducts2VectorDraw();
 kfTestimonial1Slider();
+kfTestimonial2Slider();
+kfOrder2Tabs();
 kfTestimonial1BgText();
-kfFooter1BigTitle();
+kfFooterBigTitle(".kf-footer-1-name-text", ".kf-footer-1-big-title");
+kfFooterBigTitle(".kf-footer-2-name-text", ".kf-footer-2-big-title");
 kfFooter1Images();
 
 })(jQuery);

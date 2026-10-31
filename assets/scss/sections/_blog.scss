@@ -457,3 +457,334 @@
 /*
     kf-blog-1-end
 */
+
+/*
+    kf-blog-2-start
+*/
+.kf-blog-2 {
+    // the design is 1920 wide: the title block starts 132px from the top, the cards are 60px under it (three, 451px wide each, 24px apart),
+    // the row of dots with the button 60px under the cards and 132px above the bottom. From md down the cards are one under the other
+    &-area {
+        position: relative;
+        padding: 132px 0;
+        overflow: hidden;
+        background: #fff;
+
+        @media #{$xxl} {
+            padding: 120px 0;
+        }
+
+        @media #{$xl} {
+            padding: 100px 0;
+        }
+
+        @media #{$lg} {
+            padding: 90px 0;
+        }
+
+        @media #{$md} {
+            padding: 80px 0;
+        }
+
+        // $xs is max-width 767px, so $sm comes after it and wins in 576–767
+        @media #{$xs} {
+            padding: 56px 0;
+        }
+
+        @media #{$sm} {
+            padding: 70px 0;
+        }
+    }
+
+    // inline svg shape shared by the cards
+    &-defs {
+        position: absolute;
+        width: 0;
+        height: 0;
+        overflow: hidden;
+    }
+
+    // the ramen bowl flies over the top-left corner of the first picture
+    &-bg-img-1 {
+        position: absolute;
+        top: 0;
+        left: 8px;
+        z-index: 2;
+        width: 373px;
+        aspect-ratio: 373 / 511;
+        pointer-events: none;
+
+        @media #{$xxxl} {
+            left: -40px;
+            width: 300px;
+        }
+
+        @media #{$xxl} {
+            left: -40px;
+            width: 240px;
+        }
+
+        @media #{$xl,$lg,$md,$sm,$xs} {
+            display: none;
+        }
+    }
+
+    // the plate line drawing (the file has its 16% opacity) runs off the right edge, behind the cards
+    &-bg-img-2 {
+        position: absolute;
+        top: -62px;
+        right: -124px;
+        z-index: 0;
+        width: 652px;
+        aspect-ratio: 652 / 559;
+        pointer-events: none;
+
+        @media #{$xxl} {
+            right: -200px;
+        }
+
+        @media #{$xl,$lg,$md,$sm,$xs} {
+            display: none;
+        }
+    }
+
+    // ---- title block: 800px keeps "Explore Our Latest Culinary / News & Stories." on two lines
+    &-sec-title {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    // dark words in the box with the red line round it
+    &-subtitle {
+        padding: 5px 8px;
+        border: 2px solid var(--kf-clr-pr-1);
+
+        .kf-subtitle-1-text {
+            color: var(--kf-clr-h-1);
+        }
+    }
+
+    // ---- cards
+    &-wrap {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 24px;
+        margin-top: 60px;
+
+        @media #{$lg} {
+            gap: 16px;
+            margin-top: 44px;
+        }
+
+        @media #{$md,$sm,$xs} {
+            grid-template-columns: minmax(0, 1fr);
+            gap: 40px;
+            max-width: 520px;
+            margin: 44px auto 0;
+        }
+
+        @media #{$xs} {
+            gap: 32px;
+            margin-top: 36px;
+        }
+    }
+
+    // the picture is 32px narrower than the card, the grey box under it starts 32px in and reaches the right edge
+    &-card {
+        --off: 32px;
+        min-width: 0;
+
+        @media #{$lg} {
+            --off: 20px;
+        }
+
+        @media #{$xs} {
+            --off: 24px;
+        }
+    }
+
+    &-card-img {
+        width: calc(100% - var(--off));
+        aspect-ratio: 419 / 528;
+        border-radius: 8px;
+    }
+
+    // the box lies 199px over the lower part of the picture
+    &-card-content {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: calc(100% - var(--off));
+        margin: -199px 0 0 var(--off);
+        padding: 28px;
+        border-radius: 8px;
+        background: #f2f2f2;
+        transition: translate .5s cubic-bezier(.18, .82, .41, 1);
+
+        @media #{$lg,$xs} {
+            padding: 20px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            transition: none;
+        }
+    }
+
+    // pointer (or keyboard) on the card: the box slides into the picture, onto its left and bottom edges. In % the translate is of the box
+    // itself, so up is its own height less the 199px it already lies over the picture
+    &-card:focus-within &-card-content {
+        translate: calc(var(--off) * -1) calc(-100% + 199px);
+    }
+
+    @media (hover: hover) {
+        &-card:hover &-card-content {
+            translate: calc(var(--off) * -1) calc(-100% + 199px);
+        }
+    }
+
+    &-card-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+
+    &-card-tag {
+        padding: 6px 10px;
+        border: 1px solid;
+        border-radius: 6px;
+        font-family: var(--kf-font-1);
+        font-size: 14px;
+        line-height: 12px;
+        white-space: nowrap;
+        transition: var(--kf-cube-1);
+
+        &.is-cat {
+            color: var(--kf-clr-pr-1);
+
+            &:hover {
+                background: var(--kf-clr-pr-1);
+                border-color: var(--kf-clr-pr-1);
+                color: #fff;
+            }
+        }
+
+        &.is-date {
+            color: var(--kf-clr-p-1);
+        }
+    }
+
+    // 20px of room under the title (16px gap + 4px)
+    &-card-title {
+        margin: 0 0 4px;
+        font-size: 24px;
+        font-weight: 500;
+        line-height: 32px;
+        text-transform: capitalize;
+
+        a {
+            color: inherit;
+            transition: color .3s ease;
+
+            &:hover {
+                color: var(--kf-clr-pr-1);
+            }
+        }
+
+        // the global span rule makes spans inline-block, here the dots must flow with the words
+        .dots {
+            display: inline;
+            color: var(--kf-clr-pr-1);
+        }
+
+        @media #{$xxl,$sm,$xs} {
+            font-size: 22px;
+            line-height: 30px;
+        }
+
+        @media #{$xl,$lg} {
+            font-size: 20px;
+            line-height: 28px;
+        }
+    }
+
+    // "Read More" on the left, the round arrow on the right
+    &-card-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+
+        .text {
+            font-family: var(--kf-font-1);
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 24px;
+            color: var(--kf-clr-p-1);
+        }
+
+        .arrow {
+            display: flex;
+            flex: none;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border: 1px solid var(--kf-clr-pr-1);
+            border-radius: 50%;
+            color: var(--kf-clr-p-1);
+            transition: var(--kf-cube-1);
+
+            svg {
+                display: block;
+                width: 24px;
+                height: 24px;
+            }
+        }
+
+        &:hover .arrow {
+            background: var(--kf-clr-pr-1);
+            color: #fff;
+        }
+    }
+
+    // ---- the button sits in the middle of a 76px row of faint dots that runs over the whole width
+    &-btn-wrap {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 76px;
+        margin-top: 60px;
+
+        @media #{$lg,$md,$sm,$xs} {
+            margin-top: 44px;
+        }
+
+        @media #{$xs} {
+            margin-top: 36px;
+        }
+    }
+
+    // the dots picture comes from data-background (the file has its 6% opacity)
+    &-dots {
+        position: absolute;
+        inset: 0;
+        background-position: center;
+        background-repeat: repeat-x;
+        background-size: auto 100%;
+    }
+}
+/*
+    kf-blog-2-end
+*/

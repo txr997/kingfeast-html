@@ -362,6 +362,212 @@
     kf-header-1-end
 */
 
+/*
+    kf-header-2-start
+*/
+.kf-header-2 {
+    // glass bar laid over the hero, 72px + the 1px bottom line
+    &-area {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 73px;
+        z-index: 3;
+        border-bottom: 1px solid var(--kf-clr-bd-1);
+        background: rgb(0 0 0 / 20%);
+        backdrop-filter: blur(44px);
+    }
+
+    &-container {
+        height: 100%;
+        padding: 0 32px;
+        max-width: 1920px;
+        margin-left: auto;
+        margin-right: auto;
+
+        @media #{$xl,$lg,$md} {
+            padding: 0 24px;
+        }
+
+        @media #{$sm,$xs} {
+            padding: 0 15px;
+        }
+    }
+
+    &-flex {
+        display: flex;
+        align-items: center;
+        height: 100%;
+
+        // menu + action buttons are the header-1 ones, only the spacing and the flat links are different
+        .kf-header-1-menu {
+            margin-left: 132px;
+            padding-left: 0;
+
+            @media #{$xxxl} {
+                margin-left: 96px;
+            }
+
+            @media #{$xxl} {
+                margin-left: 64px;
+            }
+
+            @media #{$xl} {
+                margin-left: 48px;
+            }
+        }
+
+        .kf-header-1-action-link {
+            gap: 48px;
+
+            @media #{$xxxl} {
+                gap: 32px;
+            }
+
+            @media #{$xxl,$xl,$lg,$md,$sm,$xs} {
+                gap: 24px;
+            }
+        }
+
+        // no oval behind the links, the links fill the bar so the dropdown opens right under it
+        .kf-main-navigation .navbar-nav {
+            > li > a {
+                padding: 24px 0;
+
+                &::before {
+                    display: none;
+                }
+            }
+
+            > li:hover > a {
+                color: var(--kf-clr-sd-1);
+            }
+
+            .menu-arrow {
+                color: #E59D06;
+            }
+
+            // a floating wine-dark card centred under its link, the links come up one after another
+            .dropdown-menu {
+                top: calc(100% + 8px);
+                left: 50%;
+                min-width: 232px;
+                padding: 10px;
+                border: 1px solid rgb(255 255 255 / 14%);
+                border-radius: 16px;
+                background: linear-gradient(180deg, #2B050C 0%, #1B0307 100%);
+                box-shadow: 0 24px 48px rgb(0 0 0 / 40%), inset 0 1px 0 rgb(255 255 255 / 8%);
+                transform: translate(-50%, 14px);
+
+                // keeps the hover alive over the 8px gap between the bar and the card
+                &::before {
+                    content: "";
+                    position: absolute;
+                    top: -9px;
+                    right: 0;
+                    left: 0;
+                    height: 9px;
+                }
+
+                li {
+                    opacity: 0;
+                    transform: translateY(8px);
+                    transition: var(--kf-cube-1);
+                }
+
+                li a {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    padding: 11px 16px;
+                    border-radius: 10px;
+                    color: rgb(255 255 255 / 80%);
+
+                    // gold dot that opens in front of the text
+                    &::before {
+                        content: "";
+                        flex-shrink: 0;
+                        width: 0;
+                        height: 6px;
+                        margin-right: -10px;
+                        border-radius: 50%;
+                        background: var(--kf-clr-sd-1);
+                        opacity: 0;
+                        transition: var(--kf-cube-1);
+                    }
+
+                    &:hover {
+                        padding-left: 16px;
+                        background: rgb(255 255 255 / 8%);
+                        color: #fff;
+
+                        &::before {
+                            width: 6px;
+                            margin-right: 0;
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+
+            > li:hover > .dropdown-menu,
+            > li:focus-within > .dropdown-menu {
+                transform: translate(-50%, 0);
+
+                li {
+                    opacity: 1;
+                    transform: none;
+
+                    &:nth-child(1) {
+                        transition-delay: .05s;
+                    }
+
+                    &:nth-child(2) {
+                        transition-delay: .09s;
+                    }
+
+                    &:nth-child(3) {
+                        transition-delay: .13s;
+                    }
+
+                    &:nth-child(4) {
+                        transition-delay: .17s;
+                    }
+
+                    &:nth-child(5) {
+                        transition-delay: .21s;
+                    }
+
+                    &:nth-child(6) {
+                        transition-delay: .25s;
+                    }
+                }
+            }
+        }
+    }
+
+    &-logo {
+        flex-shrink: 0;
+        width: 184px;
+        height: 44px;
+
+        a {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        @media #{$xs} {
+            width: 150px;
+            height: 36px;
+        }
+    }
+}
+/*
+    kf-header-2-end
+*/
+
 /* 
     sticky-header-css-start
 */

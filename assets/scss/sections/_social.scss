@@ -1,0 +1,142 @@
+@use '../abstracts/variables' as *;
+
+/*
+    kf-social-2-start
+*/
+.kf-social-2 {
+    // a 264px high strip: eight pictures (253px wide, 10px apart) run to the left, the button lies on the middle of it.
+    // The pictures keep their shape, so only the height of the strip changes
+    &-area {
+        position: relative;
+        height: 264px;
+        overflow: hidden;
+        background: #fff;
+
+        @media #{$xl} {
+            height: 240px;
+        }
+
+        @media #{$lg} {
+            height: 220px;
+        }
+
+        @media #{$md} {
+            height: 200px;
+        }
+
+        // $xs is max-width 767px, so $sm comes after it and wins in 576–767
+        @media #{$xs} {
+            height: 160px;
+        }
+
+        @media #{$sm} {
+            height: 180px;
+        }
+    }
+
+    // the track holds the same row twice, so half of it is one full turn; it starts 87px to the left of the page, as in the design
+    &-track {
+        display: flex;
+        width: max-content;
+        height: 100%;
+        margin-left: -87px;
+        animation: kf-social-2 40s linear infinite;
+
+        @media (prefers-reduced-motion: reduce) {
+            animation: none;
+        }
+    }
+
+    &-group {
+        display: flex;
+        flex: none;
+        height: 100%;
+    }
+
+    &-item {
+        flex: none;
+        height: 100%;
+        margin-right: 10px;
+        aspect-ratio: 253 / 264;
+        border-radius: 16px;
+    }
+
+    // raised white button: light on top, a dark edge at the bottom and a pale ring round it; red when the pointer is on it
+    &-btn {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 72px;
+        padding: 0 28px;
+        border-radius: 16px;
+        isolation: isolate;
+        background: linear-gradient(270deg, #fff 0%, #f2f2f2 100%);
+        box-shadow: inset 0 3px 3px rgb(181 181 181), inset 0 -4px 4px rgb(0 0 0 / 64%), 0 0 0 2px rgb(255 255 255 / 32%);
+        font-family: var(--kf-font-2);
+        font-size: 32px;
+        font-weight: 500;
+        line-height: 1;
+        letter-spacing: 1px;
+        white-space: nowrap;
+        color: #B82132;
+        transform: translate(-50%, -50%);
+        transition: color .4s ease;
+
+        &::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            border-radius: inherit;
+            background: var(--kf-clr-pr-1);
+            opacity: 0;
+            transition: opacity .4s ease;
+        }
+
+        &:hover,
+        &:focus-visible {
+            color: #fff;
+
+            &::before {
+                opacity: 1;
+            }
+        }
+
+        @media #{$xl,$lg} {
+            height: 64px;
+            padding: 0 24px;
+            font-size: 28px;
+        }
+
+        @media #{$md} {
+            height: 60px;
+            padding: 0 22px;
+            font-size: 26px;
+        }
+
+        @media #{$xs} {
+            height: 52px;
+            padding: 0 18px;
+            font-size: 20px;
+        }
+
+        @media #{$sm} {
+            height: 56px;
+            padding: 0 20px;
+            font-size: 24px;
+        }
+    }
+}
+
+@keyframes kf-social-2 {
+    to {
+        transform: translateX(-50%);
+    }
+}
+/*
+    kf-social-2-end
+*/

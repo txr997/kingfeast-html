@@ -1,0 +1,521 @@
+@use '../abstracts/variables' as *;
+
+/*
+    kf-order-2-start
+*/
+.kf-order-2 {
+    // the design is 1920 x 820: a beige box (180px from the sides, 132px from the top, 560px high) with a thin line drawn inside it, the words on
+    // its left and the white arch with the form on its right. The arch starts 100px down in the box and hangs 127px out of the bottom of it
+    // (the padding under the box takes that room). From lg down everything is stacked: words, then the arch, which still hangs out
+    &-area {
+        padding: 132px 0 128px;
+        overflow: hidden;
+        background: #fff;
+
+        @media #{$xxl} {
+            padding-top: 120px;
+        }
+
+        @media #{$xl} {
+            padding-top: 100px;
+        }
+
+        @media #{$lg} {
+            padding-top: 90px;
+        }
+
+        @media #{$md} {
+            padding-top: 80px;
+        }
+
+        // $xs is max-width 767px, so $sm comes after it and wins in 576–767
+        @media #{$xs} {
+            padding-top: 56px;
+        }
+
+        @media #{$sm} {
+            padding-top: 70px;
+        }
+    }
+
+    // inline svg shape shared by the selects
+    &-defs {
+        position: absolute;
+        width: 0;
+        height: 0;
+        overflow: hidden;
+    }
+
+    &-box {
+        position: relative;
+        height: 560px;
+        margin: 0 180px;
+        border-radius: 16px;
+        background: #efe6dd;
+
+        // the thin line drawn 32px inside the box
+        &::before {
+            content: "";
+            position: absolute;
+            inset: 32px;
+            border: 3px solid rgb(34 34 34 / 24%);
+            border-radius: 12px;
+            pointer-events: none;
+
+            @media #{$xs} {
+                display: none;
+            }
+        }
+
+        @media #{$xxxl} {
+            margin: 0 100px;
+        }
+
+        @media #{$xxl} {
+            margin: 0 60px;
+        }
+
+        @media #{$xl} {
+            margin: 0 20px;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            height: auto;
+            margin: 0 24px;
+            padding: 70px 56px 0;
+        }
+
+        @media #{$md} {
+            padding: 64px 40px 0;
+        }
+
+        @media #{$xs} {
+            margin: 0 12px;
+            padding: 48px 20px 0;
+            border-radius: 12px;
+        }
+
+        @media #{$sm} {
+            margin: 0 16px;
+            padding: 56px 32px 0;
+        }
+    }
+
+    // the faint waiter sits behind the words and half behind the arch (the file has its 16% opacity)
+    &-bg-img-2 {
+        position: absolute;
+        top: 111px;
+        right: 663px;
+        z-index: 0;
+        width: 306px;
+        aspect-ratio: 306 / 302;
+        pointer-events: none;
+
+        @media #{$xxl} {
+            right: 611px;
+        }
+
+        @media #{$xl} {
+            right: 591px;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            display: none;
+        }
+    }
+
+    // ---- words: 110px in from the box and 108px down; 540px keeps "Reserve Your Seat, Taste / Something Exceptional." on two lines
+    &-sec-title {
+        position: absolute;
+        top: 108px;
+        left: 110px;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 32px;
+        width: 540px;
+
+        @media #{$xxl} {
+            top: 90px;
+            left: 70px;
+            gap: 28px;
+            width: 440px;
+        }
+
+        @media #{$xl} {
+            top: 80px;
+            left: 64px;
+            gap: 24px;
+            width: 380px;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            position: relative;
+            top: auto;
+            left: auto;
+            gap: 24px;
+            width: 100%;
+            max-width: 560px;
+        }
+
+        @media #{$xs} {
+            gap: 20px;
+        }
+    }
+
+    // dark words in the box with the red line round it
+    &-subtitle {
+        padding: 5px 8px;
+        border: 2px solid var(--kf-clr-pr-1);
+
+        .kf-subtitle-1-text {
+            color: var(--kf-clr-h-1);
+        }
+    }
+
+    &-title {
+        margin: 0;
+        font-size: 48px;
+        line-height: 52px;
+        letter-spacing: -0.01em;
+
+        @media #{$xxl,$xl} {
+            font-size: 40px;
+            line-height: 44px;
+        }
+
+        @media #{$lg} {
+            font-size: 44px;
+            line-height: 48px;
+        }
+
+        @media #{$md} {
+            font-size: 40px;
+            line-height: 44px;
+        }
+
+        @media #{$xs} {
+            font-size: 30px;
+            line-height: 34px;
+        }
+
+        @media #{$sm} {
+            font-size: 36px;
+            line-height: 40px;
+        }
+    }
+
+    &-disc {
+        @media #{$xl,$xs} {
+            font-size: 16px;
+            line-height: 26px;
+        }
+    }
+
+    // ---- arch: 616px wide, round on top (500px turns into a half circle), the form is 536px wide inside it
+    &-form {
+        position: absolute;
+        top: 100px;
+        right: 112px;
+        z-index: 2;
+        width: 616px;
+        padding: 84px 38px 38px;
+        border: 2px solid rgb(0 0 0 / 12%);
+        border-radius: 500px 500px 0 0;
+        background: #fff;
+
+        @media #{$xxl} {
+            right: 60px;
+        }
+
+        @media #{$xl} {
+            right: 40px;
+        }
+
+        // stacked: under the words, hanging 127px out of the bottom of the box
+        @media #{$lg,$md,$sm,$xs} {
+            position: relative;
+            top: auto;
+            right: auto;
+            max-width: 100%;
+            margin: 48px auto -127px;
+        }
+
+        @media #{$xs} {
+            margin-top: 40px;
+            padding: 70px 20px 32px;
+        }
+
+        @media #{$sm} {
+            padding: 76px 32px 36px;
+        }
+    }
+
+    // the pizza flies over the right corner of the arch, 33px above its top
+    &-bg-img-1 {
+        position: absolute;
+        top: -33px;
+        right: -112px;
+        z-index: 1;
+        width: 224px;
+        aspect-ratio: 224 / 219;
+        pointer-events: none;
+
+        @media #{$xxl} {
+            right: -90px;
+            width: 200px;
+        }
+
+        @media #{$xl} {
+            right: -60px;
+            width: 180px;
+        }
+
+        @media #{$lg} {
+            right: -60px;
+            width: 180px;
+        }
+
+        @media #{$md,$sm,$xs} {
+            top: -26px;
+            right: -30px;
+            width: 150px;
+        }
+
+        @media #{$xs} {
+            top: -20px;
+            right: -10px;
+            width: 100px;
+        }
+    }
+
+    &-form-title {
+        margin: 0 0 40px;
+        font-size: 38px;
+        line-height: 28px;
+        text-align: center;
+
+        @media #{$xs} {
+            margin-bottom: 28px;
+            font-size: 28px;
+            line-height: 32px;
+        }
+    }
+
+    // ---- meal tabs: the row, and under it a two part line (194px and 121px, 4px apart)
+    &-tabs-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 40px;
+
+        @media #{$xs} {
+            margin-bottom: 28px;
+        }
+    }
+
+    &-tabs {
+        display: flex;
+        gap: 28px;
+
+        @media #{$xs} {
+            gap: 18px;
+        }
+    }
+
+    &-tab {
+        padding: 0;
+        border: 0;
+        background: none;
+        font-family: var(--kf-font-2);
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 18px;
+        text-transform: uppercase;
+        color: var(--kf-clr-h-1);
+        opacity: 0.52;
+        transition: opacity .3s ease;
+
+        &:hover,
+        &.is-active {
+            opacity: 1;
+        }
+
+        @media #{$xs} {
+            font-size: 16px;
+        }
+    }
+
+    &-tabs-line {
+        position: relative;
+        width: 194px;
+        height: 6px;
+
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            height: 1px;
+            background: var(--kf-clr-h-1);
+        }
+
+        &::before {
+            top: 0;
+            left: 0;
+            width: 194px;
+        }
+
+        &::after {
+            top: 5px;
+            left: 37px;
+            width: 121px;
+        }
+    }
+
+    // ---- fields: two columns, 12px apart; the name of each one sits on its top line
+    &-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+
+        @media #{$xs} {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        @media #{$sm} {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    &-field {
+        position: relative;
+        padding-top: 9px;
+
+        label {
+            position: absolute;
+            top: 0;
+            left: 14px;
+            z-index: 1;
+            padding: 0 8px;
+            background: #fff;
+            font-family: var(--kf-font-1);
+            font-size: 16px;
+            line-height: 18px;
+            color: var(--kf-clr-h-1);
+        }
+
+        // the arrow / calendar, 14px from the right edge, in the middle of the field
+        .icon {
+            position: absolute;
+            top: 29px;
+            right: 14px;
+            width: 20px;
+            height: 20px;
+            color: var(--kf-clr-h-1);
+            pointer-events: none;
+
+            svg {
+                display: block;
+            }
+        }
+    }
+
+    &-input {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 60px;
+        padding: 0 16px;
+        border: 1px solid var(--kf-clr-h-1);
+        border-radius: 8px;
+        outline: 0;
+        background: #fff;
+        box-shadow: inset 0 -4px 4px rgb(0 0 0 / 25%);
+        font-family: var(--kf-font-1);
+        font-size: 18px;
+        line-height: 28px;
+        color: var(--kf-clr-h-1);
+        transition: border-color .3s ease;
+
+        // the words in it are the first letters in capitals, as in the design
+        &::placeholder {
+            text-transform: capitalize;
+            color: rgb(34 34 34 / 44%);
+            opacity: 1;
+        }
+
+        &:focus-visible {
+            border-color: var(--kf-clr-pr-1);
+        }
+
+        // the whole field opens the date picker, the calendar is the icon beside it
+        &[type="date"] {
+            padding-right: 48px;
+
+            &:invalid {
+                color: rgb(34 34 34 / 44%);
+            }
+
+            &::-webkit-calendar-picker-indicator {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                cursor: pointer;
+            }
+        }
+
+        // the arrow is the icon beside it
+        &:is(select) {
+            padding-right: 48px;
+            appearance: none;
+            color: rgb(34 34 34 / 44%);
+            cursor: pointer;
+
+            &:focus {
+                color: var(--kf-clr-h-1);
+            }
+        }
+
+        @media #{$xs} {
+            font-size: 16px;
+        }
+
+        @media #{$sm} {
+            font-size: 18px;
+        }
+    }
+
+    &-submit {
+        display: block;
+        width: 100%;
+        height: 60px;
+        margin-top: 24px;
+        border: 0;
+        border-radius: 8px;
+        background: var(--kf-clr-h-1);
+        box-shadow: inset 0 -4px 4px rgb(163 40 52 / 48%);
+        font-family: var(--kf-font-2);
+        font-size: 17px;
+        font-weight: 700;
+        line-height: 24px;
+        color: #fff;
+        transition: var(--kf-cube-1);
+
+        &:hover,
+        &:focus-visible {
+            background: var(--kf-clr-pr-1);
+            box-shadow: inset 0 -4px 4px rgb(0 0 0 / 25%);
+        }
+    }
+}
+/*
+    kf-order-2-end
+*/

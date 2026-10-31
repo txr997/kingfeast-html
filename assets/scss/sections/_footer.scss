@@ -779,3 +779,528 @@
 /*
     kf-footer-1-end
 */
+
+/*
+    kf-footer-2-start
+*/
+.kf-footer-2 {
+    // the dark wall is one picture over the whole footer; the word is cut by the bottom edge, so there is no bottom padding
+    &-area {
+        position: relative;
+        padding-top: 132px;
+        overflow: hidden;
+        background: #000;
+
+        @media #{$xxl} {
+            padding-top: 110px;
+        }
+
+        @media #{$xl} {
+            padding-top: 96px;
+        }
+
+        @media #{$lg} {
+            padding-top: 80px;
+        }
+
+        @media #{$md} {
+            padding-top: 64px;
+        }
+
+        // $xs is max-width 767px, so $sm comes after it and wins in 576–767
+        @media #{$xs} {
+            padding-top: 48px;
+        }
+
+        @media #{$sm} {
+            padding-top: 56px;
+        }
+    }
+
+    &-bg-img {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+    }
+
+    // ---- newsletter on the left (464), the three link columns on the right (815), 121px between them;
+    // the bottom space puts the first line of the bar at 502px from the top of the footer
+    &-main {
+        position: relative;
+        padding-bottom: 93px;
+
+        @media #{$xxl} {
+            padding-bottom: 80px;
+        }
+
+        @media #{$xl} {
+            padding-bottom: 72px;
+        }
+
+        @media #{$lg} {
+            padding-bottom: 64px;
+        }
+
+        @media #{$md} {
+            padding-bottom: 56px;
+        }
+
+        @media #{$xs} {
+            padding-bottom: 44px;
+        }
+
+        @media #{$sm} {
+            padding-bottom: 48px;
+        }
+    }
+
+    &-row {
+        display: grid;
+        grid-template-columns: minmax(0, 464px) minmax(0, 1fr);
+        column-gap: 121px;
+
+        @media #{$xxl} {
+            grid-template-columns: minmax(0, 400px) minmax(0, 1fr);
+            column-gap: 60px;
+        }
+
+        @media #{$xl} {
+            grid-template-columns: minmax(0, 316px) minmax(0, 1fr);
+            column-gap: 52px;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            grid-template-columns: minmax(0, 1fr);
+            row-gap: 56px;
+        }
+
+        @media #{$xs} {
+            row-gap: 44px;
+        }
+    }
+
+    // ---- newsletter
+    &-newsletter {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        max-width: 464px;
+    }
+
+    &-newsletter-text {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+
+        .title {
+            font-size: 40px;
+            font-weight: 500;
+            line-height: 44px;
+            letter-spacing: -0.01em;
+            color: #fff;
+
+            @media #{$xl,$lg,$md} {
+                font-size: 36px;
+                line-height: 40px;
+            }
+
+            // $xs is max-width 767px, so $sm comes after it and wins in 576–767
+            @media #{$xs} {
+                font-size: 32px;
+                line-height: 36px;
+            }
+
+            @media #{$sm} {
+                font-size: 36px;
+                line-height: 40px;
+            }
+        }
+
+        .disc {
+            font-size: 18px;
+            line-height: 28px;
+            color: rgb(255 255 255 / 72%);
+
+            @media #{$xl,$lg,$md,$sm,$xs} {
+                font-size: 16px;
+                line-height: 26px;
+            }
+        }
+    }
+
+    // 56px bar: the field on the left, the 48px button 3px in from the edge on the right
+    &-form {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        height: 56px;
+        padding: 3px 3px 3px 20px;
+        border: 1px solid rgb(255 255 255 / 24%);
+        border-radius: 10px;
+        transition: var(--kf-cube-1);
+
+        &:focus-within {
+            border-color: rgb(255 255 255 / 56%);
+        }
+
+        input {
+            flex: 1;
+            min-width: 0;
+            height: 100%;
+            padding: 0;
+            border: 0;
+            outline: 0;
+            background: transparent;
+            font-family: var(--kf-font-1);
+            font-size: 16px;
+            line-height: 24px;
+            color: #fff;
+
+            &::placeholder {
+                color: rgb(255 255 255 / 52%);
+                opacity: 1;
+            }
+        }
+
+        button {
+            flex: none;
+            height: 48px;
+            padding: 0 28px;
+            border: 0;
+            border-radius: 6px;
+            background: var(--kf-clr-pr-1);
+            box-shadow: inset 0 1px 10px 2px rgb(210 234 255 / 25%);
+            font-family: var(--kf-font-1);
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 24px;
+            color: #fff;
+            transition: var(--kf-cube-1);
+
+            &:hover {
+                background: #fff;
+                color: var(--kf-clr-pr-1);
+            }
+
+            @media #{$xl,$xs} {
+                padding: 0 22px;
+            }
+
+            @media #{$sm} {
+                padding: 0 28px;
+            }
+        }
+    }
+
+    // ---- three columns; they sit 76px apart at 1920 and wrap one under the other when the row gets narrow
+    &-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 48px 40px;
+
+        @media #{$xs} {
+            gap: 40px;
+        }
+    }
+
+    &-col {
+        display: flex;
+        flex: none;
+        flex-direction: column;
+        gap: 20px;
+        min-width: 0;
+
+        // opening time: 85px for the day, 10px, then the hours (264 in all)
+        &.is-time {
+            width: 264px;
+
+            @media #{$xs} {
+                width: 100%;
+                max-width: 264px;
+            }
+        }
+
+        // the list of the contact is 12px lower than the others, the address comes with two lines
+        &.is-contact {
+            flex: 0 1 275px;
+            gap: 32px;
+
+            @media #{$xs} {
+                flex-basis: auto;
+            }
+        }
+
+        .title {
+            font-size: 16px;
+            line-height: 24px;
+            text-transform: uppercase;
+            color: #E59D06;
+        }
+    }
+
+    // rows of 28px with 13px between them, so the centres are 41px apart as in the design
+    &-list {
+        display: flex;
+        flex-direction: column;
+        gap: 13px;
+
+        @media #{$xs} {
+            gap: 12px;
+        }
+
+        li {
+            display: flex;
+            align-items: center;
+            font-family: var(--kf-font-1);
+            font-size: 18px;
+            line-height: 28px;
+            color: rgb(255 255 255 / 80%);
+
+            @media #{$xs} {
+                font-size: 16px;
+                line-height: 26px;
+            }
+
+            a {
+                transition: var(--kf-cube-1);
+
+                &:hover {
+                    color: #E59D06;
+                }
+            }
+        }
+
+        .day {
+            flex: 0 0 85px;
+            margin-right: 10px;
+            color: rgb(255 255 255 / 72%);
+
+            @media #{$xs} {
+                flex-basis: 76px;
+            }
+        }
+
+        .hours {
+            color: #fff;
+        }
+
+        .ampm {
+            color: rgb(255 255 255 / 72%);
+        }
+
+        // contact: 16px red icons, 16px to the text
+        i {
+            flex: none;
+            width: 16px;
+            margin-right: 16px;
+            font-size: 16px;
+            line-height: 16px;
+            text-align: center;
+            color: var(--kf-clr-pr-1);
+        }
+
+        .kf-p-1 {
+            font-size: inherit;
+            line-height: inherit;
+            color: inherit;
+        }
+
+        // the address is two lines, the icon stays by the first one and the lines are not broken again from 992 up
+        .is-address {
+            align-items: flex-start;
+
+            i {
+                margin-top: 6px;
+
+                @media #{$xs} {
+                    margin-top: 5px;
+                }
+            }
+
+            .kf-p-1 {
+                white-space: nowrap;
+
+                @media #{$md,$sm,$xs} {
+                    white-space: normal;
+                }
+            }
+        }
+    }
+
+    // ---- bar: copyright on the left, social round in the middle of the page, policy links on the right;
+    // 68px high with a line on top and one under it, the lines run over the whole page
+    &-bar {
+        position: relative;
+        border-top: 1px solid rgb(255 255 255 / 20%);
+        border-bottom: 1px solid rgb(255 255 255 / 20%);
+    }
+
+    &-bar-inner {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+        align-items: center;
+        min-height: 66px;
+        column-gap: 24px;
+
+        // below 1200 the three parts do not fit in one line, they stand in the middle one under the other
+        @media #{$lg,$md,$sm,$xs} {
+            grid-template-columns: minmax(0, 1fr);
+            justify-items: center;
+            row-gap: 16px;
+            padding: 22px 0;
+            text-align: center;
+        }
+
+        .text {
+            font-size: 16px;
+            line-height: 24px;
+            color: rgb(255 255 255 / 72%);
+
+            // the global span rule makes spans inline-block, here the name must flow with the words
+            .brand {
+                display: inline;
+                font-weight: 500;
+                color: #fff;
+            }
+        }
+    }
+
+    // line icons in a dark ring; the red one with the shadow is Instagram (.is-active), the others get it under the pointer
+    &-social {
+        display: flex;
+        gap: 4px;
+
+        a {
+            display: inline-flex;
+            flex: none;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border: 2px solid rgb(255 255 255 / 24%);
+            border-radius: 50%;
+            background: #161616;
+            color: rgb(255 255 255 / 80%);
+            transition: var(--kf-cube-1);
+
+            svg {
+                display: block;
+                flex: none;
+            }
+
+            &:hover,
+            &.is-active {
+                border-color: var(--kf-clr-pr-1);
+                background: var(--kf-clr-pr-1);
+                box-shadow: 4px 8px 7px rgb(0 0 0 / 25%);
+            }
+
+            @media #{$xs} {
+                width: 44px;
+                height: 44px;
+            }
+
+            @media #{$sm} {
+                width: 48px;
+                height: 48px;
+            }
+        }
+    }
+
+    &-policy {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-self: end;
+        gap: 4px 16px;
+
+        @media #{$lg,$md,$sm,$xs} {
+            justify-content: center;
+            justify-self: center;
+        }
+
+        li {
+            font-family: var(--kf-font-1);
+            font-size: 16px;
+            line-height: 24px;
+            color: #fff;
+
+            a {
+                transition: var(--kf-cube-1);
+
+                &:hover {
+                    color: #E59D06;
+                }
+            }
+
+            &.sep {
+                color: rgb(255 255 255 / 72%);
+            }
+        }
+    }
+
+    // ---- big word: the box is the measure (1400 wide, 169 high, capitals 234px), so it grows and shrinks with the container;
+    // the capitals begin 4px under the top of the box and end on the bottom edge of the footer, 43px under the bar.
+    // Each letter fades from 32% white to nothing, as the design has it on the whole word
+    &-big-title {
+        position: relative;
+        margin-top: 43px;
+
+        @media #{$xxl} {
+            margin-top: 36px;
+        }
+
+        @media #{$xl} {
+            margin-top: 32px;
+        }
+
+        @media #{$lg} {
+            margin-top: 28px;
+        }
+
+        @media #{$md} {
+            margin-top: 24px;
+        }
+
+        // $xs is max-width 767px, so $sm comes after it and wins in 576–767
+        @media #{$xs} {
+            margin-top: 20px;
+        }
+
+        @media #{$sm} {
+            margin-top: 24px;
+        }
+    }
+
+    &-name {
+        container-type: inline-size;
+        aspect-ratio: 1400 / 169;
+        overflow: hidden;
+    }
+
+    &-name-text {
+        margin: 0;
+        padding-top: 0.0206em;
+        font-size: 16.714cqw;
+        font-weight: 500;
+        line-height: 0.71;
+        white-space: nowrap;
+        user-select: none;
+
+        // the fade is on each letter, a background-clip text does not follow a letter that gsap moves;
+        // the 0.03em of padding keeps the top edge of the capitals inside the painted box, the margin gives it back
+        span {
+            display: inline-block;
+            padding-top: 0.03em;
+            margin-top: -0.03em;
+            background: linear-gradient(180deg, rgb(255 255 255 / 32%) 0%, rgb(255 255 255 / 0%) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+    }
+}
+/*
+    kf-footer-2-end
+*/

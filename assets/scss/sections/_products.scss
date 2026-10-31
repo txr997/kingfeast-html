@@ -350,3 +350,620 @@
 /*
     kf-products-1-end
 */
+
+/*
+    kf-products-2-start
+*/
+// the left of the cards (the first one starts at $l, the second one is 484px right of it, the row under it is staggered)
+@mixin kf-products-2-cols($l) {
+    &-card-1 {
+        left: $l;
+    }
+
+    &-card-2 {
+        left: $l + 484px;
+    }
+
+    &-card-3 {
+        left: $l + 456px;
+    }
+
+    &-card-4 {
+        left: $l + 940px;
+    }
+
+    &-content {
+        left: $l;
+    }
+}
+
+.kf-products-2 {
+    // the design is 1920 wide: a red box with the cards placed from its top-left corner (1840 x 1816), the noodle bowl over its
+    // right corner and three pills under it. xxxl moves the cards to the left, xxl and xl shrink the whole box (zoom),
+    // from lg down everything is stacked
+    &-area {
+        position: relative;
+        padding: 40px;
+        overflow: hidden;
+        background: #F4EBE5;
+
+        @media #{$xl} {
+            padding: 32px;
+        }
+
+        @media #{$lg} {
+            padding: 24px;
+        }
+
+        @media #{$md} {
+            padding: 16px;
+        }
+
+        @media #{$sm,$xs} {
+            padding: 12px;
+        }
+    }
+
+    // the noise picture comes from data-background
+    &-box {
+        position: relative;
+        overflow: hidden;
+        border-radius: 20px;
+        background-color: #A32834;
+
+        @media #{$xs} {
+            border-radius: 16px;
+        }
+    }
+
+    &-wrap {
+        position: relative;
+        height: 1816px;
+
+        @media #{$xxl} {
+            zoom: 0.85;
+        }
+
+        @media #{$xl} {
+            zoom: 0.7;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 28px;
+            height: auto;
+            padding: 72px 16px;
+        }
+
+        @media #{$lg} {
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        @media #{$xs} {
+            padding: 56px 12px;
+        }
+    }
+
+    // the chef line drawing (28% opacity, on the group in the svg) and the hand with the chopsticks;
+    // the drawing is an inline svg so main.js can draw its strokes, one path for each
+    &-bg-vector {
+        position: absolute;
+        top: 51px;
+        left: 0;
+        width: 394px;
+        height: 376px;
+        pointer-events: none;
+
+        svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            display: none;
+        }
+    }
+
+    &-hand {
+        position: absolute;
+        top: 1105px;
+        left: -4px;
+        width: 447px;
+        height: 312px;
+        pointer-events: none;
+
+        @media #{$lg,$md,$sm,$xs} {
+            display: none;
+        }
+    }
+
+    &-sec-title {
+        position: absolute;
+        top: 132px;
+        left: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        width: 870px;
+        margin-left: -435px;
+
+        @media #{$lg,$md,$sm,$xs} {
+            position: static;
+            width: 100%;
+            margin-left: 0;
+            margin-bottom: 20px;
+        }
+    }
+
+    // frame of 2px in the dark, the cloche icons turned dark too, the words white
+    &-subtitle {
+        padding: 7px 10px;
+        box-shadow: 0 0 0 1px var(--kf-clr-h-1), inset 0 0 0 1px var(--kf-clr-h-1);
+
+        .kf-subtitle-1-icon img {
+            filter: brightness(0) invert(0.13);
+        }
+
+        .kf-subtitle-1-text {
+            color: #fff;
+        }
+    }
+
+    &-title {
+        margin: 0;
+        font-size: 68px;
+        font-weight: 500;
+        line-height: 72px;
+        letter-spacing: -0.01em;
+        text-align: center;
+        text-transform: capitalize;
+        color: #fff;
+
+        @media #{$lg} {
+            font-size: 52px;
+            line-height: 56px;
+        }
+
+        @media #{$md} {
+            font-size: 46px;
+            line-height: 50px;
+        }
+
+        @media #{$xs} {
+            font-size: 32px;
+            line-height: 36px;
+        }
+
+        @media #{$sm} {
+            font-size: 38px;
+            line-height: 42px;
+        }
+    }
+
+    // arch of a card: cream body, the red arch of 12px in from the edge, the halo lines and the plate on it
+    // (the radii are written out, 500px would be shrunk to fit and the 16px corners with it)
+    &-card {
+        position: absolute;
+        width: 456px;
+        height: 600px;
+        border-radius: 228px 228px 16px 16px;
+        background: #FCF5F0;
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            width: 432px;
+            height: 269px;
+            border-radius: 216px 216px 16px 16px;
+            background: var(--kf-clr-pr-1);
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        @media #{$lg} {
+            zoom: 0.9;
+        }
+
+        @media #{$xs} {
+            zoom: 0.75;
+        }
+    }
+
+    &-card-1,
+    &-card-2 {
+        top: 456px;
+    }
+
+    &-card-3,
+    &-card-4 {
+        top: 1084px;
+    }
+
+    @include kf-products-2-cols(220px);
+
+    @media #{$xxxl} {
+        @include kf-products-2-cols(80px);
+    }
+
+    @media #{$xxl} {
+        @include kf-products-2-cols(40px);
+    }
+
+    @media #{$xl} {
+        @include kf-products-2-cols(24px);
+    }
+
+    @media #{$lg,$md,$sm,$xs} {
+        &-card-1,
+        &-card-2,
+        &-card-3,
+        &-card-4 {
+            top: auto;
+            left: auto;
+        }
+    }
+
+    &-card-halo {
+        position: absolute;
+        top: 44px;
+        left: 55px;
+        width: 346px;
+        height: 332px;
+        transition: transform 0.9s cubic-bezier(.16, 1, .3, 1);
+    }
+
+    &-card-img {
+        position: absolute;
+        top: 60px;
+        left: 66px;
+        width: 324px;
+        height: 324px;
+        transition: transform 0.9s cubic-bezier(.16, 1, .3, 1);
+    }
+
+    // the pointer on a card: the plate turns and comes a little closer, the halo lines turn against it
+    &-card:hover &-card-img,
+    &-card:focus-within &-card-img {
+        transform: rotate(10deg) scale(1.06);
+    }
+
+    &-card:hover &-card-halo,
+    &-card:focus-within &-card-halo {
+        transform: rotate(-14deg) scale(1.06);
+    }
+
+    &-card-content {
+        position: absolute;
+        top: 420px;
+        left: 38px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        width: 380px;
+    }
+
+    &-card-top {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+
+    &-card-title {
+        margin: 0;
+        font-size: 26px;
+        line-height: 32px;
+        text-align: center;
+        text-transform: uppercase;
+        white-space: nowrap;
+
+        a {
+            color: inherit;
+            transition: var(--kf-cube-1);
+
+            &:hover {
+                color: var(--kf-clr-pr-1);
+            }
+        }
+    }
+
+    // 420 Kcal, a red dot, 25gr Protein
+    &-card-meta {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-family: var(--kf-font-1);
+        font-size: 18px;
+        line-height: 28px;
+        color: var(--kf-clr-p-1);
+
+        .dot {
+            flex-shrink: 0;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--kf-clr-pr-1);
+        }
+    }
+
+    &-card-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 48px;
+    }
+
+    &-card-price {
+        margin: 0;
+        font-family: var(--kf-font-1);
+        font-size: 22px;
+        font-weight: 500;
+        line-height: 28px;
+        color: var(--kf-clr-h-1);
+    }
+
+    &-card-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        height: 48px;
+        padding: 0 28px;
+        border-radius: 8px;
+        background: var(--kf-clr-p-1);
+        font-family: var(--kf-font-2);
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 24px;
+        color: #fff;
+        transition: var(--kf-cube-1);
+
+        i {
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        &:hover {
+            background: var(--kf-clr-pr-1);
+        }
+    }
+
+    // text on the red: 413px wide, the disc and the button 32px under it
+    &-content {
+        position: absolute;
+        top: 1484px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 32px;
+        width: 413px;
+
+        @media #{$lg,$md,$sm,$xs} {
+            position: static;
+            width: 100%;
+            max-width: 456px;
+        }
+
+        @media #{$lg} {
+            max-width: 100%;
+            align-items: center;
+            text-align: center;
+        }
+    }
+
+    &-disc {
+        font-size: 18px;
+        line-height: 28px;
+        color: #fff;
+
+        @media #{$xs} {
+            font-size: 16px;
+            line-height: 26px;
+        }
+    }
+
+    // the noodle bowl is a 652 x 891 picture, its right edge is the edge of the page
+    &-bg-img {
+        position: absolute;
+        top: 94px;
+        right: 0;
+        z-index: 2;
+        width: 652px;
+        aspect-ratio: 652 / 891;
+        pointer-events: none;
+
+        @media #{$xxxl} {
+            top: 80px;
+            width: 480px;
+        }
+
+        @media #{$xxl} {
+            top: 70px;
+            width: 380px;
+        }
+
+        @media #{$xl} {
+            top: 60px;
+            width: 300px;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            display: none;
+        }
+    }
+
+    // three pills: the first and the last one are round on the outside only, the middle one is outlined
+    &-features {
+        display: flex;
+        margin-top: 40px;
+
+        @media #{$xl} {
+            margin-top: 32px;
+        }
+
+        @media #{$lg} {
+            margin-top: 24px;
+        }
+
+        @media #{$md,$sm,$xs} {
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 16px;
+        }
+    }
+
+    &-feature {
+        display: flex;
+        flex: 1 1 0;
+        align-items: center;
+        justify-content: center;
+        gap: 32px;
+        min-width: 0;
+        height: 172px;
+        padding: 0 20px;
+        background: #FCF5F0;
+
+        @media #{$xl} {
+            gap: 24px;
+        }
+
+        @media #{$lg} {
+            gap: 16px;
+            height: 140px;
+            padding: 0 12px;
+        }
+
+        @media #{$md,$sm,$xs} {
+            gap: 20px;
+            height: 120px;
+            border-radius: 60px;
+        }
+
+        @media #{$xs} {
+            gap: 14px;
+            height: 104px;
+            padding: 0 16px;
+            border-radius: 52px;
+        }
+    }
+
+    &-feature-1 {
+        border-radius: 86px 0 0 86px;
+
+        @media #{$lg} {
+            border-radius: 70px 0 0 70px;
+        }
+
+        @media #{$md,$sm,$xs} {
+            border-radius: 60px;
+        }
+
+        @media #{$xs} {
+            border-radius: 52px;
+        }
+    }
+
+    &-feature-2 {
+        border: 1px solid rgb(34 34 34 / 12%);
+        border-radius: 86px;
+        background: #F4EBE5;
+
+        @media #{$lg} {
+            border-radius: 70px;
+        }
+
+        @media #{$md,$sm,$xs} {
+            border-radius: 60px;
+        }
+
+        @media #{$xs} {
+            border-radius: 52px;
+        }
+    }
+
+    &-feature-3 {
+        border-radius: 0 86px 86px 0;
+
+        @media #{$lg} {
+            border-radius: 0 70px 70px 0;
+        }
+
+        @media #{$md,$sm,$xs} {
+            border-radius: 60px;
+        }
+
+        @media #{$xs} {
+            border-radius: 52px;
+        }
+    }
+
+    // red circle (the 2px of its edge are the same red) with a white icon
+    &-feature-icon {
+        display: flex;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: center;
+        width: 68px;
+        height: 68px;
+        border-radius: 50%;
+        background: var(--kf-clr-pr-1);
+        box-shadow: 0 0 0 2px var(--kf-clr-pr-1);
+        color: #fff;
+
+        i {
+            font-size: 36px;
+            line-height: 1;
+        }
+
+        @media #{$lg,$xs} {
+            width: 56px;
+            height: 56px;
+
+            i {
+                font-size: 28px;
+            }
+        }
+    }
+
+    &-feature-text {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        .title {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 500;
+            line-height: 28px;
+            text-transform: capitalize;
+
+            @media #{$lg,$xs} {
+                font-size: 22px;
+                line-height: 26px;
+            }
+        }
+
+        .disc {
+            font-size: 18px;
+            line-height: 28px;
+
+            @media #{$lg,$xs} {
+                font-size: 16px;
+                line-height: 24px;
+            }
+        }
+    }
+}
+/*
+    kf-products-2-end
+*/

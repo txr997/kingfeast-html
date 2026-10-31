@@ -411,3 +411,369 @@
 /*
     kf-testimonial-1-end
 */
+
+/*
+    kf-testimonial-2-start
+*/
+.kf-testimonial-2 {
+    // the design is 1920 wide: the title block starts 132px from the top, the slider is 60px under it and starts 12px from the left edge
+    // (the card at the right edge is cut by the page), the dots are 52px under the slider and nothing comes after them
+    &-area {
+        position: relative;
+        padding: 132px 0 0;
+        overflow: hidden;
+        background: #fff;
+
+        @media #{$xxl} {
+            padding-top: 120px;
+        }
+
+        @media #{$xl} {
+            padding-top: 100px;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            padding-bottom: 40px;
+        }
+
+        @media #{$lg} {
+            padding-top: 90px;
+        }
+
+        @media #{$md} {
+            padding-top: 80px;
+        }
+
+        // $xs is max-width 767px, so $sm comes after it and wins in 576–767
+        @media #{$xs} {
+            padding-top: 56px;
+            padding-bottom: 32px;
+        }
+
+        @media #{$sm} {
+            padding-top: 70px;
+        }
+    }
+
+    // inline svg shape shared by the stars
+    &-defs {
+        position: absolute;
+        width: 0;
+        height: 0;
+        overflow: hidden;
+    }
+
+    // line drawings (the files have their colour and opacity), they stay behind the slider
+    &-bg-img-1 {
+        position: absolute;
+        top: -72px;
+        left: 177px;
+        z-index: 0;
+        width: 284px;
+        aspect-ratio: 284 / 275;
+        pointer-events: none;
+
+        @media #{$xxl} {
+            left: 60px;
+        }
+
+        @media #{$xl} {
+            left: 24px;
+            width: 240px;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            display: none;
+        }
+    }
+
+    &-bg-img-2 {
+        position: absolute;
+        top: 234px;
+        right: 136px;
+        z-index: 0;
+        width: 150px;
+        aspect-ratio: 151 / 148;
+        pointer-events: none;
+
+        @media #{$xxxl} {
+            right: 60px;
+        }
+
+        @media #{$xxl} {
+            top: 222px;
+            right: 40px;
+        }
+
+        @media #{$xl,$lg,$md,$sm,$xs} {
+            display: none;
+        }
+    }
+
+    // ---- title block: 800px keeps "Real Experiences From Guests / Who Love KingFeast." on two lines
+    &-sec-title {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    // dark words in the box with the red line round it
+    &-subtitle {
+        padding: 5px 8px;
+        border: 2px solid var(--kf-clr-pr-1);
+
+        .kf-subtitle-1-text {
+            color: var(--kf-clr-h-1);
+        }
+    }
+
+    // ---- slider: slides of two widths (pictures 368px, cards 388px), 12px between them, as many as fit
+    &-slider {
+        position: relative;
+        z-index: 1;
+        margin: 60px 0 0 12px;
+
+        @media #{$lg,$md,$sm,$xs} {
+            margin-top: 44px;
+        }
+
+        @media #{$xs} {
+            margin-top: 36px;
+        }
+    }
+
+    &-slider-slide {
+        width: 388px;
+        height: 548px;
+
+        &.is-img {
+            width: 368px;
+        }
+
+        @media #{$xs} {
+            width: min(388px, 84vw);
+            height: 540px;
+
+            &.is-img {
+                width: min(368px, 78vw);
+            }
+        }
+    }
+
+    &-slider-img {
+        width: 100%;
+        height: 100%;
+    }
+
+    // the card with a rating under it is 548px (392 + 8 + 148); the one without it (has-v2) is 460px
+    &-slider-card {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        height: 100%;
+
+        &.has-v2 {
+            height: 460px;
+
+            @media #{$xs} {
+                height: auto;
+            }
+        }
+    }
+
+    &-slider-content {
+        display: flex;
+        flex: 1 1 auto;
+        flex-direction: column;
+        gap: 48px;
+        padding: 40px 32px;
+        background: #f2f2f2;
+
+        @media #{$xs} {
+            gap: 36px;
+            padding: 32px 24px;
+        }
+    }
+
+    &-slider-head {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    &-slider-avatar {
+        flex: none;
+        width: 60px;
+        height: 60px;
+        border-radius: 8px;
+    }
+
+    &-slider-name {
+        margin: 0;
+        font-size: 20px;
+        line-height: 28px;
+        letter-spacing: -0.01em;
+        color: #262626;
+    }
+
+    &-slider-role {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 300;
+        line-height: 24px;
+        color: #676869;
+    }
+
+    &-slider-body {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    &-slider-stars {
+        display: flex;
+        gap: 2px;
+        color: #E47227;
+
+        svg {
+            display: block;
+            flex: none;
+        }
+    }
+
+    &-slider-quote {
+        margin: 0;
+        font-family: var(--kf-font-2);
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 34px;
+        letter-spacing: 0.01em;
+        color: var(--kf-clr-h-1);
+
+        @media #{$xs} {
+            font-size: 20px;
+            line-height: 30px;
+        }
+    }
+
+    // dark card with a thin line 12px in from its edge; the numbers sit 6px above the middle (the line is drawn at the bottom of the
+    // padding, so the whole stays centred in the frame)
+    &-slider-rating {
+        position: relative;
+        display: flex;
+        flex: none;
+        align-items: center;
+        justify-content: center;
+        height: 148px;
+        padding-bottom: 12px;
+        background: var(--kf-clr-h-1);
+
+        &::before {
+            content: "";
+            position: absolute;
+            inset: 12px;
+            border: 2px solid rgb(255 255 255 / 50%);
+            pointer-events: none;
+        }
+
+        @media #{$xs} {
+            height: 128px;
+        }
+    }
+
+    &-slider-rating-in {
+        display: flex;
+        align-items: flex-end;
+        gap: 32px;
+
+        @media #{$xs} {
+            gap: 20px;
+        }
+
+        .number {
+            font-family: var(--kf-font-2);
+            font-size: 52px;
+            font-weight: 500;
+            line-height: 56px;
+            letter-spacing: 0.01em;
+            color: #E59D06;
+
+            @media #{$xs} {
+                font-size: 40px;
+                line-height: 44px;
+            }
+        }
+
+        .label {
+            margin: 0;
+            font-family: var(--kf-font-1);
+            font-size: 18px;
+            font-weight: 300;
+            line-height: 24px;
+            color: #fff;
+
+            @media #{$xs} {
+                font-size: 16px;
+                line-height: 22px;
+            }
+        }
+    }
+
+    // 6px dots, the picked one is a 24px ring with a red dot in it
+    &-pagination.swiper-pagination-bullets {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        height: 24px;
+        margin-top: 52px;
+
+        @media #{$lg,$md,$sm,$xs} {
+            margin-top: 36px;
+        }
+
+        .swiper-pagination-bullet {
+            position: relative;
+            flex: none;
+            width: 6px;
+            height: 6px;
+            margin: 0;
+            background: rgb(34 34 34 / 32%);
+            opacity: 1;
+            transition: var(--kf-cube-1);
+        }
+
+        .swiper-pagination-bullet-active {
+            width: 24px;
+            height: 24px;
+            border: 1px solid var(--kf-clr-pr-1);
+            background: transparent;
+
+            &::after {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 6px;
+                height: 6px;
+                margin: -3px 0 0 -3px;
+                border-radius: 50%;
+                background: var(--kf-clr-pr-1);
+            }
+        }
+    }
+}
+/*
+    kf-testimonial-2-end
+*/

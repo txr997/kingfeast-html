@@ -617,14 +617,20 @@ gsap.utils.toArray(".wa_zoomOut_img").forEach(wa_zoomOut_img => {
 // a mask instead of a coloured cover so it fits any background
 if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
 	const waTextEffects = [];
+	// a title with data-wa-text-wait stays parked and does not play on its own (the hero sits behind the preloader),
+	// afterPreloader in main.js plays these
+	window.waTextEffectWaiting = [];
 
 	gsap.utils.toArray(".wa_text_effect").forEach(function (waTextEffect) {
 
 		waTextEffect.classList.add("wa_text_effect_parked");
 		gsap.set(waTextEffect, { rotationX: 1, rotationY: -51, rotationZ: -1, skewX: 2, skewY: 8 });
 
+		const waTextEffectWait = waTextEffect.hasAttribute("data-wa-text-wait");
+
 		const waTextEffectTl = gsap.timeline({
-			scrollTrigger: {
+			paused: waTextEffectWait,
+			scrollTrigger: waTextEffectWait ? null : {
 				trigger: waTextEffect,
 				start: "top 88%",
 				once: true,
@@ -637,7 +643,11 @@ if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
 		.to(waTextEffect, { rotationX: 0, rotationY: 0, rotationZ: 0, skewX: 0, skewY: 0, duration: 2, ease: "power1.out" }, 0)
 		.fromTo(waTextEffect, { "--wa-text-reveal": 6.4 }, { "--wa-text-reveal": 113, duration: 1.8, ease: "power1.out" }, 0);
 
-		waTextEffects.push({ el: waTextEffect, tl: waTextEffectTl });
+		if (waTextEffectWait) {
+			window.waTextEffectWaiting.push(waTextEffectTl);
+		} else {
+			waTextEffects.push({ el: waTextEffect, tl: waTextEffectTl });
+		}
 	});
 
 	// a title that is already above its trigger line when the page loads or is measured again (a reload half-way

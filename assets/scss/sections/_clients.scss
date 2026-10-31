@@ -196,3 +196,353 @@
 /*
     kf-clients-1-end
 */
+
+/*
+    kf-clients-2-start
+*/
+.kf-clients-2 {
+    // the design is 1920 wide: the arch on the left, the title and the running logos right of it, all placed from the left edge
+    // (the numbers of every tier are the arch, the leaf, the title and the row of logos), from md down everything is stacked
+    &-area {
+        position: relative;
+        height: 414px;
+        overflow: hidden;
+        background: #fff;
+
+        @media #{$md,$sm,$xs} {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: auto;
+            padding: 64px 0 56px;
+        }
+
+        @media #{$xs} {
+            padding: 48px 0 44px;
+        }
+    }
+
+    // the faint line drawing is cut by the right edge
+    &-bg-2 {
+        position: absolute;
+        top: -36px;
+        right: -33px;
+        width: 225px;
+        height: 226px;
+
+        @media #{$lg,$md,$sm,$xs} {
+            width: 170px;
+            height: 171px;
+        }
+    }
+
+    // arch with a white line 8px inside its edge
+    &-img {
+        position: absolute;
+        top: 0;
+        left: 111px;
+        width: 444px;
+        height: 414px;
+        border-radius: 0 0 500px 500px;
+
+        @media #{$xxxl} {
+            left: 80px;
+            width: 420px;
+        }
+
+        @media #{$xxl} {
+            left: 48px;
+            width: 380px;
+        }
+
+        @media #{$xl} {
+            left: 24px;
+            width: 340px;
+        }
+
+        @media #{$lg} {
+            left: 24px;
+            width: 280px;
+        }
+
+        @media #{$md,$sm,$xs} {
+            display: none;
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            inset: 0 8px 8px;
+            border: 1px solid #fff;
+            border-top: 0;
+            border-radius: 0 0 500px 500px;
+            pointer-events: none;
+        }
+    }
+
+    &-bg-1 {
+        position: absolute;
+        top: 47px;
+        left: 843px;
+        width: 117px;
+        height: 126px;
+
+        @media #{$xxxl} {
+            left: 776px;
+        }
+
+        @media #{$xxl} {
+            top: 50px;
+            left: 614px;
+            width: 100px;
+            height: 108px;
+        }
+
+        @media #{$xl} {
+            top: 52px;
+            left: 466px;
+            width: 88px;
+            height: 95px;
+        }
+
+        @media #{$lg} {
+            top: 56px;
+            left: 362px;
+            width: 76px;
+            height: 82px;
+        }
+
+        @media #{$md,$sm,$xs} {
+            position: relative;
+            top: auto;
+            left: auto;
+            width: 70px;
+            height: 76px;
+            margin-bottom: 8px;
+        }
+    }
+
+    &-title {
+        position: absolute;
+        top: 69px;
+        left: 945px;
+        width: 585px;
+        margin: 0;
+        font-size: 44px;
+        font-weight: 500;
+        line-height: 48px;
+        letter-spacing: -0.01em;
+        text-align: center;
+
+        @media #{$xxxl} {
+            left: 878px;
+        }
+
+        @media #{$xxl} {
+            top: 70px;
+            left: 694px;
+            width: 540px;
+            font-size: 40px;
+            line-height: 44px;
+        }
+
+        @media #{$xl} {
+            top: 72px;
+            left: 546px;
+            width: 480px;
+            font-size: 36px;
+            line-height: 40px;
+        }
+
+        @media #{$lg} {
+            top: 74px;
+            left: 432px;
+            width: 420px;
+            font-size: 32px;
+            line-height: 36px;
+        }
+
+        @media #{$md,$sm,$xs} {
+            position: relative;
+            top: auto;
+            left: auto;
+            width: auto;
+            max-width: calc(100% - 30px);
+            font-size: 32px;
+            line-height: 36px;
+        }
+
+        @media #{$xs} {
+            font-size: 28px;
+            line-height: 32px;
+        }
+
+        @media #{$sm} {
+            font-size: 30px;
+            line-height: 34px;
+        }
+    }
+
+    // starts where the arch ends and runs off the right edge
+    &-marquee {
+        position: absolute;
+        top: 217px;
+        right: 0;
+        left: 607px;
+        overflow: hidden;
+
+        @media #{$xxxl} {
+            left: 540px;
+        }
+
+        @media #{$xxl} {
+            left: 464px;
+        }
+
+        @media #{$xl} {
+            top: 222px;
+            left: 396px;
+        }
+
+        @media #{$lg} {
+            top: 230px;
+            left: 332px;
+        }
+
+        @media #{$md,$sm,$xs} {
+            position: relative;
+            top: auto;
+            right: auto;
+            left: auto;
+            width: 100%;
+            margin-top: 36px;
+        }
+
+        @media #{$xs} {
+            margin-top: 28px;
+        }
+    }
+
+    // the track holds the same row twice, so half of it is one full turn, it stops while the pointer is on a card
+    &-track {
+        display: flex;
+        width: max-content;
+        animation: kf-clients-2 40s linear infinite;
+
+        &:hover {
+            animation-play-state: paused;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            animation: none;
+        }
+    }
+
+    // the 8px after the last card keeps the gap when the row starts again
+    &-group {
+        display: flex;
+        flex: none;
+        gap: 8px;
+        padding-right: 8px;
+    }
+
+    &-card {
+        position: relative;
+        display: flex;
+        flex: none;
+        align-items: center;
+        justify-content: center;
+        width: 280px;
+        height: 136px;
+        border: 1px solid rgb(34 34 34 / 12%);
+        border-radius: 12px;
+        background: #fff;
+        transition: border-color .5s ease;
+
+        @media #{$xxl} {
+            width: 260px;
+            height: 128px;
+        }
+
+        @media #{$xl} {
+            width: 240px;
+            height: 116px;
+        }
+
+        @media #{$lg} {
+            width: 210px;
+            height: 104px;
+        }
+
+        @media #{$md} {
+            width: 200px;
+            height: 100px;
+        }
+
+        @media #{$xs,$sm} {
+            width: 180px;
+            height: 92px;
+        }
+
+        // red glow on the card the pointer is on, same as the cards of clients-1
+        &::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: linear-gradient(102deg, rgb(163 40 52 / 38%) 0%, rgb(163 40 52 / 30%) 8%, rgb(255 255 255 / 60%) 25%, rgb(255 255 255 / 0%) 31%, rgb(255 255 255 / 0%) 69%, rgb(255 255 255 / 55%) 76%, rgb(173 68 51 / 12%) 84%, rgb(163 40 52 / 38%) 100%);
+            opacity: 0;
+            transition: opacity .5s ease;
+            pointer-events: none;
+        }
+
+        &:hover {
+            border-color: var(--kf-clr-pr-1);
+
+            &::before {
+                opacity: 1;
+            }
+        }
+    }
+
+    // the logo is fitted into a box, every logo in the design is 92px high
+    &-logo {
+        position: relative;
+        width: 160px;
+        height: 92px;
+
+        @media #{$xxl} {
+            width: 150px;
+            height: 86px;
+        }
+
+        @media #{$xl} {
+            width: 130px;
+            height: 76px;
+        }
+
+        @media #{$lg} {
+            width: 112px;
+            height: 64px;
+        }
+
+        @media #{$md} {
+            width: 110px;
+            height: 62px;
+        }
+
+        @media #{$xs,$sm} {
+            width: 100px;
+            height: 56px;
+        }
+    }
+}
+
+@keyframes kf-clients-2 {
+    to {
+        transform: translateX(-50%);
+    }
+}
+/*
+    kf-clients-2-end
+*/

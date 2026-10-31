@@ -375,3 +375,391 @@
 /*
     kf-about-1-end
 */
+
+/*
+    kf-about-2-start
+*/
+.kf-about-2 {
+    // the design is 1920 wide: the wrap (images left, text and photo right) is a 1484 x 913 composition, from 1600 it is
+    // placed from the left, xxl and xl shrink the whole composition (zoom), from lg down everything is stacked
+    &-area {
+        position: relative;
+        padding: 132px 0;
+        overflow: hidden;
+        background: #fff;
+
+        @media #{$xxl} {
+            padding: 120px 0 110px;
+        }
+
+        @media #{$xl} {
+            padding: 100px 0 90px;
+        }
+
+        @media #{$lg} {
+            padding: 90px 0 80px;
+        }
+
+        @media #{$md} {
+            padding: 80px 0 70px;
+        }
+
+        // $xs is max-width 767px, so $sm comes after it and wins in 576–767
+        @media #{$xs} {
+            padding: 56px 0 50px;
+        }
+
+        @media #{$sm} {
+            padding: 70px 0 60px;
+        }
+    }
+
+    // the faint line drawing of the waiter, behind the title
+    &-bg-img-2 {
+        position: absolute;
+        top: 113px;
+        left: 111px;
+        width: 339px;
+        height: 336px;
+        animation: kf-float-1 5s ease-in-out 0s infinite alternate;
+
+        @media #{$xl} {
+            top: 100px;
+            left: 60px;
+            width: 280px;
+            height: 278px;
+        }
+
+        @media #{$lg} {
+            top: 90px;
+            left: 24px;
+            width: 220px;
+            height: 218px;
+        }
+
+        @media #{$md,$sm,$xs} {
+            display: none;
+        }
+    }
+
+    &-sec-title {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+        width: 782px;
+        margin: 0 auto 27px;
+
+        @media #{$xxl} {
+            width: 700px;
+        }
+
+        @media #{$xl} {
+            width: 600px;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            width: auto;
+            max-width: calc(100% - 30px);
+            margin-bottom: 44px;
+        }
+
+        @media #{$xs} {
+            gap: 28px;
+            margin-bottom: 32px;
+        }
+    }
+
+    // the ring of words turns slowly around the icon
+    &-circle {
+        position: relative;
+        width: 161px;
+        height: 160px;
+
+        @media #{$xs} {
+            width: 129px;
+            height: 128px;
+        }
+    }
+
+    &-circle-text {
+        width: 100%;
+        height: 100%;
+        animation: kf-about-2-spin 24s linear infinite;
+
+        @media (prefers-reduced-motion: reduce) {
+            animation: none;
+        }
+    }
+
+    &-circle-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 72px;
+        height: 72px;
+        margin: -36px 0 0 -36px;
+
+        @media #{$xs} {
+            width: 58px;
+            height: 58px;
+            margin: -29px 0 0 -29px;
+        }
+    }
+
+    &-title {
+        margin: 0;
+        font-size: 68px;
+        font-weight: 500;
+        line-height: 72px;
+        letter-spacing: -0.01em;
+        text-align: center;
+
+        @media #{$xxl} {
+            font-size: 60px;
+            line-height: 64px;
+        }
+
+        @media #{$xl} {
+            font-size: 52px;
+            line-height: 56px;
+        }
+
+        @media #{$lg} {
+            font-size: 48px;
+            line-height: 52px;
+        }
+
+        @media #{$md} {
+            font-size: 44px;
+            line-height: 48px;
+        }
+
+        @media #{$xs} {
+            font-size: 32px;
+            line-height: 36px;
+        }
+
+        @media #{$sm} {
+            font-size: 38px;
+            line-height: 42px;
+        }
+    }
+
+    // 1484 x 913, everything inside is placed from its top-left corner
+    &-wrap {
+        position: relative;
+        width: 1484px;
+        height: 913px;
+        margin-left: max(24px, calc(50% - 784px));
+
+        @media #{$xxl} {
+            zoom: 0.9;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        @media #{$xl} {
+            zoom: 0.78;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 48px;
+            width: auto;
+            height: auto;
+            margin: 0 15px;
+        }
+
+        @media #{$xs} {
+            gap: 36px;
+        }
+    }
+
+    // three photos, the arch and the steak lie over the big one
+    &-left {
+        position: absolute;
+        top: 8px;
+        left: 0;
+        width: 765px;
+        height: 905px;
+
+        @media #{$lg,$md,$sm,$xs} {
+            position: relative;
+            top: auto;
+            flex-shrink: 0;
+            zoom: 0.65;
+        }
+
+        @media #{$xs} {
+            zoom: 0.42;
+        }
+
+        @media #{$sm} {
+            zoom: 0.55;
+        }
+    }
+
+    &-img-2 {
+        position: absolute;
+        top: 177px;
+        left: 84px;
+        width: 611px;
+        height: 658px;
+        border-radius: 12px;
+    }
+
+    &-img-1 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 313px;
+        height: 328px;
+    }
+
+    &-img-3 {
+        position: absolute;
+        top: 656px;
+        left: 501px;
+        width: 264px;
+        height: 249px;
+    }
+
+    &-right {
+        position: absolute;
+        top: 0;
+        left: 743px;
+        width: 741px;
+        height: 843px;
+
+        @media #{$lg,$md,$sm,$xs} {
+            position: relative;
+            left: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 24px;
+            width: 100%;
+            max-width: 560px;
+            height: auto;
+        }
+    }
+
+    &-img-4 {
+        position: absolute;
+        top: 0;
+        left: 257px;
+        width: 484px;
+        height: 571px;
+        border-radius: 12px;
+
+        @media #{$lg,$md,$sm,$xs} {
+            position: relative;
+            left: auto;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 484 / 571;
+        }
+    }
+
+    // one word to a line, the 209px width does it
+    &-inner-title {
+        position: absolute;
+        top: 105px;
+        left: 0;
+        width: 209px;
+        margin: 0;
+        font-size: 56px;
+        font-weight: 500;
+        line-height: 71px;
+        letter-spacing: -0.01em;
+        text-align: center;
+        text-transform: uppercase;
+        color: var(--kf-clr-pr-1);
+        opacity: 0.72;
+
+        @media #{$lg,$md,$sm,$xs} {
+            position: static;
+            width: 100%;
+            font-size: 40px;
+            line-height: 48px;
+            text-align: left;
+        }
+
+        @media #{$xs} {
+            font-size: 30px;
+            line-height: 36px;
+        }
+
+        @media #{$sm} {
+            font-size: 34px;
+            line-height: 40px;
+        }
+    }
+
+    &-inner-disc {
+        position: absolute;
+        top: 615px;
+        left: 124px;
+        width: 617px;
+        font-size: 18px;
+        line-height: 28px;
+
+        // the first sentences are dark, the rest is the grey of the other paragraphs (every span is inline-block by default,
+        // here it has to run on with the words after it)
+        .has-clr {
+            display: inline;
+            color: var(--kf-clr-h-1);
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            position: static;
+            width: 100%;
+        }
+
+        @media #{$xs} {
+            font-size: 16px;
+            line-height: 26px;
+        }
+    }
+
+    &-right .kf-pr-btn-2 {
+        position: absolute;
+        top: 787px;
+        left: 124px;
+
+        @media #{$lg,$md,$sm,$xs} {
+            position: relative;
+            top: auto;
+            left: auto;
+        }
+    }
+
+    // the burger lines run over the corner of the chef photo
+    &-bg-img-1 {
+        position: absolute;
+        top: -123px;
+        left: 1340px;
+        z-index: 1;
+        width: 244px;
+        height: 192px;
+        animation: kf-float-1 5s ease-in-out 0s infinite alternate;
+        
+        @media #{$lg,$md,$sm,$xs} {
+            display: none;
+        }
+    }
+}
+
+@keyframes kf-about-2-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+/*
+    kf-about-2-end
+*/

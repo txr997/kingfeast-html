@@ -389,3 +389,519 @@
 /*
     kf-choose-1-end
 */
+
+/*
+    kf-choose-2-start
+*/
+.kf-choose-2 {
+    // the design is 1920 x 1080: the circles and the five reasons sit in a 960 x 1080 stage that hangs on the middle line,
+    // the chef photo with the text is the right half and the plate sits on the middle line.
+    // xxl and xl shrink the stage (zoom) and the height with it, from lg down everything is stacked: photo, plate, reasons
+    &-area {
+        --z: 1;
+        --plate-w: 336px;
+        --plate-half: calc(var(--plate-w) * 0.506);
+        position: relative;
+        height: calc(1080px * var(--z));
+        overflow: hidden;
+        background: #f4ebe5;
+
+        @media #{$xxl} {
+            --z: 0.9;
+            --plate-w: 300px;
+        }
+
+        @media #{$xl} {
+            --z: 0.76;
+            --plate-w: 260px;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            display: flex;
+            flex-direction: column;
+            height: auto;
+        }
+
+        @media #{$lg} {
+            --plate-w: 260px;
+        }
+
+        @media #{$md} {
+            --plate-w: 240px;
+        }
+
+        // $xs is max-width 767px, so $sm comes after it and wins in 576–767
+        @media #{$xs} {
+            --plate-w: 180px;
+        }
+
+        @media #{$sm} {
+            --plate-w: 210px;
+        }
+    }
+
+    // ---- left: the circles and the reasons
+    &-left {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        width: 50%;
+        height: 100%;
+
+        @media #{$lg,$md,$sm,$xs} {
+            position: relative;
+            order: 3;
+            width: auto;
+            height: auto;
+            padding: 48px 56px 90px;
+        }
+
+        @media #{$md} {
+            padding: 40px 40px 80px;
+        }
+
+        @media #{$xs} {
+            padding: 32px 24px 64px;
+        }
+
+        @media #{$sm} {
+            padding: 36px 32px 70px;
+        }
+    }
+
+    &-stage {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 960px;
+        height: 1080px;
+        overflow: hidden;
+        zoom: var(--z);
+
+        @media #{$lg,$md,$sm,$xs} {
+            position: static;
+            width: auto;
+            max-width: 960px;
+            height: auto;
+            margin: 0 auto;
+            overflow: visible;
+            zoom: 1;
+        }
+
+        @media #{$xs} {
+            max-width: 560px;
+        }
+    }
+
+    // the big circle is solid, the small one is dashed (both at 20%)
+    &-rings {
+        position: absolute;
+        top: 132px;
+        left: 552px;
+        width: 816px;
+        height: 816px;
+        fill: none;
+        stroke: var(--kf-clr-pr-1);
+        stroke-opacity: 0.2;
+
+        .ring-2 {
+            stroke-dasharray: 8 8;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            display: none;
+        }
+    }
+
+    // scroll in (kfChoose2In in main.js): the circles are drawn from the top down by a wipe, the left halves are the ones on show
+    &-rings.is-ani {
+        clip-path: inset(0 0 100% 0);
+    }
+
+    &-rings.is-ani.is-in {
+        clip-path: inset(0 0 0 0);
+        transition: clip-path 1.8s linear 1.3s;
+    }
+
+    &-list {
+        @media #{$lg,$md,$sm,$xs} {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 40px 48px;
+        }
+
+        @media #{$xs} {
+            grid-template-columns: minmax(0, 1fr);
+            gap: 32px;
+        }
+    }
+
+    // --y is the middle of the dot, --r the room between the dot and the middle line, --gap the room between the words and the dot
+    &-item {
+        position: absolute;
+        top: var(--y);
+        right: var(--r);
+        display: flex;
+        align-items: center;
+        gap: var(--gap, 32px);
+        transform: translateY(-50%);
+
+        // --d is the moment the circle line (it starts 1.3s in and takes 1.8s from top to bottom) reaches the dot
+        &:nth-child(1) {
+            --y: 186px;
+            --r: 184px;
+            --gap: 52px;
+            --d: 1.42s;
+        }
+
+        &:nth-child(2) {
+            --y: 343px;
+            --r: 341px;
+            --d: 1.77s;
+        }
+
+        &:nth-child(3) {
+            --y: 543px;
+            --r: 393px;
+            --d: 2.21s;
+        }
+
+        &:nth-child(4) {
+            --y: 743px;
+            --r: 341px;
+            --d: 2.65s;
+        }
+
+        &:nth-child(5) {
+            --y: 896px;
+            --r: 186px;
+            --gap: 52px;
+            --d: 2.98s;
+        }
+
+        // stacked: the dot comes first and the words are on its right
+        @media #{$lg,$md,$sm,$xs} {
+            position: static;
+            flex-direction: row-reverse;
+            align-items: flex-start;
+            justify-content: flex-end;
+            gap: 20px;
+            transform: none;
+        }
+
+        // scroll in (kfChoose2In in main.js): the dot pops when the line reaches it, then the words slide to their place.
+        // stacked there is no line, each reason comes on its own when it scrolls into view
+        &.is-ani {
+            .kf-choose-2-item-content {
+                opacity: 0;
+                translate: 28px 0;
+
+                @media #{$lg,$md,$sm,$xs} {
+                    translate: 0 24px;
+                }
+            }
+
+            .kf-choose-2-dot {
+                scale: 0;
+            }
+        }
+
+        &.is-ani.is-in {
+            .kf-choose-2-item-content {
+                opacity: 1;
+                translate: 0 0;
+                transition: opacity .8s ease calc(var(--d) + .15s), translate .9s cubic-bezier(.18, .82, .41, 1) calc(var(--d) + .15s);
+
+                @media #{$lg,$md,$sm,$xs} {
+                    transition-delay: .1s;
+                }
+            }
+
+            .kf-choose-2-dot {
+                scale: 1;
+                transition: scale .6s cubic-bezier(.34, 1.56, .64, 1) var(--d);
+
+                @media #{$lg,$md,$sm,$xs} {
+                    transition-delay: 0s;
+                }
+            }
+        }
+    }
+
+    &-item-content {
+        width: 360px;
+        text-align: right;
+
+        @media #{$lg,$md,$sm,$xs} {
+            width: auto;
+            min-width: 0;
+            text-align: left;
+        }
+    }
+
+    &-item-title {
+        margin: 0;
+        font-size: 20px;
+        line-height: 28px;
+        text-transform: uppercase;
+
+        @media #{$xl} {
+            font-size: 22px;
+            line-height: 30px;
+        }
+    }
+
+    &-item-disc {
+        margin-top: 12px;
+        font-size: 16px;
+        line-height: 24px;
+        opacity: 0.88;
+
+        @media #{$xl} {
+            font-size: 17px;
+        }
+    }
+
+    // a soft ring in two steps with the red dot in the middle
+    &-dot {
+        position: relative;
+        flex: none;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: rgb(255 255 255 / 20%);
+
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+        }
+
+        &::before {
+            inset: 4px;
+            background: rgb(163 40 52 / 12%);
+        }
+
+        &::after {
+            inset: 9px;
+            background: var(--kf-clr-pr-1);
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            margin-top: -1px;
+        }
+    }
+
+    // ---- right: chef photo and text
+    &-right {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 2;
+        width: 50%;
+        height: 100%;
+
+        @media #{$lg,$md,$sm,$xs} {
+            position: relative;
+            order: 1;
+            display: flex;
+            align-items: flex-end;
+            width: auto;
+            height: auto;
+            min-height: 680px;
+            // the lower half of the plate lies over the photo, the button stays above it
+            padding: 80px 56px calc(var(--plate-half) + 48px);
+        }
+
+        @media #{$md} {
+            min-height: 640px;
+            padding: 72px 40px calc(var(--plate-half) + 44px);
+        }
+
+        @media #{$xs} {
+            min-height: 580px;
+            padding: 64px 24px calc(var(--plate-half) + 40px);
+        }
+
+        @media #{$sm} {
+            min-height: 600px;
+            padding: 72px 32px calc(var(--plate-half) + 40px);
+        }
+    }
+
+    &-img {
+        position: absolute;
+        inset: 0;
+    }
+
+    // the bottom of the photo goes dark, under the text
+    &-overlay {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 41.2%;
+        background: linear-gradient(0deg, rgb(0 0 0 / 80%) 0%, rgb(0 0 0 / 0%) 100%);
+
+        @media #{$lg,$md,$sm,$xs} {
+            height: 60%;
+        }
+    }
+
+    // 152px from the middle line, 70px from the bottom; the left edge keeps clear of the plate (it reaches 168px into this half)
+    &-sec-title {
+        position: absolute;
+        bottom: 70px;
+        left: 152px;
+        right: 40px;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 32px;
+        max-width: 600px;
+
+        @media #{$xxl} {
+            bottom: 60px;
+            left: 134px;
+            gap: 28px;
+        }
+
+        @media #{$xl} {
+            bottom: 56px;
+            left: 114px;
+            right: 24px;
+            gap: 24px;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            position: relative;
+            bottom: auto;
+            left: auto;
+            right: auto;
+            width: 100%;
+            gap: 24px;
+        }
+
+        @media #{$xs} {
+            gap: 20px;
+        }
+    }
+
+    // the box has a 2px red line round it, the words are white
+    &-subtitle {
+        padding: 5px 8px;
+        border: 2px solid var(--kf-clr-pr-1);
+
+        .kf-subtitle-1-text {
+            color: #fff;
+        }
+    }
+
+    &-title {
+        color: #fff;
+    }
+
+    &-disc {
+        max-width: 560px;
+        font-size: 18px;
+        line-height: 28px;
+        color: rgb(255 255 255 / 80%);
+
+        @media #{$xs} {
+            font-size: 16px;
+            line-height: 26px;
+        }
+    }
+
+    // ---- plate: 336 x 340, the two halves of the brush ring and the round photo (284px) inside, all in % so the width alone sizes it
+    &-plate {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 3;
+        width: var(--plate-w);
+        aspect-ratio: 336 / 340;
+        transform: translate(-50%, -50%);
+
+        // stacked: it sits on the lower edge of the photo
+        @media #{$lg,$md,$sm,$xs} {
+            position: relative;
+            top: auto;
+            left: auto;
+            order: 2;
+            flex: none;
+            margin: calc(var(--plate-half) * -1) auto 0;
+            transform: none;
+        }
+    }
+
+    &-plate-bg-1,
+    &-plate-bg-2 {
+        position: absolute;
+        top: 0;
+        width: 50%;
+        height: 100%;
+
+        @media #{$lg,$md,$sm,$xs} {
+            display: none;
+        }
+    }
+
+    &-plate-bg-1 {
+        left: 0;
+    }
+
+    &-plate-bg-2 {
+        left: 50%;
+    }
+
+    &-plate-img {
+        position: absolute;
+        top: 8.235%;
+        left: 8.333%;
+        width: 84.524%;
+        aspect-ratio: 1 / 1;
+        border-radius: 50%;
+
+        // stacked: a plain ring takes the place of the brush halves
+        @media #{$lg,$md,$sm,$xs} {
+            box-shadow: 0 0 0 8px #f4ebe5, 0 0 0 10px var(--kf-clr-pr-1);
+        }
+    }
+
+    // scroll in (kfChoose2In in main.js): each brush half comes out of the middle line like a drawer (it is moved out and
+    // clipped to the part that has come out, both with the same timing), then the dish comes up between them
+    &-plate-bg-1.is-ani {
+        translate: 100% 0;
+        clip-path: inset(0 100% 0 0);
+    }
+
+    &-plate-bg-2.is-ani {
+        translate: -100% 0;
+        clip-path: inset(0 0 0 100%);
+    }
+
+    &-plate-bg-1.is-ani.is-in,
+    &-plate-bg-2.is-ani.is-in {
+        translate: 0 0;
+        clip-path: inset(0 0 0 0);
+        transition: translate 1.1s cubic-bezier(.18, .82, .41, 1), clip-path 1.1s cubic-bezier(.18, .82, .41, 1);
+    }
+
+    &-plate-img.is-ani {
+        opacity: 0;
+        scale: 0.6;
+    }
+
+    &-plate-img.is-ani.is-in {
+        opacity: 1;
+        scale: 1;
+        transition: opacity .8s ease 1s, scale 1.1s cubic-bezier(.18, .82, .41, 1) 1s;
+    }
+}
+/*
+    kf-choose-2-end
+*/

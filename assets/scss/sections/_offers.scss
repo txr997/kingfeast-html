@@ -1,0 +1,333 @@
+@use '../abstracts/variables' as *;
+
+/*
+    kf-offers-2-start
+*/
+.kf-offers-2 {
+    // the design is 1920 x 680: the words and the deal are one piece (the content), shrunk with zoom from 1800 down, its paddings are
+    // inside the zoom so the height follows (680 x zoom) and the dish picture, which is as tall as the section, follows it.
+    // From lg down everything is stacked: words, deal, then the picture
+    &-area {
+        --z: 1;
+        position: relative;
+        overflow: hidden;
+        background: #000;
+
+        @media #{$xxxl} {
+            --z: 0.86;
+        }
+
+        @media #{$xxl} {
+            --z: 0.74;
+        }
+
+        @media #{$xl} {
+            --z: 0.66;
+        }
+    }
+
+    // the noise picture comes from data-background; it is 20% taller than the section on both edges (140% in all), so it can
+    // slide inside it for the parallax (main.js) without showing an edge
+    &-bg {
+        position: absolute;
+        inset: -20% 0;
+        will-change: transform;
+        background-position: left top;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    // red light on the left edge
+    &-glow {
+        position: absolute;
+        top: 0;
+        left: -70px;
+        width: 72px;
+        height: 100%;
+        border-radius: 50%;
+        background: var(--kf-clr-pr-1);
+        filter: blur(74px);
+        pointer-events: none;
+    }
+
+    &-content {
+        position: relative;
+        z-index: 1;
+        padding: 100px 0 86px;
+        zoom: var(--z);
+
+        @media #{$lg} {
+            padding: 90px 0 20px;
+        }
+
+        @media #{$md} {
+            padding: 80px 0 10px;
+        }
+
+        // $xs is max-width 767px, so $sm comes after it and wins in 576–767
+        @media #{$xs} {
+            padding: 56px 0 0;
+        }
+
+        @media #{$sm} {
+            padding: 70px 0 0;
+        }
+    }
+
+    // 480px keeps "Get Your Exclusive / Deal Today." on two lines
+    &-sec-title {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        max-width: 480px;
+
+        @media #{$xl} {
+            max-width: 540px;
+        }
+
+        // the paragraph is 20px above it from the title, the gap above is the 16px of the title block
+        .kf-offers-2-disc {
+            margin-top: 4px;
+        }
+    }
+
+    // white words in the box with the red line round it
+    &-subtitle {
+        padding: 5px 8px;
+        border: 2px solid var(--kf-clr-pr-1);
+
+        .kf-subtitle-1-text {
+            color: #fff;
+        }
+    }
+
+    // the title keeps its 56px, the zoom does the shrinking
+    &-title {
+        color: #fff;
+
+        @media #{$xxxl,$xxl,$xl} {
+            font-size: 56px;
+            line-height: 60px;
+        }
+    }
+
+    &-disc {
+        font-size: 18px;
+        line-height: 28px;
+        color: rgb(255 255 255 / 73%);
+
+        @media #{$xl} {
+            font-size: 20px;
+            line-height: 30px;
+        }
+
+        @media #{$xs} {
+            font-size: 16px;
+            line-height: 26px;
+        }
+    }
+
+    // ---- deal: the arrow hangs 115px to the left of the title, 50% off 100px in from it, the counter after it
+    &-deal {
+        display: flex;
+        align-items: flex-start;
+        gap: 44px;
+        margin-top: 42px;
+
+        @media #{$over} {
+            margin-left: -115px;
+        }
+
+        @media #{$xxxl} {
+            margin-left: -60px;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            flex-wrap: wrap;
+            gap: 32px 40px;
+            margin-top: 36px;
+        }
+
+        @media #{$xs} {
+            gap: 28px;
+            margin-top: 32px;
+        }
+    }
+
+    // the arrow is white in the file, it is shown at 20%
+    &-arrow {
+        flex: none;
+        width: 171px;
+        height: 109px;
+        margin-top: 15px;
+        opacity: 0.2;
+
+        @media #{$lg,$md,$sm,$xs} {
+            display: none;
+        }
+    }
+
+    &-discount {
+        flex: none;
+        width: 265px;
+        height: 180px;
+
+        @media #{$xs} {
+            width: 220px;
+            height: 150px;
+        }
+    }
+
+    // 354 x 158: the box starts 14px down, the title sits on its top line
+    &-counter {
+        position: relative;
+        flex: none;
+        width: 354px;
+        margin: 11px 0 0 13px;
+        padding-top: 14px;
+
+        @media #{$lg,$md,$sm,$xs} {
+            max-width: 100%;
+            margin: 0;
+        }
+    }
+
+    // the dark background cuts the line of the box behind the words
+    &-counter-title {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        z-index: 1;
+        margin: 0;
+        font-family: var(--kf-font-2);
+        font-size: 22px;
+        font-weight: 700;
+        line-height: 28px;
+        letter-spacing: -0.01em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        color: #fff;
+        background: #171715;
+        transform: translateX(-50%);
+
+        span {
+            display: inline;
+            color: #E59D06;
+        }
+
+        @media #{$xs} {
+            font-size: 18px;
+        }
+    }
+
+    // 3px line, 20px corners; the numbers start 32px down because of the title
+    &-counter-box {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 29px 21px 21px;
+        border: 3px solid rgb(255 255 255 / 12%);
+        border-radius: 20px;
+
+        @media #{$xs} {
+            gap: 6px;
+            padding: 29px 12px 21px;
+        }
+    }
+
+    &-counter-item {
+        display: flex;
+        flex: 0 1 60px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-width: 0;
+        height: 88px;
+        border-radius: 59px;
+        background: #fff;
+        box-shadow: inset 0 0 6px var(--kf-clr-pr-1);
+
+        .number {
+            font-family: var(--kf-font-1);
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 36px;
+            letter-spacing: -0.02em;
+            color: var(--kf-clr-pr-1);
+        }
+
+        .label {
+            font-family: var(--kf-font-1);
+            font-size: 14px;
+            line-height: 22px;
+            color: rgb(93 92 92 / 80%);
+        }
+
+        @media #{$xl} {
+            .number {
+                font-size: 28px;
+            }
+
+            .label {
+                font-size: 16px;
+            }
+        }
+    }
+
+    // two dots between the pieces
+    &-counter-dots {
+        display: flex;
+        flex: none;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 6px;
+        height: 24px;
+
+        &::before,
+        &::after {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #fff;
+        }
+    }
+
+    // ---- the dish: as tall as the section (1201 x 680 at 1920), its left side fades into the noise
+    &-img {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 0;
+        height: 100%;
+        aspect-ratio: 1201 / 680;
+        -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 25%);
+        mask-image: linear-gradient(90deg, transparent 0%, #000 25%);
+
+        // stacked: under the words, its top edge fades
+        @media #{$lg,$md,$sm,$xs} {
+            position: relative;
+            width: 100%;
+            height: 420px;
+            aspect-ratio: auto;
+            -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 30%);
+            mask-image: linear-gradient(180deg, transparent 0%, #000 30%);
+        }
+
+        @media #{$md} {
+            height: 380px;
+        }
+
+        @media #{$xs} {
+            height: 260px;
+        }
+
+        @media #{$sm} {
+            height: 320px;
+        }
+    }
+}
+/*
+    kf-offers-2-end
+*/
