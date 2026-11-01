@@ -503,8 +503,8 @@
 
     // frame of 2px in the dark, the cloche icons turned dark too, the words white
     &-subtitle {
-        padding: 7px 10px;
-        box-shadow: 0 0 0 1px var(--kf-clr-h-1), inset 0 0 0 1px var(--kf-clr-h-1);
+        padding: 6px 9px;
+        border: 1px solid rgb(34 34 34 / 45%);
 
         .kf-subtitle-1-icon img {
             filter: brightness(0) invert(0.13);
@@ -735,6 +735,7 @@
 
         &:hover {
             background: var(--kf-clr-pr-1);
+            color: #fff;
         }
     }
 

@@ -1276,10 +1276,10 @@
         text-align: center;
     }
 
-    // frame of 2px in the red, the cloche icons keep their own colour
+    // frame of 1px in the red (45% opacity), the cloche icons keep their own colour
     &-subtitle {
-        padding: 7px 10px;
-        box-shadow: 0 0 0 1px var(--kf-clr-pr-1), inset 0 0 0 1px var(--kf-clr-pr-1);
+        padding: 6px 9px;
+        border: 1px solid rgb(163 40 52 / 45%);
     }
 
     &-title {

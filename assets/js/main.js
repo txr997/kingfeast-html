@@ -471,6 +471,123 @@ function kfHero2Slider() {
 
 
 /*
+	hero-3 slider — the three round photos under the plate lead: they go round on their own, the one that is up (the red arch) is the
+	plate on show. Each slide builds itself when it comes: the plate turns in, the slice, the peppers and the line with its four cards
+	fade in behind it, then the words come up one after another
+*/
+var kfHero3First = null;
+var kfHero3Swiper = null;
+
+function kfHero3Slider() {
+	if (!$(".kf-hero-3-slider").length) return;
+
+	var $thumbs = $(".kf-hero-3-thumb");
+	var scenes = [];
+	var ready = false;
+	// the middle plate is up when the page opens, like the design
+	var first = 1;
+
+	if (!prefersReducedMotion()) {
+		$(".kf-hero-3-slider .swiper-slide").each(function () {
+			var pepper = this.querySelector(".kf-hero-3-pepper");
+
+			scenes.push({
+				plate: this.querySelector(".kf-hero-3-plate"),
+				backs: this.querySelectorAll(".kf-hero-3-slice, .kf-hero-3-ring"),
+				pepper: pepper,
+				// the peppers are 53% in the css, they come in to that and not to 1
+				pepperTo: pepper ? parseFloat(getComputedStyle(pepper).opacity) : 1,
+				cards: this.querySelectorAll(".kf-hero-3-card"),
+				words: this.querySelectorAll(".kf-hero-3-title-sub, .kf-hero-3-title-name, .kf-hero-3-title-script, .kf-hero-3-btns")
+			});
+		});
+	}
+
+	function parts(scene) {
+		return [scene.plate, scene.pepper].concat(
+			Array.prototype.slice.call(scene.backs),
+			Array.prototype.slice.call(scene.cards),
+			Array.prototype.slice.call(scene.words)
+		);
+	}
+
+	// parked: nothing of the slide is on show yet
+	function park(scene) {
+		gsap.killTweensOf(parts(scene));
+		gsap.set(scene.plate, { opacity: 0, rotate: 90, scale: .5 });
+		gsap.set([scene.pepper].concat(Array.prototype.slice.call(scene.backs)), { opacity: 0 });
+		gsap.set(scene.cards, { opacity: 0, scale: .6, y: 20 });
+		gsap.set(scene.words, { opacity: 0, y: 36, filter: "blur(8px)" });
+	}
+
+	function serve(scene) {
+		gsap.timeline({
+			defaults: { ease: "power3.out" },
+			onComplete: function () {
+				gsap.set(parts(scene), { clearProps: "transform,opacity,filter,transformOrigin" });
+			}
+		})
+			.to(scene.plate, { opacity: 1, rotate: 0, scale: 1, duration: 1.3 }, 0)
+			.to(scene.backs, { opacity: 1, duration: 1.2 }, .4)
+			.to(scene.pepper, { opacity: scene.pepperTo, duration: 1.2 }, .4)
+			.to(scene.cards, { opacity: 1, scale: 1, y: 0, duration: .9, stagger: .15 }, .9)
+			.to(scene.words, { opacity: 1, y: 0, filter: "blur(0px)", duration: 1, ease: "power4.out", stagger: .15 }, 1);
+	}
+
+	kfHero3Swiper = new Swiper(".kf-hero-3-slider", {
+		effect: "fade",
+		fadeEffect: { crossFade: true },
+		speed: 800,
+		initialSlide: first,
+		allowTouchMove: false,
+		rewind: true,
+		// a slide needs about 2.5s to build up, the rest of the 6s it is on show whole
+		autoplay: {
+			delay: 6000,
+			disableOnInteraction: false,
+		},
+		on: {
+			slideChange: function (swiper) {
+				var scene = scenes[swiper.activeIndex];
+
+				$thumbs.removeClass("is-active").eq(swiper.activeIndex).addClass("is-active");
+
+				if (!ready || !scene) return;
+
+				park(scene);
+				serve(scene);
+			},
+		},
+	});
+
+	$thumbs.on("click", function () {
+		kfHero3Swiper.slideTo($thumbs.index(this));
+	});
+
+	$thumbs.on("keydown", function (e) {
+		if (e.key !== "Enter" && e.key !== " ") return;
+
+		e.preventDefault();
+		kfHero3Swiper.slideTo($thumbs.index(this));
+	});
+
+	// waits behind the preloader like the other hero sliders: the first slide is parked now, afterPreloader plays it and starts the autoplay
+	kfHero3Swiper.autoplay.stop();
+
+	if (scenes.length) {
+		park(scenes[first]);
+
+		kfHero3First = {
+			play: function () {
+				ready = true;
+				serve(scenes[first]);
+			}
+		};
+	}
+}
+
+
+/*
 	products-1 slider — cards of a fixed width run past the edges, the line under them shows how far the slider has gone
 */
 function kfProducts1Slider() {
@@ -1126,6 +1243,8 @@ function afterPreloader() {
 	if (kfHero1Swiper) kfHero1Swiper.autoplay.start();
 	if (kfHero2First) kfHero2First.play();
 	if (kfHero2Swiper) kfHero2Swiper.autoplay.start();
+	if (kfHero3First) kfHero3First.play();
+	if (kfHero3Swiper) kfHero3Swiper.autoplay.start();
 
 	// the titles that waited behind the curtain (wa_text_effect with data-wa-text-wait, see main-common.js) come in now
 	(window.waTextEffectWaiting || []).forEach(function (tl) {
@@ -1168,6 +1287,7 @@ ScrollTrigger.refresh();
 
 kfHero1Slider();
 kfHero2Slider();
+kfHero3Slider();
 kfProducts1Slider();
 kfAbout1Slider();
 kfAbout1Parallax();

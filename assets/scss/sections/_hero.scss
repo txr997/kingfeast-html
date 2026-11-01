@@ -909,3 +909,631 @@
 /*
     kf-hero-2-end
 */
+
+/*
+    kf-hero-3-start
+*/
+.kf-hero-3 {
+    // the design is 1920 x 924: the words sit on the left edge, the cream shape and the plate on the right edge. Each side is a "stage"
+    // of the design size (px as in the design) that is scaled by --hero-s, the area is as high as the scaled stage. From lg down
+    // there is no stage any more, everything is stacked: words, then the cream panel with the plate, then the photos
+    &-area {
+        --hero-s: 1;
+        position: relative;
+        z-index: 0;
+        height: calc(924px * var(--hero-s));
+        overflow: hidden;
+        background: #000;
+
+        @media #{$xxxl} {
+            --hero-s: 0.9;
+        }
+
+        @media #{$xxl} {
+            --hero-s: 0.78;
+        }
+
+        @media #{$xl} {
+            --hero-s: 0.66;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            display: flex;
+            flex-direction: column;
+            height: auto;
+        }
+    }
+
+    // the red noise picture at 60% over the black, the design has it 1228 high (161px over the top and the bottom edge)
+    &-bg {
+        position: absolute;
+        inset: -17.42% 0;
+        z-index: -1;
+        opacity: 0.6;
+
+        @media #{$lg,$md,$sm,$xs} {
+            inset: 0;
+        }
+    }
+
+    &-stage {
+        position: absolute;
+        top: 0;
+        height: 924px;
+        transform: scale(var(--hero-s));
+        pointer-events: none;
+
+        &-left {
+            left: 0;
+            width: 1000px;
+            transform-origin: 0 0;
+        }
+
+        &-right {
+            right: 0;
+            width: 1342px;
+            transform-origin: 100% 0;
+        }
+
+        // the cream shape and the plate are in the stages that sit above the slider, the thumbs above that, the corner on top
+        &-thumbs {
+            z-index: 4;
+        }
+
+        &-top {
+            z-index: 5;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            position: relative;
+            width: auto;
+            height: auto;
+            transform: none;
+            pointer-events: auto;
+        }
+
+        // words: the header bar floats over the top, so they start under it
+        &-left {
+            @media #{$lg,$md,$sm,$xs} {
+                padding: 150px 15px 64px;
+                text-align: center;
+            }
+
+            @media #{$md} {
+                padding-top: 140px;
+            }
+
+            @media #{$xs} {
+                padding: 120px 15px 52px;
+            }
+        }
+
+        // the cream panel the plate stands on, the plate comes up over its edge
+        &-plate {
+            @media #{$lg,$md,$sm,$xs} {
+                padding: 0 15px 24px;
+                border-radius: 48px 48px 0 0;
+                background: #FCF5F0;
+            }
+
+            @media #{$xs} {
+                border-radius: 32px 32px 0 0;
+            }
+        }
+    }
+
+    // things that are only on the desktop composition
+    &-deco {
+        @media #{$lg,$md,$sm,$xs} {
+            display: none;
+        }
+    }
+
+    // the faint big name and the mint leaves, behind the cream shape
+    &-big-title {
+        position: absolute;
+        top: 809px;
+        left: -40px;
+        margin: 0;
+        font-family: var(--kf-font-3);
+        font-size: 210px;
+        line-height: 121px;
+        letter-spacing: 6px;
+        white-space: nowrap;
+        color: rgb(255 255 255 / 12%);
+    }
+
+    &-leaf {
+        position: absolute;
+        top: 775px;
+        left: -40px;
+        width: 179px;
+        height: 179px;
+    }
+
+    // luminosity mixes the picture with the red behind it, so it has to sit straight in the area (a scaled stage would cut the mix)
+    &-tomato {
+        position: absolute;
+        top: calc(150px * var(--hero-s));
+        left: calc(130px * var(--hero-s));
+        width: calc(259px * var(--hero-s));
+        height: calc(259px * var(--hero-s));
+        mix-blend-mode: luminosity;
+        pointer-events: none;
+    }
+
+    &-shape {
+        position: absolute;
+        inset: 0;
+    }
+
+    &-corner {
+        position: absolute;
+        top: 781px;
+        left: 1209px;
+        width: 196px;
+        height: 196px;
+    }
+
+    // ---- slider
+    &-slider {
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+
+        @media #{$lg,$md,$sm,$xs} {
+            position: relative;
+            inset: auto;
+        }
+    }
+
+    &-item {
+        position: relative;
+        width: 100%;
+        height: 100%;
+
+        @media #{$lg,$md,$sm,$xs} {
+            display: flex;
+            flex-direction: column;
+            height: auto;
+        }
+    }
+
+    // ---- words
+    &-arrow {
+        position: absolute;
+        top: 465px;
+        left: 236px;
+        width: 153px;
+        height: 153px;
+        opacity: 0.32;
+
+        @media #{$lg,$md,$sm,$xs} {
+            display: none;
+        }
+    }
+
+    &-content {
+        position: absolute;
+        top: 215px;
+        left: 260px;
+        width: 608px;
+        pointer-events: auto;
+
+        @media #{$lg,$md,$sm,$xs} {
+            position: static;
+            width: auto;
+        }
+    }
+
+    &-title {
+        margin: 0;
+        font-weight: 600;
+        color: #fff;
+
+        &-sub {
+            display: flex;
+            align-items: flex-start;
+            gap: 13px;
+            white-space: nowrap;
+
+            @media #{$lg,$md,$sm,$xs} {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 4px 10px;
+                white-space: normal;
+            }
+        }
+
+        &-fresh {
+            font-family: var(--kf-font-2);
+            font-size: 40px;
+            font-weight: 600;
+            line-height: 72px;
+            letter-spacing: -0.01em;
+
+            @media #{$lg} {
+                font-size: 36px;
+                line-height: 60px;
+            }
+
+            @media #{$md} {
+                font-size: 32px;
+                line-height: 54px;
+            }
+
+            @media #{$sm} {
+                font-size: 28px;
+                line-height: 48px;
+            }
+
+            @media #{$xs} {
+                font-size: 22px;
+                line-height: 40px;
+            }
+        }
+
+        &-accent {
+            font-family: var(--kf-font-2);
+            font-size: 78px;
+            font-style: italic;
+            font-weight: 600;
+            line-height: 72px;
+            letter-spacing: -0.01em;
+            color: #E59D06;
+
+            @media #{$lg} {
+                font-size: 66px;
+                line-height: 60px;
+            }
+
+            @media #{$md} {
+                font-size: 58px;
+                line-height: 54px;
+            }
+
+            @media #{$sm} {
+                font-size: 48px;
+                line-height: 48px;
+            }
+
+            @media #{$xs} {
+                font-size: 38px;
+                line-height: 40px;
+            }
+        }
+
+        &-name {
+            display: block;
+            margin-top: 24px;
+            font-family: var(--kf-font-4);
+            font-size: 160px;
+            font-weight: 400;
+            line-height: 111px;
+            text-transform: uppercase;
+            white-space: nowrap;
+            text-shadow: 7px 7px 16px rgb(0 0 0 / 64%);
+
+            @media #{$lg} {
+                margin-top: 12px;
+                font-size: 130px;
+                line-height: 92px;
+            }
+
+            @media #{$md} {
+                margin-top: 10px;
+                font-size: 112px;
+                line-height: 80px;
+            }
+
+            @media #{$sm} {
+                margin-top: 8px;
+                font-size: 88px;
+                line-height: 64px;
+            }
+
+            @media #{$xs} {
+                margin-top: 6px;
+                font-size: 64px;
+                line-height: 48px;
+            }
+        }
+
+        &-script {
+            display: block;
+            margin-top: 20px;
+            font-family: var(--kf-font-3);
+            font-size: 120px;
+            font-weight: 400;
+            line-height: 72px;
+
+            .dots {
+                color: #E59D06;
+            }
+
+            @media #{$lg} {
+                margin-top: 12px;
+                font-size: 100px;
+                line-height: 60px;
+            }
+
+            @media #{$md} {
+                margin-top: 8px;
+                font-size: 88px;
+                line-height: 54px;
+            }
+
+            @media #{$sm} {
+                margin-top: 6px;
+                font-size: 72px;
+                line-height: 46px;
+            }
+
+            @media #{$xs} {
+                margin-top: 4px;
+                font-size: 54px;
+                line-height: 36px;
+            }
+        }
+    }
+
+    &-btns {
+        position: absolute;
+        top: 618px;
+        left: 290px;
+        display: flex;
+        gap: 16px;
+        pointer-events: auto;
+
+        @media #{$lg,$md,$sm,$xs} {
+            position: static;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 36px;
+        }
+
+        @media #{$xs} {
+            gap: 12px;
+            margin-top: 28px;
+        }
+    }
+
+    // ---- plate and the things round it, the numbers are px of the right stage (hero x minus 578)
+    &-slice,
+    &-pepper {
+        position: absolute;
+
+        @media #{$lg,$md,$sm,$xs} {
+            display: none;
+        }
+    }
+
+    &-slice {
+        top: 317px;
+        left: 191px;
+        width: 796px;
+        height: 531px;
+        transform: rotate(35.52deg);
+    }
+
+    &-pepper {
+        top: 109.5px;
+        left: 849.5px;
+        width: 179px;
+        height: 135px;
+        opacity: 0.53;
+        transform: rotate(30.03deg);
+    }
+
+    // thin line the four cards sit on, 396px round the middle of the plate
+    &-ring {
+        position: absolute;
+        top: 49px;
+        left: 378px;
+        width: 792px;
+        height: 792px;
+        border: 1px solid rgb(34 34 34 / 12%);
+        border-radius: 50%;
+
+        @media #{$lg,$md,$sm,$xs} {
+            display: none;
+        }
+    }
+
+    &-plate {
+        position: absolute;
+        top: 135px;
+        left: 464px;
+        width: 620px;
+        height: 620px;
+
+        @media #{$lg,$md,$sm,$xs} {
+            position: relative;
+            top: auto;
+            left: auto;
+            width: min(440px, 82%);
+            height: auto;
+            aspect-ratio: 1;
+            margin: -56px auto 0;
+        }
+
+        @media #{$xs} {
+            margin-top: -40px;
+        }
+    }
+
+    // icon in two white circles with the line of the card, the text is next to it (card 4: under it)
+    &-card {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+
+        @media #{$lg,$md,$sm,$xs} {
+            display: none;
+        }
+
+        &-1 {
+            top: 245px;
+            left: 1097px;
+        }
+
+        &-2 {
+            top: 452px;
+            left: 1131px;
+        }
+
+        &-3 {
+            top: 654px;
+            left: 1050px;
+        }
+
+        &-4 {
+            top: 771px;
+            left: 874px;
+            flex-direction: column;
+            width: 102px;
+            text-align: center;
+        }
+
+        &-icon {
+            display: flex;
+            flex: none;
+            align-items: center;
+            justify-content: center;
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            background: #fff;
+
+            .in {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 56px;
+                height: 56px;
+                border: 1px solid rgb(163 40 52 / 24%);
+                border-radius: 50%;
+                background: #FCF5F0;
+            }
+
+            i {
+                font-size: 28px;
+                line-height: 1;
+                color: var(--kf-clr-pr-1);
+            }
+        }
+
+        &-text {
+            margin: 0;
+            font-family: var(--kf-font-2);
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 24px;
+            color: var(--kf-clr-h-1);
+        }
+    }
+
+    // ---- the three round photos, the one that is up has the red arch behind it (--thumb is the size of a circle)
+    &-thumbs {
+        --thumb: 120px;
+        position: absolute;
+        top: 760px;
+        left: 112px;
+        display: flex;
+        align-items: flex-start;
+        gap: calc(var(--thumb) / 6);
+
+        @media #{$lg,$md,$sm,$xs} {
+            position: static;
+            justify-content: center;
+            padding-bottom: 0;
+            background: #FCF5F0;
+        }
+
+        @media #{$xs} {
+            --thumb: 92px;
+        }
+    }
+
+    &-thumb {
+        position: relative;
+        flex: none;
+        width: var(--thumb);
+        height: calc(var(--thumb) * 1.15);
+        cursor: pointer;
+        pointer-events: auto;
+        transition: height 0.5s cubic-bezier(.18, .82, .41, 1);
+
+        &:focus-visible {
+            outline: 2px solid var(--kf-clr-pr-1);
+            outline-offset: 4px;
+        }
+
+        &.is-active {
+            height: calc(var(--thumb) * 1.3667);
+        }
+
+        &-card {
+            position: absolute;
+            inset: 0;
+            border-radius: 200px 200px 0 0;
+            background: var(--kf-clr-pr-1);
+            box-shadow: inset 0 0 8px #CFC1B6;
+            clip-path: inset(100% 0 0 0);
+            transition: clip-path 0.5s cubic-bezier(.18, .82, .41, 1);
+        }
+
+        // sits under the circle, only its lower part shows
+        &-num {
+            position: absolute;
+            top: calc(var(--thumb) * 0.9167);
+            left: 0;
+            width: 100%;
+            font-family: var(--kf-font-3);
+            font-size: calc(var(--thumb) * 0.4);
+            line-height: calc(var(--thumb) * 0.2333);
+            text-align: center;
+            color: rgb(163 40 52 / 24%);
+            transition: color 0.4s ease;
+        }
+
+        &-circle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: var(--thumb);
+            height: var(--thumb);
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: inset 0 0 8px #CFC1B6;
+            transition: background-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        &-img {
+            position: absolute;
+            inset: calc(var(--thumb) / 12);
+            border-radius: 50%;
+        }
+
+        &:not(.is-active):hover &-num {
+            color: rgb(163 40 52 / 60%);
+        }
+
+        &.is-active &-card {
+            clip-path: inset(0);
+        }
+
+        &.is-active &-num {
+            color: #fff;
+        }
+
+        &.is-active &-circle {
+            background: #FCF5F0;
+            box-shadow: inset 0 0 8px #A6313C;
+        }
+    }
+}
+/*
+    kf-hero-3-end
+*/

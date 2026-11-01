@@ -84,6 +84,109 @@
     }
 }
 
+// the red of the pill buttons of the header 3 and the hero 3: a light top, the light on the left and the right edge comes from the two inner shadows
+%kf-pill-red {
+    border-radius: 100px;
+    background: linear-gradient(180deg, rgb(210 107 117 / 70%) 0%, rgb(163 40 52 / 0%) 65%), var(--kf-clr-pr-1);
+    box-shadow: inset 3.5px 0 7.5px rgb(255 255 255 / 20%), inset -1px 0 5px rgb(255 255 255 / 70%);
+}
+
+// red pill of the header 3 with a wine-dark disc on its right end
+.kf-header-3-button {
+    @extend %kf-pill-red;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    height: 44px;
+    padding: 4px 4px 4px 20px;
+    font-family: var(--kf-font-2);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    white-space: nowrap;
+    color: #fff;
+
+    .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: #2D0105;
+        transition: var(--kf-cube-1);
+    }
+
+    &:hover .icon {
+        background: #fff;
+        color: var(--kf-clr-pr-1);
+    }
+}
+
+// the same pill, 56px high, for the hero 3: the disc holds the cart
+.kf-pr-btn-3 {
+    @extend %kf-pill-red;
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    height: 56px;
+    padding: 6px 6px 6px 26px;
+    font-family: var(--kf-font-2);
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    color: #fff;
+
+    .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: #2D0105;
+        font-size: 20px;
+        line-height: 1;
+        transition: var(--kf-cube-1);
+    }
+
+    &:hover .icon {
+        background: #fff;
+        color: var(--kf-clr-pr-1);
+    }
+}
+
+// outline pill next to it, a red glow under it
+.kf-sd-btn-3 {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 56px;
+    padding: 0 32px;
+    border: 2px solid rgb(255 255 255 / 60%);
+    border-radius: 100px;
+    box-shadow: 0 2.5px 5px rgb(255 106 106 / 15%), 0 9px 9px rgb(255 106 106 / 13%), 0 20px 12.7px rgb(255 106 106 / 8%);
+    backdrop-filter: blur(9px);
+    font-family: var(--kf-font-2);
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    color: #fff;
+    transition: var(--kf-cube-1);
+
+    &:hover {
+        border-color: #fff;
+        background: #fff;
+        color: var(--kf-clr-pr-1);
+    }
+}
+
 .kf-offcanvas-btn-1 {
     display: inline-flex;
     align-items: center;

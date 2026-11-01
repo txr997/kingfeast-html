@@ -92,8 +92,8 @@
 
     // white words in the box with the red line round it
     &-subtitle {
-        padding: 5px 8px;
-        border: 2px solid var(--kf-clr-pr-1);
+        padding: 6px 9px;
+        border: 1px solid rgb(163 40 52 / 45%);
 
         .kf-subtitle-1-text {
             color: #fff;
@@ -159,7 +159,6 @@
         width: 171px;
         height: 109px;
         margin-top: 15px;
-        opacity: 0.2;
 
         @media #{$lg,$md,$sm,$xs} {
             display: none;
