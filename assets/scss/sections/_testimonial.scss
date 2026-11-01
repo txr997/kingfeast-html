@@ -487,6 +487,17 @@
         }
     }
 
+    // one full turn in 30s, endless (keyframes wa-rotated in components/_wow-plus.scss), still when motion is reduced
+    &-bg-img-1-spin {
+        width: 100%;
+        height: 100%;
+        animation: wa-rotated 30s linear infinite;
+
+        @media (prefers-reduced-motion: reduce) {
+            animation: none;
+        }
+    }
+
     &-bg-img-2 {
         position: absolute;
         top: 234px;
@@ -507,6 +518,10 @@
 
         @media #{$xl,$lg,$md,$sm,$xs} {
             display: none;
+        }
+
+        img {
+            animation: kf-float-1 5s ease-in-out 0s infinite alternate;
         }
     }
 

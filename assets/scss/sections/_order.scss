@@ -291,6 +291,10 @@
             right: -10px;
             width: 100px;
         }
+
+        img {
+            animation: kf-float-1 5s ease-in-out 0s infinite alternate;
+        }
     }
 
     &-form-title {

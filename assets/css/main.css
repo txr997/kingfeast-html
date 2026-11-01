@@ -9273,7 +9273,7 @@ input:focus::placeholder, textarea:focus::placeholder {
 }
 .kf-choose-2-rings.is-ani.is-in {
   clip-path: inset(0 0 0 0);
-  transition: clip-path 1.8s linear 1.3s;
+  transition: clip-path 1.3s linear 0.8s;
 }
 @media only screen and (min-width: 992px) and (max-width: 1199px), only screen and (min-width: 768px) and (max-width: 991px), only screen and (min-width: 576px) and (max-width: 767px), (max-width: 767px) {
   .kf-choose-2-list {
@@ -9301,28 +9301,28 @@ input:focus::placeholder, textarea:focus::placeholder {
   --y: 186px;
   --r: 184px;
   --gap: 52px;
-  --d: 1.42s;
+  --d: .89s;
 }
 .kf-choose-2-item:nth-child(2) {
   --y: 343px;
   --r: 341px;
-  --d: 1.77s;
+  --d: 1.14s;
 }
 .kf-choose-2-item:nth-child(3) {
   --y: 543px;
   --r: 393px;
-  --d: 2.21s;
+  --d: 1.46s;
 }
 .kf-choose-2-item:nth-child(4) {
   --y: 743px;
   --r: 341px;
-  --d: 2.65s;
+  --d: 1.77s;
 }
 .kf-choose-2-item:nth-child(5) {
   --y: 896px;
   --r: 186px;
   --gap: 52px;
-  --d: 2.98s;
+  --d: 2.02s;
 }
 @media only screen and (min-width: 992px) and (max-width: 1199px), only screen and (min-width: 768px) and (max-width: 991px), only screen and (min-width: 576px) and (max-width: 767px), (max-width: 767px) {
   .kf-choose-2-item {
@@ -9614,7 +9614,7 @@ input:focus::placeholder, textarea:focus::placeholder {
 .kf-choose-2-plate-img.is-ani.is-in {
   opacity: 1;
   scale: 1;
-  transition: opacity 0.8s ease 1s, scale 1.1s cubic-bezier(0.18, 0.82, 0.41, 1) 1s;
+  transition: opacity 0.7s ease 0.6s, scale 1s cubic-bezier(0.18, 0.82, 0.41, 1) 0.6s;
 }
 
 /*
@@ -9749,6 +9749,20 @@ input:focus::placeholder, textarea:focus::placeholder {
   .kf-faqs-2-img {
     width: 340px;
   }
+}
+.kf-faqs-2-img-in {
+  width: 100%;
+  height: 100%;
+  transform-origin: 100% 100%;
+}
+.kf-faqs-2-img-in.is-ani {
+  scale: 0;
+  translate: 0 80px;
+}
+.kf-faqs-2-img-in.is-ani.is-in {
+  scale: 1;
+  translate: 0 0;
+  transition: scale 1.1s cubic-bezier(0.18, 0.82, 0.41, 1), translate 1.1s cubic-bezier(0.18, 0.82, 0.41, 1);
 }
 .kf-faqs-2-accordion .accordion-item {
   border: 0;
@@ -9892,8 +9906,7 @@ input:focus::placeholder, textarea:focus::placeholder {
 }
 .kf-offers-2-bg {
   position: absolute;
-  inset: -20% 0;
-  will-change: transform;
+  inset: 0;
   background-position: left top;
   background-size: cover;
   background-repeat: no-repeat;
@@ -10171,6 +10184,11 @@ input:focus::placeholder, textarea:focus::placeholder {
   .kf-offers-2-img {
     height: 320px;
   }
+}
+.kf-offers-2-img-in {
+  position: absolute;
+  inset: -15% 0;
+  will-change: transform;
 }
 
 /*
@@ -10479,6 +10497,9 @@ input:focus::placeholder, textarea:focus::placeholder {
     right: -10px;
     width: 100px;
   }
+}
+.kf-order-2-bg-img-1 img {
+  animation: kf-float-1 5s ease-in-out 0s infinite alternate;
 }
 .kf-order-2-form-title {
   margin: 0 0 40px;
@@ -11146,6 +11167,9 @@ input:focus::placeholder, textarea:focus::placeholder {
     height: 76px;
     margin-bottom: 8px;
   }
+}
+.kf-clients-2-bg-1 img {
+  animation: kf-float-1 5s ease-in-out 0s infinite alternate;
 }
 .kf-clients-2-title {
   position: absolute;
@@ -11882,6 +11906,16 @@ input:focus::placeholder, textarea:focus::placeholder {
     display: none;
   }
 }
+.kf-testimonial-2-bg-img-1-spin {
+  width: 100%;
+  height: 100%;
+  animation: wa-rotated 30s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .kf-testimonial-2-bg-img-1-spin {
+    animation: none;
+  }
+}
 .kf-testimonial-2-bg-img-2 {
   position: absolute;
   top: 234px;
@@ -11906,6 +11940,9 @@ input:focus::placeholder, textarea:focus::placeholder {
   .kf-testimonial-2-bg-img-2 {
     display: none;
   }
+}
+.kf-testimonial-2-bg-img-2 img {
+  animation: kf-float-1 5s ease-in-out 0s infinite alternate;
 }
 .kf-testimonial-2-sec-title {
   position: relative;
@@ -13050,6 +13087,9 @@ input:focus::placeholder, textarea:focus::placeholder {
   .kf-blog-2-bg-img-1 {
     display: none;
   }
+}
+.kf-blog-2-bg-img-1 img {
+  animation: kf-float-1 5s ease-in-out 0s infinite alternate;
 }
 .kf-blog-2-bg-img-2 {
   position: absolute;

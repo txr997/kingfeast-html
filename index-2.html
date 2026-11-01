@@ -1218,9 +1218,11 @@
                     </div>
                 </div>
 
-                <!-- the pizza (f2-img-1.png), under the title -->
-                <div class="kf-faqs-2-img wa-img-contain wow fadeInUp2">
-                    <img src="assets/img/faqs/f2-img-1.png" alt="">
+                <!-- the pizza (f2-img-1.png), under the title: the frame keeps its place, the picture in it grows from its lower right corner while it slides up (main.js, kfFaqs2ImgIn) -->
+                <div class="kf-faqs-2-img">
+                    <div class="kf-faqs-2-img-in wa-img-contain">
+                        <img src="assets/img/faqs/f2-img-1.png" alt="">
+                    </div>
                 </div>
 
             </section>
@@ -1288,9 +1290,11 @@
                     </div>
                 </div>
 
-                <!-- the fish dish (o2-bg-img.png) -->
-                <div class="kf-offers-2-img wa-img-cover wa-fix wow fadeInRight2">
-                    <img src="assets/img/offers/o2-bg-img.png" alt="">
+                <!-- the fish dish (o2-bg-img.png): the frame keeps its place, the picture in it is taller and slides with the scroll (main.js) -->
+                <div class="kf-offers-2-img wa-fix">
+                    <div class="kf-offers-2-img-in wa-img-cover wa-fix">
+                        <img src="assets/img/offers/o2-bg-img.png" alt="">
+                    </div>
                 </div>
 
             </section>
@@ -1307,8 +1311,11 @@
                 </svg>
 
                 <!-- bg-images: the pizza and the tomato line drawings -->
-                <div class="kf-testimonial-2-bg-img-1 wa-img-contain" data-kf-drift="40">
-                    <img src="assets/img/testimonial/t2-bg-img-1.png" alt="">
+                <!-- the pizza keeps turning: the frame takes the drift (main.js, data-kf-drift), the picture in it the turn -->
+                <div class="kf-testimonial-2-bg-img-1" data-kf-drift="40">
+                    <div class="kf-testimonial-2-bg-img-1-spin wa-img-contain">
+                        <img src="assets/img/testimonial/t2-bg-img-1.png" alt="">
+                    </div>
                 </div>
                 <div class="kf-testimonial-2-bg-img-2 wa-img-contain" data-kf-drift="40">
                     <img src="assets/img/testimonial/t2-bg-img-2.png" alt="">
@@ -1580,13 +1587,13 @@
                 <div class="kf-order-2-box">
 
                     <!-- bg-image: the waiter (bg-img-2.png) -->
-                    <div class="kf-order-2-bg-img-2 wa-img-contain">
+                    <div class="kf-order-2-bg-img-2 wa-img-contain wow fadeInLeft2" data-wow-delay=".3s">
                         <img src="assets/img/order/bg-img-2.png" alt="">
                     </div>
 
                     <!-- title -->
                     <div class="kf-order-2-sec-title">
-                        <div class="kf-subtitle-1 kf-order-2-subtitle">
+                        <div class="kf-subtitle-1 kf-order-2-subtitle wow fadeInUp2">
                             <div class="kf-subtitle-1-icon">
                                 <img src="assets/img/vector/subtitle-1-Icon-2.png" alt="">
                             </div>
@@ -1596,8 +1603,8 @@
                             </div>
                         </div>
                         <h2 class="kf-h-1 kf-order-2-title wa_text_effect">Reserve Your Seat, Taste Something Exceptional.</h2>
-                        <p class="kf-p-1 kf-order-2-disc wow fadeInUp2">Reserve your seat today and enjoy exquisite flavors, warm hospitality, elegant surroundings, and unforgettable moments shared around the table.</p>
-                        <a href="contact-us.html" class="kf-pr-btn-2 wow fadeInUp2">
+                        <p class="kf-p-1 kf-order-2-disc wow fadeInUp2" data-wow-delay=".2s">Reserve your seat today and enjoy exquisite flavors, warm hospitality, elegant surroundings, and unforgettable moments shared around the table.</p>
+                        <a href="contact-us.html" class="kf-pr-btn-2 wow fadeInUp2" data-wow-delay=".4s">
                             <span class="front">
                                 <span class="text">Contact Us</span>
                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 10H17M17 10L11 4M17 10L11 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -1610,10 +1617,10 @@
                     </div>
 
                     <!-- form: the white arch -->
-                    <div class="kf-order-2-form wow fadeInRight2">
+                    <div class="kf-order-2-form wow fadeInRight2" data-wow-delay=".2s">
 
-                        <!-- bg-image: the pizza (bg-img.png), over the corner of the arch -->
-                        <div class="kf-order-2-bg-img-1 wa-img-contain">
+                        <!-- bg-image: the pizza (bg-img.png), over the corner of the arch, it spins in after the arch is there -->
+                        <div class="kf-order-2-bg-img-1 wa-img-contain wow rotateIn" data-wow-delay=".8s">
                             <img src="assets/img/order/bg-img.png" alt="">
                         </div>
 
@@ -1892,7 +1899,7 @@
 
                             <div class="kf-footer-2-links">
 
-                                <div class="kf-footer-2-col wow fadeInUp2" data-wow-delay=".1s">
+                                <div class="kf-footer-2-col " >
                                     <h5 class="kf-h-1 title">Useful Links:</h5>
                                     <ul class="wa-ul kf-footer-2-list">
                                         <li><a href="index-2.html">Home</a></li>
@@ -1904,7 +1911,7 @@
                                     </ul>
                                 </div>
 
-                                <div class="kf-footer-2-col is-time wow fadeInUp2" data-wow-delay=".2s">
+                                <div class="kf-footer-2-col is-time " >
                                     <h5 class="kf-h-1 title">Opening Time:</h5>
                                     <ul class="wa-ul kf-footer-2-list">
                                         <li>
@@ -1922,7 +1929,7 @@
                                     </ul>
                                 </div>
 
-                                <div class="kf-footer-2-col is-contact wow fadeInUp2" data-wow-delay=".3s">
+                                <div class="kf-footer-2-col is-contact " >
                                     <h5 class="kf-h-1 title">Get In Touch:</h5>
                                     <ul class="wa-ul kf-footer-2-list">
                                         <li class="is-address">

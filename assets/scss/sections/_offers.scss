@@ -26,12 +26,10 @@
         }
     }
 
-    // the noise picture comes from data-background; it is 20% taller than the section on both edges (140% in all), so it can
-    // slide inside it for the parallax (main.js) without showing an edge
+    // the noise picture comes from data-background, it fills the section and stays still
     &-bg {
         position: absolute;
-        inset: -20% 0;
-        will-change: transform;
+        inset: 0;
         background-position: left top;
         background-size: cover;
         background-repeat: no-repeat;
@@ -326,6 +324,13 @@
         @media #{$sm} {
             height: 320px;
         }
+    }
+
+    // the picture is 30% taller than its frame (15% over each edge), so it can slide inside it for the parallax (main.js)
+    &-img-in {
+        position: absolute;
+        inset: -15% 0;
+        will-change: transform;
     }
 }
 /*

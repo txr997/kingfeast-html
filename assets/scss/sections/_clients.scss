@@ -320,6 +320,10 @@
             height: 76px;
             margin-bottom: 8px;
         }
+
+        img {
+            animation: kf-float-1 5s ease-in-out 0s infinite alternate;
+        }
     }
 
     &-title {

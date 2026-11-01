@@ -681,15 +681,16 @@ function kfOpening1Parallax() {
 
 
 /*
-	offers-2 parallax — the noise is taller than the section and runs against the scroll: while the section passes
-	through the screen it slides down inside it, so it seems to lie deeper than the content
+	offers-2 parallax — the dish picture is taller than its frame and runs against the scroll: while the section passes
+	through the screen it slides down inside the frame, so it seems to lie deeper than the content
 */
 function kfOffers2Parallax() {
-	var bg = document.querySelector(".kf-offers-2-bg");
-	if (!bg || prefersReducedMotion()) return;
+	var dish = document.querySelector(".kf-offers-2-img-in");
+	if (!dish || prefersReducedMotion()) return;
 
-	gsap.fromTo(bg, { yPercent: -14 }, {
-		yPercent: 14,
+	// 11% of the 130% tall picture is 14.3% of its frame, just under the 15% it hangs over each edge
+	gsap.fromTo(dish, { yPercent: -11 }, {
+		yPercent: 11,
 		ease: "none",
 		scrollTrigger: {
 			trigger: ".kf-offers-2-area",
@@ -853,7 +854,7 @@ function kfChoose2In() {
 
 	ScrollTrigger.create({
 		trigger: plate,
-		start: "top 80%",
+		start: "top 95%",
 		once: true,
 		onEnter: function () {
 			shown = true;
@@ -874,6 +875,28 @@ function kfChoose2In() {
 				if (!wide.matches || shown) play(item);
 			}
 		});
+	});
+}
+
+
+/*
+	faqs-2 pizza — when it scrolls into view the picture grows from nothing on its lower right corner while it slides up
+	(parked with a class, played by a second class — css, see _faqs.scss). The frame is the trigger, it never moves
+*/
+function kfFaqs2ImgIn() {
+	var frame = document.querySelector(".kf-faqs-2-img");
+	var img = document.querySelector(".kf-faqs-2-img-in");
+	if (!frame || !img || prefersReducedMotion()) return;
+
+	img.classList.add("is-ani");
+
+	ScrollTrigger.create({
+		trigger: frame,
+		start: "top 65%",
+		once: true,
+		onEnter: function () {
+			img.classList.add("is-in");
+		}
 	});
 }
 
@@ -1021,9 +1044,10 @@ function kfTestimonial1BgText() {
 
 /*
 	footer-1 / footer-2 big title — the word is served: the letters come up from behind the line one after another like
-	dishes from the pass, each one clearing from a blur (steam) as it lands
+	dishes from the pass, each one clearing from a blur (steam) as it lands. They go from the first letter to the last,
+	or (from: "center") start with the middle one and go out to both sides
 */
-function kfFooterBigTitle(titleSelector, triggerSelector) {
+function kfFooterBigTitle(titleSelector, triggerSelector, from) {
 	var title = document.querySelector(titleSelector);
 	if (!title || prefersReducedMotion()) return;
 
@@ -1039,7 +1063,7 @@ function kfFooterBigTitle(titleSelector, triggerSelector) {
 		filter: "blur(0px)",
 		duration: 1.3,
 		ease: "power3.out",
-		stagger: .1,
+		stagger: { each: .1, from: from || "start" },
 		scrollTrigger: {
 			trigger: triggerSelector,
 			start: "top 92%",
@@ -1137,6 +1161,11 @@ window.addEventListener("load", function () {
 	afterPageLoad();
 });
 
+// a trigger on a timeline (wa_text_effect in main-common.js, menu-2 orn) is measured a moment after it is made; when the page is
+// reloaded halfway down, the next trigger that is made would measure and kill the passed ones all at once and ScrollTrigger
+// loses count (reading 'pin' of undefined), so they are measured first
+ScrollTrigger.refresh();
+
 kfHero1Slider();
 kfHero2Slider();
 kfProducts1Slider();
@@ -1147,9 +1176,11 @@ kfMenu1BgIn();
 kfMenu1CardImgIn();
 kfMenu2Tabs();
 kfMenu2Orn();
+ScrollTrigger.refresh();
 kfOpening1Parallax();
 kfChoose1Slider();
 kfChoose2In();
+kfFaqs2ImgIn();
 kfOffers2Countdown();
 kfOffers2Parallax();
 kfBgDrift();
@@ -1159,7 +1190,7 @@ kfTestimonial2Slider();
 kfOrder2Tabs();
 kfTestimonial1BgText();
 kfFooterBigTitle(".kf-footer-1-name-text", ".kf-footer-1-big-title");
-kfFooterBigTitle(".kf-footer-2-name-text", ".kf-footer-2-big-title");
+kfFooterBigTitle(".kf-footer-2-name-text", ".kf-footer-2-big-title", "center");
 kfFooter1Images();
 
 })(jQuery);

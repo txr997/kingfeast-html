@@ -527,6 +527,10 @@
         @media #{$xl,$lg,$md,$sm,$xs} {
             display: none;
         }
+
+        img {
+            animation: kf-float-1 5s ease-in-out 0s infinite alternate;
+        }
     }
 
     // the plate line drawing (the file has its 16% opacity) runs off the right edge, behind the cards
