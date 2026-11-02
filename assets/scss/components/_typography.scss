@@ -43,6 +43,10 @@
         color: var(--kf-clr-pr-1);
         margin-bottom: 0;
     }
+
+    &:is(.no-border) {
+        border: none;
+    }
 }
 
 

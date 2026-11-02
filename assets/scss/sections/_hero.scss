@@ -949,7 +949,6 @@
         position: absolute;
         inset: -17.42% 0;
         z-index: -1;
-        opacity: 0.6;
 
         @media #{$lg,$md,$sm,$xs} {
             inset: 0;
@@ -1033,15 +1032,15 @@
     // the faint big name and the mint leaves, behind the cream shape
     &-big-title {
         position: absolute;
-        bottom: 0;
-        left: 35px;
+        bottom: -30px;
+        left: 5px;
         margin: 0;
         font-family: var(--kf-font-3);
         font-size: 210px;
         line-height: 121px;
         letter-spacing: 6px;
         white-space: nowrap;
-        color: rgb(255 255 255 / 8%);
+        color: rgba(255, 255, 255, 0.20);
     }
 
     &-leaf {
@@ -1320,8 +1319,8 @@
     }
 
     &-slice {
-        top: 290px;
-        left: 220px;
+        top: 300px;
+        left: 200px;
         width: 796px;
         height: 531px;
     }

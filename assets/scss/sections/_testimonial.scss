@@ -355,6 +355,7 @@
         align-items: center;
         gap: 10px;
         width: auto;
+        z-index: 1;
 
         @media #{$xxl} {
             bottom: 105px;
