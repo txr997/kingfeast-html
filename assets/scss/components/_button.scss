@@ -118,9 +118,13 @@
         transition: var(--kf-cube-1);
     }
 
-    &:hover .icon {
-        background: #fff;
-        color: var(--kf-clr-pr-1);
+    &:hover {
+        background: #2D0105;
+        color: #fff;
+        .icon {
+            background: #fff;
+            color: var(--kf-clr-pr-1);
+        }
     }
 }
 

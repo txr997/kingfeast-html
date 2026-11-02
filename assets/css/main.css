@@ -1825,6 +1825,10 @@ input:focus::placeholder, textarea:focus::placeholder {
   background: #2D0105;
   transition: var(--kf-cube-1);
 }
+.kf-header-3-button:hover {
+  background: #2D0105;
+  color: #fff;
+}
 .kf-header-3-button:hover .icon {
   background: #fff;
   color: var(--kf-clr-pr-1);
