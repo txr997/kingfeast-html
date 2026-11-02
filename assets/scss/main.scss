@@ -17,6 +17,8 @@
     sections
 */
 @use './sections/header';
+@use './sections/breadcrumb';
+@use './sections/error';
 @use './sections/hero';
 @use './sections/products';
 @use './sections/about';

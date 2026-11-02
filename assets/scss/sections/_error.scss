@@ -1,0 +1,113 @@
+@use '../abstracts/variables' as *;
+
+/*
+    kf-error-1-start
+*/
+.kf-error-1 {
+    // the design is 1920 wide, everything stands on the centre line: "oops" 55px from the top, the 763px picture 13px under it,
+    // then the title, the text and the button. The 404 and the food are one picture
+    &-area {
+        padding: 100px 0 110px;
+    }
+
+    &-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    // the pale word behind the top of the picture
+    &-oops {
+        margin: 0 0 13px;
+        font-family: var(--kf-font-2);
+        font-size: 130px;
+        font-weight: 400;
+        line-height: 0.708;
+        letter-spacing: -0.01em;
+        color: #E3D4CA;
+
+        @media #{$xxl} {
+            font-size: 120px;
+        }
+
+        @media #{$xl} {
+            font-size: 110px;
+        }
+
+        @media #{$lg} {
+            font-size: 100px;
+        }
+
+        @media #{$md} {
+            font-size: 88px;
+            margin-bottom: 10px;
+        }
+
+        @media #{$xs} {
+            font-size: 60px;
+            margin-bottom: 8px;
+        }
+
+        @media #{$sm} {
+            font-size: 76px;
+            margin-bottom: 8px;
+        }
+    }
+
+    &-img {
+        width: 763px;
+        max-width: 100%;
+        aspect-ratio: 763 / 552;
+        margin-bottom: 52px;
+
+        @media #{$xl} {
+            width: 700px;
+            margin-bottom: 44px;
+        }
+
+        @media #{$lg} {
+            width: 640px;
+            margin-bottom: 40px;
+        }
+
+        @media #{$md} {
+            width: 560px;
+            margin-bottom: 36px;
+        }
+
+        @media #{$sm,$xs} {
+            width: 100%;
+            margin-bottom: 30px;
+        }
+    }
+
+    // 634px keeps the text on two lines: "...may have been moved." and "Please return to the homepage."
+    &-content {
+        width: 100%;
+        max-width: 700px;
+    }
+
+    &-text {
+        max-width: 634px;
+        margin: 20px auto 0;
+
+        @media #{$xs} {
+            font-size: 16px;
+            line-height: 26px;
+        }
+    }
+
+    &-btn {
+        display: flex;
+        justify-content: center;
+        margin-top: 32px;
+
+        @media #{$xs} {
+            margin-top: 26px;
+        }
+    }
+}
+/*
+    kf-error-1-end
+*/

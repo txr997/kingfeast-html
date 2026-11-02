@@ -1,0 +1,178 @@
+@use '../abstracts/variables' as *;
+
+/*
+    kf-breadcrumb-1-start
+*/
+.kf-breadcrumb-1 {
+    // the design is 1920 x 600 and the header lies on top of it: the title is centred in the full 600px and starts at the left edge of
+    // the container, the "Home > page" tab sits on the lower edge, on the right edge of the container (12px = the container padding)
+    &-area {
+        position: relative;
+        background-color: #0C0A09;
+        overflow: hidden;
+    }
+
+    // the dish takes the right 1443px of the 1920px, the dark of the section runs over its left side and over the top where the header text is
+    &-img {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 75.16%;
+
+        &::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(180deg, rgb(12 10 9 / 75%) 0, rgb(12 10 9 / 0%) 160px),
+                linear-gradient(90deg, #0C0A09 0%, rgb(12 10 9 / 0%) 45%);
+        }
+
+        // from md down the picture runs under the whole width, so the dark has to hold the title too
+        @media #{$md,$sm,$xs} {
+            width: 100%;
+
+            &::after {
+                background:
+                    linear-gradient(180deg, rgb(12 10 9 / 75%) 0, rgb(12 10 9 / 0%) 120px),
+                    linear-gradient(90deg, rgb(12 10 9 / 85%) 0%, rgb(12 10 9 / 35%) 100%);
+            }
+        }
+    }
+
+    // the top bar of the header is hidden from lg down, so only the 68px main bar has to be passed there
+    &-wrap {
+        position: relative;
+        display: flex;
+        align-items: center;
+        min-height: 600px;
+
+        @media #{$xxl} {
+            min-height: 560px;
+        }
+
+        @media #{$xl} {
+            min-height: 520px;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            padding-top: 68px;
+        }
+
+        @media #{$lg} {
+            min-height: 460px;
+        }
+
+        @media #{$md} {
+            min-height: 400px;
+        }
+
+        // $xs is max-width 767px, so $sm comes after it and wins in 576–767
+        @media #{$xs} {
+            min-height: 320px;
+        }
+
+        @media #{$sm} {
+            min-height: 360px;
+        }
+    }
+
+    &-title {
+        position: relative;
+        z-index: 1;
+        font-size: 64px;
+        line-height: 68px;
+        letter-spacing: -0.01em;
+        color: #fff;
+
+        @media #{$xxl} {
+            font-size: 60px;
+            line-height: 64px;
+        }
+
+        @media #{$xl} {
+            font-size: 56px;
+            line-height: 60px;
+        }
+
+        @media #{$lg} {
+            font-size: 52px;
+            line-height: 56px;
+        }
+
+        @media #{$md} {
+            font-size: 44px;
+            line-height: 48px;
+        }
+
+        @media #{$xs} {
+            font-size: 34px;
+            line-height: 38px;
+        }
+
+        @media #{$sm} {
+            font-size: 38px;
+            line-height: 42px;
+        }
+    }
+
+    // cream tab, the same colour as the page under it, so it grows out of the section; the last word is dimmed to 60%
+    &-nav {
+        position: absolute;
+        right: 12px;
+        bottom: 0;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 18px 28px;
+        border-radius: 8px 8px 0 0;
+        background-color: #FCF5F0;
+        font-family: var(--kf-font-2);
+        font-size: 18px;
+        line-height: 24px;
+        letter-spacing: -0.01em;
+        color: var(--kf-clr-h-1);
+
+        a {
+            color: inherit;
+            transition: var(--kf-cube-1);
+
+            &:hover {
+                color: var(--kf-clr-pr-1);
+            }
+        }
+
+        @media #{$xs,$sm} {
+            gap: 6px;
+            padding: 12px 18px;
+            font-size: 16px;
+        }
+    }
+
+    &-sep {
+        display: flex;
+        flex: none;
+        width: 24px;
+        height: 24px;
+
+        svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        @media #{$xs,$sm} {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    &-current {
+        opacity: 0.6;
+    }
+}
+/*
+    kf-breadcrumb-1-end
+*/
