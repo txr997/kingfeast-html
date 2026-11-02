@@ -8,6 +8,19 @@
         position: relative;
         overflow: hidden;
 
+        // home 3: #222 with the noise picture from data-background, white words (the line drawings are #222 too, so they are left out)
+        &.is-dark {
+            background-color: #222;
+
+            .kf-subtitle-1-text,
+            .kf-sec-title-1 {
+                color: #fff;
+            }
+
+            .kf-team-1-content .disc {
+                color: #fff;
+            }
+        }
     }
 
     // line drawings, the files already have their 6% opacity; they are cut by the edges of the section

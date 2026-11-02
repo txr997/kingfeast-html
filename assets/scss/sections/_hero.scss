@@ -989,7 +989,8 @@
             width: auto;
             height: auto;
             transform: none;
-            pointer-events: auto;
+            // the slides lie on each other (fade): a stage takes the mouse only in the slide that is on show (swiper makes the others none)
+            pointer-events: inherit;
         }
 
         // words: the header bar floats over the top, so they start under it
@@ -1032,15 +1033,15 @@
     // the faint big name and the mint leaves, behind the cream shape
     &-big-title {
         position: absolute;
-        top: 809px;
-        left: -40px;
+        bottom: 0;
+        left: 35px;
         margin: 0;
         font-family: var(--kf-font-3);
         font-size: 210px;
         line-height: 121px;
         letter-spacing: 6px;
         white-space: nowrap;
-        color: rgb(255 255 255 / 12%);
+        color: rgb(255 255 255 / 8%);
     }
 
     &-leaf {
@@ -1118,7 +1119,12 @@
         top: 215px;
         left: 260px;
         width: 608px;
-        pointer-events: auto;
+        // the same on the desktop: the hidden slides above the one on show would take the mouse from it
+        pointer-events: none;
+
+        .swiper-slide-active & {
+            pointer-events: auto;
+        }
 
         @media #{$lg,$md,$sm,$xs} {
             position: static;
@@ -1246,6 +1252,7 @@
             font-size: 120px;
             font-weight: 400;
             line-height: 72px;
+            text-align: center;
 
             .dots {
                 color: #E59D06;
@@ -1283,7 +1290,11 @@
         left: 290px;
         display: flex;
         gap: 16px;
-        pointer-events: auto;
+        pointer-events: none;
+
+        .swiper-slide-active & {
+            pointer-events: auto;
+        }
 
         @media #{$lg,$md,$sm,$xs} {
             position: static;
@@ -1309,11 +1320,10 @@
     }
 
     &-slice {
-        top: 317px;
-        left: 191px;
+        top: 290px;
+        left: 220px;
         width: 796px;
         height: 531px;
-        transform: rotate(35.52deg);
     }
 
     &-pepper {
@@ -1322,7 +1332,6 @@
         width: 179px;
         height: 135px;
         opacity: 0.53;
-        transform: rotate(30.03deg);
     }
 
     // thin line the four cards sit on, 396px round the middle of the plate

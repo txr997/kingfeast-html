@@ -727,7 +727,8 @@
         }
     }
 
-    &-right .kf-pr-btn-2 {
+    &-right .kf-pr-btn-2,
+    &-right .kf-pr-btn-3 {
         position: absolute;
         top: 787px;
         left: 124px;
@@ -762,4 +763,40 @@
 }
 /*
     kf-about-2-end
+*/
+
+/* 
+    kf-video-3-start
+*/
+.kf-video-3 {
+    &-area {
+        height: 864px;
+
+        @media #{$xxxl} {
+            height: 800px;
+        }
+
+        @media #{$xxl} {
+            height: 750px;
+        }
+
+        @media #{$xl} {
+            height: 700px;
+        }
+
+        @media #{$lg} {
+            height: 650px;
+        }
+
+        @media #{$md} {
+            height: 600px;
+        }
+
+        @media #{$xs} {
+            height: 400px;
+        }
+    }
+}
+/* 
+    kf-video-3-end
 */

@@ -471,9 +471,10 @@ function kfHero2Slider() {
 
 
 /*
-	hero-3 slider — the three round photos under the plate lead: they go round on their own, the one that is up (the red arch) is the
-	plate on show. Each slide builds itself when it comes: the plate turns in, the slice, the peppers and the line with its four cards
-	fade in behind it, then the words come up one after another
+	hero-3 slider — the three round photos under the plate lead: a click on one shows its plate, the one that is up (the red arch) is the
+	plate on show. Each slide builds itself when it comes: the plate turns in, the line with its four cards fades in behind it, the
+	slice and the peppers show once the plate has settled (kfHero3Drift then moves them with the cursor), then the words come up
+	one after another
 */
 var kfHero3First = null;
 var kfHero3Swiper = null;
@@ -493,7 +494,8 @@ function kfHero3Slider() {
 
 			scenes.push({
 				plate: this.querySelector(".kf-hero-3-plate"),
-				backs: this.querySelectorAll(".kf-hero-3-slice, .kf-hero-3-ring"),
+				ring: this.querySelector(".kf-hero-3-ring"),
+				slice: this.querySelector(".kf-hero-3-slice"),
 				pepper: pepper,
 				// the peppers are 53% in the css, they come in to that and not to 1
 				pepperTo: pepper ? parseFloat(getComputedStyle(pepper).opacity) : 1,
@@ -503,9 +505,13 @@ function kfHero3Slider() {
 		});
 	}
 
-	function parts(scene) {
-		return [scene.plate, scene.pepper].concat(
-			Array.prototype.slice.call(scene.backs),
+	// the slice and the peppers drift with the cursor (kfHero3Drift), so gsap keeps their transform (it holds the css rotation too)
+	function drifters(scene) {
+		return [scene.slice, scene.pepper];
+	}
+
+	function still(scene) {
+		return [scene.plate, scene.ring].concat(
 			Array.prototype.slice.call(scene.cards),
 			Array.prototype.slice.call(scene.words)
 		);
@@ -513,9 +519,11 @@ function kfHero3Slider() {
 
 	// parked: nothing of the slide is on show yet
 	function park(scene) {
-		gsap.killTweensOf(parts(scene));
+		gsap.killTweensOf(still(scene).concat(drifters(scene)));
 		gsap.set(scene.plate, { opacity: 0, rotate: 90, scale: .5 });
-		gsap.set([scene.pepper].concat(Array.prototype.slice.call(scene.backs)), { opacity: 0 });
+		gsap.set(scene.ring, { opacity: 0 });
+		gsap.set(scene.slice, { opacity: 0, scale: .8 });
+		gsap.set(scene.pepper, { opacity: 0, scale: .6 });
 		gsap.set(scene.cards, { opacity: 0, scale: .6, y: 20 });
 		gsap.set(scene.words, { opacity: 0, y: 36, filter: "blur(8px)" });
 	}
@@ -524,14 +532,17 @@ function kfHero3Slider() {
 		gsap.timeline({
 			defaults: { ease: "power3.out" },
 			onComplete: function () {
-				gsap.set(parts(scene), { clearProps: "transform,opacity,filter,transformOrigin" });
+				gsap.set(still(scene), { clearProps: "transform,opacity,filter,transformOrigin" });
+				gsap.set(drifters(scene), { clearProps: "opacity" });
 			}
 		})
 			.to(scene.plate, { opacity: 1, rotate: 0, scale: 1, duration: 1.3 }, 0)
-			.to(scene.backs, { opacity: 1, duration: 1.2 }, .4)
-			.to(scene.pepper, { opacity: scene.pepperTo, duration: 1.2 }, .4)
+			.to(scene.ring, { opacity: 1, duration: 1.2 }, .4)
 			.to(scene.cards, { opacity: 1, scale: 1, y: 0, duration: .9, stagger: .15 }, .9)
-			.to(scene.words, { opacity: 1, y: 0, filter: "blur(0px)", duration: 1, ease: "power4.out", stagger: .15 }, 1);
+			.to(scene.words, { opacity: 1, y: 0, filter: "blur(0px)", duration: 1, ease: "power4.out", stagger: .15 }, 1)
+			// the plate has settled by now: the slice shows first, the peppers a moment after it
+			.to(scene.slice, { opacity: 1, scale: 1, duration: 1.2 }, 1.2)
+			.to(scene.pepper, { opacity: scene.pepperTo, scale: 1, duration: 1.2 }, 1.4);
 	}
 
 	kfHero3Swiper = new Swiper(".kf-hero-3-slider", {
@@ -542,10 +553,10 @@ function kfHero3Slider() {
 		allowTouchMove: false,
 		rewind: true,
 		// a slide needs about 2.5s to build up, the rest of the 6s it is on show whole
-		autoplay: {
-			delay: 6000,
-			disableOnInteraction: false,
-		},
+		// autoplay: {
+		// 	delay: 6000,
+		// 	disableOnInteraction: false,
+		// },
 		on: {
 			slideChange: function (swiper) {
 				var scene = scenes[swiper.activeIndex];
@@ -571,9 +582,7 @@ function kfHero3Slider() {
 		kfHero3Swiper.slideTo($thumbs.index(this));
 	});
 
-	// waits behind the preloader like the other hero sliders: the first slide is parked now, afterPreloader plays it and starts the autoplay
-	kfHero3Swiper.autoplay.stop();
-
+	// no autoplay, the slide changes with the thumbs only; the first slide is parked now behind the preloader, afterPreloader plays it
 	if (scenes.length) {
 		park(scenes[first]);
 
@@ -584,6 +593,79 @@ function kfHero3Slider() {
 			}
 		};
 	}
+}
+
+
+/*
+	hero-3 drift — the slice and the peppers follow the cursor over the hero, the peppers further and the other way round, and go back
+	when the cursor leaves. A proxy is tweened and the pictures are set from it, so a slide that is parked meanwhile (that kills the
+	tweens of its own parts) does not stop the drift
+*/
+function kfHero3Drift() {
+	var area = document.querySelector(".kf-hero-3-area");
+	var slices = gsap.utils.toArray(".kf-hero-3-slice");
+	var peppers = gsap.utils.toArray(".kf-hero-3-pepper");
+	if (!area || prefersReducedMotion() || (!slices.length && !peppers.length)) return;
+
+	var pos = { x: 0, y: 0 };
+
+	function apply() {
+		gsap.set(slices, { x: pos.x * 24, y: pos.y * 24 });
+		gsap.set(peppers, { x: pos.x * -44, y: pos.y * -44 });
+	}
+
+	function follow(x, y) {
+		gsap.to(pos, { x: x, y: y, duration: 1.2, ease: "power3.out", overwrite: true, onUpdate: apply });
+	}
+
+	area.addEventListener("mousemove", function (e) {
+		var box = area.getBoundingClientRect();
+
+		follow(((e.clientX - box.left) / box.width - .5) * 2, ((e.clientY - box.top) / box.height - .5) * 2);
+	});
+
+	area.addEventListener("mouseleave", function () {
+		follow(0, 0);
+	});
+}
+
+
+/*
+	hero-3 decor — parked behind the preloader like the slider, played right after: the cream shape slides in from the right edge,
+	the mint leaves unroll from the lower left corner, the tomato drops in from the top left and the tomatoes in the lower right
+	corner rise last. They are plain pictures in the css (no transform of their own), so gsap hands them back clean
+*/
+var kfHero3Deco = null;
+
+function kfHero3DecoInit() {
+	if (prefersReducedMotion()) return;
+
+	var shape = document.querySelector(".kf-hero-3-shape");
+	var leaf = document.querySelector(".kf-hero-3-leaf");
+	var tomato = document.querySelector(".kf-hero-3-tomato");
+	var corner = document.querySelector(".kf-hero-3-corner");
+	var all = [shape, leaf, tomato, corner].filter(Boolean);
+	if (!all.length) return;
+
+	gsap.set(shape, { xPercent: 30, opacity: 0 });
+	gsap.set(leaf, { xPercent: -40, yPercent: 40, rotate: -30, scale: .6, opacity: 0, transformOrigin: "0% 100%" });
+	gsap.set(tomato, { y: -70, rotate: -40, scale: .4, opacity: 0 });
+	gsap.set(corner, { xPercent: 25, yPercent: 40, rotate: 25, scale: .6, opacity: 0, transformOrigin: "100% 100%" });
+
+	kfHero3Deco = {
+		play: function () {
+			gsap.timeline({
+				defaults: { ease: "power3.out" },
+				onComplete: function () {
+					gsap.set(all, { clearProps: "transform,opacity,transformOrigin" });
+				}
+			})
+				.to(shape, { xPercent: 0, opacity: 1, duration: 1.6 }, 0)
+				.to(leaf, { xPercent: 0, yPercent: 0, rotate: 0, scale: 1, opacity: 1, duration: 1.4 }, .3)
+				.to(tomato, { y: 0, rotate: 0, scale: 1, opacity: 1, duration: 1.5, ease: "back.out(1.4)" }, .5)
+				.to(corner, { xPercent: 0, yPercent: 0, rotate: 0, scale: 1, opacity: 1, duration: 1.4 }, .9);
+		}
+	};
 }
 
 
@@ -1244,7 +1326,7 @@ function afterPreloader() {
 	if (kfHero2First) kfHero2First.play();
 	if (kfHero2Swiper) kfHero2Swiper.autoplay.start();
 	if (kfHero3First) kfHero3First.play();
-	if (kfHero3Swiper) kfHero3Swiper.autoplay.start();
+	if (kfHero3Deco) kfHero3Deco.play();
 
 	// the titles that waited behind the curtain (wa_text_effect with data-wa-text-wait, see main-common.js) come in now
 	(window.waTextEffectWaiting || []).forEach(function (tl) {
@@ -1288,6 +1370,8 @@ ScrollTrigger.refresh();
 kfHero1Slider();
 kfHero2Slider();
 kfHero3Slider();
+kfHero3DecoInit();
+kfHero3Drift();
 kfProducts1Slider();
 kfAbout1Slider();
 kfAbout1Parallax();

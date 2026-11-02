@@ -124,6 +124,32 @@
     }
 }
 
+// radius of the wine that grows from the cart disc over the pill of the hero 3 (registered, so that it can be transitioned)
+@property --kf-pr-btn-3-fill {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 0px;
+}
+
+// the cart runs out of the disc to the right and comes back in from the left
+@keyframes kf-pr-btn-3-cart {
+    0% {
+        transform: translateX(0);
+    }
+
+    45% {
+        transform: translateX(180%);
+    }
+
+    46% {
+        transform: translateX(-180%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
 // the same pill, 56px high, for the hero 3: the disc holds the cart
 .kf-pr-btn-3 {
     @extend %kf-pill-red;
@@ -132,6 +158,11 @@
     gap: 16px;
     height: 56px;
     padding: 6px 6px 6px 26px;
+    // the wine disc sits at the centre of the cart disc (6px + 22px from the right edge), over the red and under the shadows
+    background:
+        radial-gradient(circle at calc(100% - 28px) 50%, #2D0105 var(--kf-pr-btn-3-fill), transparent calc(var(--kf-pr-btn-3-fill) + 1px)),
+        linear-gradient(180deg, rgb(210 107 117 / 70%) 0%, rgb(163 40 52 / 0%) 65%),
+        var(--kf-clr-pr-1);
     font-family: var(--kf-font-2);
     font-size: 17px;
     font-weight: 600;
@@ -139,6 +170,7 @@
     letter-spacing: -0.01em;
     white-space: nowrap;
     color: #fff;
+    transition: --kf-pr-btn-3-fill .7s cubic-bezier(.18, .82, .41, 1);
 
     .icon {
         display: flex;
@@ -147,30 +179,58 @@
         flex: none;
         width: 44px;
         height: 44px;
+        overflow: hidden;
         border-radius: 50%;
         background: #2D0105;
         font-size: 20px;
         line-height: 1;
         transition: var(--kf-cube-1);
+
+        i {
+            display: block;
+        }
     }
 
-    &:hover .icon {
-        background: #fff;
-        color: var(--kf-clr-pr-1);
+    &:hover,
+    &:focus-visible {
+        --kf-pr-btn-3-fill: 220px;
+        color: #fff;
+
+        .icon {
+            background: #fff;
+            color: var(--kf-clr-pr-1);
+
+            i {
+                animation: kf-pr-btn-3-cart .6s cubic-bezier(.18, .82, .41, 1);
+            }
+        }
+    }
+
+    // team 3: only the disc turns white with a red icon, as in the header 3 button (no wine fill, the icon stays put)
+    &.is-disc {
+        &:hover,
+        &:focus-visible {
+            --kf-pr-btn-3-fill: 0px;
+
+            .icon i {
+                animation: none;
+            }
+        }
     }
 }
 
 // outline pill next to it, a red glow under it
 .kf-sd-btn-3 {
+    position: relative;
+    isolation: isolate;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     height: 56px;
     padding: 0 32px;
-    border: 2px solid rgb(255 255 255 / 60%);
+    overflow: hidden;
+    border: 2px solid rgb(255 255 255 / 40%);
     border-radius: 100px;
-    box-shadow: 0 2.5px 5px rgb(255 106 106 / 15%), 0 9px 9px rgb(255 106 106 / 13%), 0 20px 12.7px rgb(255 106 106 / 8%);
-    backdrop-filter: blur(9px);
     font-family: var(--kf-font-2);
     font-size: 17px;
     font-weight: 600;
@@ -178,12 +238,30 @@
     letter-spacing: -0.01em;
     white-space: nowrap;
     color: #fff;
-    transition: var(--kf-cube-1);
+    transition: color .5s cubic-bezier(.18, .82, .41, 1), border-color .5s cubic-bezier(.18, .82, .41, 1);
 
-    &:hover {
-        border-color: #fff;
+    // the white wipes in from the left on hover and leaves to the right when the mouse goes
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        border-radius: inherit;
         background: #fff;
+        transform: scaleX(0);
+        transform-origin: 100% 50%;
+        transition: transform .5s cubic-bezier(.18, .82, .41, 1);
+    }
+
+    &:hover,
+    &:focus-visible {
+        border-color: #fff;
         color: var(--kf-clr-pr-1);
+
+        &::before {
+            transform: scaleX(1);
+            transform-origin: 0 50%;
+        }
     }
 }
 
